@@ -1,0 +1,1 @@
+Prueba de eventos con el ratón y uso de Graphics de Java.
