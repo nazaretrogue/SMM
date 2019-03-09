@@ -27,3 +27,7 @@ P1/*
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/P3/ExtraBoton/nbproject/private/
+/P3/ExtraBoton/build/
+/P4/AplicacionPractica4/nbproject/private/
+/P4/AplicacionPractica4/build/
