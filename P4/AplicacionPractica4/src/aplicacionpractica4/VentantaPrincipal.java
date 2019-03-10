@@ -76,7 +76,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
 
         botones_herramientas.add(boton_lapiz);
-        boton_lapiz.setIcon(new javax.swing.ImageIcon("/home/nazaret/Escritorio/ETSIIT_comp/3º/Cuatri 2/SMM/P2/Lapiz.gif")); // NOI18N
+        boton_lapiz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Lapiz.gif"))); // NOI18N
         boton_lapiz.setFocusable(false);
         boton_lapiz.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_lapiz.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -84,7 +84,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         jToolBar1.add(boton_lapiz);
 
         botones_herramientas.add(boton_linea);
-        boton_linea.setIcon(new javax.swing.ImageIcon("/home/nazaret/Escritorio/ETSIIT_comp/3º/Cuatri 2/SMM/P2/Linea.gif")); // NOI18N
+        boton_linea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Linea.gif"))); // NOI18N
         boton_linea.setFocusable(false);
         boton_linea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_linea.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -92,7 +92,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         jToolBar1.add(boton_linea);
 
         botones_herramientas.add(boton_rectangulo);
-        boton_rectangulo.setIcon(new javax.swing.ImageIcon("/home/nazaret/Escritorio/ETSIIT_comp/3º/Cuatri 2/SMM/P2/Rectangulo.gif")); // NOI18N
+        boton_rectangulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Rectangulo.gif"))); // NOI18N
         boton_rectangulo.setFocusable(false);
         boton_rectangulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_rectangulo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -100,7 +100,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         jToolBar1.add(boton_rectangulo);
 
         botones_herramientas.add(boton_elipse);
-        boton_elipse.setIcon(new javax.swing.ImageIcon("/home/nazaret/Escritorio/ETSIIT_comp/3º/Cuatri 2/SMM/P2/Ovalo.gif")); // NOI18N
+        boton_elipse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Ovalo.gif"))); // NOI18N
         boton_elipse.setFocusable(false);
         boton_elipse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_elipse.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -204,14 +204,17 @@ public class VentantaPrincipal extends javax.swing.JFrame {
 
         Archivo.setText("Archivo");
 
+        menu_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Goma.gif"))); // NOI18N
         menu_nuevo.setText("Nuevo");
         menu_nuevo.addActionListener(formListener);
         Archivo.add(menu_nuevo);
 
+        menu_abrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/NuevoBoceto.GIF"))); // NOI18N
         menu_abrir.setText("Abrir");
         menu_abrir.addActionListener(formListener);
         Archivo.add(menu_abrir);
 
+        menu_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Guardar.gif"))); // NOI18N
         menu_guardar.setText("Guardar");
         menu_guardar.addActionListener(formListener);
         Archivo.add(menu_guardar);

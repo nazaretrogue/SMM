@@ -15,6 +15,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menu_nuevo">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/iconos/Goma.gif"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo"/>
               </Properties>
               <Events>
@@ -23,6 +26,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_abrir">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/iconos/NuevoBoceto.GIF"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
               <Events>
@@ -31,6 +37,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_guardar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/iconos/Guardar.gif"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
               <Events>
@@ -99,7 +108,7 @@
               <ComponentRef name="botones_herramientas"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/nazaret/Escritorio/ETSIIT_comp/3&#xba;/Cuatri 2/SMM/P2/Lapiz.gif"/>
+              <Image iconType="3" name="/iconos/Lapiz.gif"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -115,7 +124,7 @@
               <ComponentRef name="botones_herramientas"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/nazaret/Escritorio/ETSIIT_comp/3&#xba;/Cuatri 2/SMM/P2/Linea.gif"/>
+              <Image iconType="3" name="/iconos/Linea.gif"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -131,7 +140,7 @@
               <ComponentRef name="botones_herramientas"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/nazaret/Escritorio/ETSIIT_comp/3&#xba;/Cuatri 2/SMM/P2/Rectangulo.gif"/>
+              <Image iconType="3" name="/iconos/Rectangulo.gif"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -147,7 +156,7 @@
               <ComponentRef name="botones_herramientas"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/nazaret/Escritorio/ETSIIT_comp/3&#xba;/Cuatri 2/SMM/P2/Ovalo.gif"/>
+              <Image iconType="3" name="/iconos/Ovalo.gif"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
