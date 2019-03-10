@@ -21,8 +21,8 @@ public class Lienzo extends javax.swing.JPanel {
     public Lienzo() {
         initComponents();
         
-        p_ini = new Point();
-        p_fin = new Point();
+        p_ini = new Point(-10,-10);
+        p_fin = new Point(-10,-10);
         color = new Color(0,0,0);
         herramienta = TipoHerramienta.PUNTOS;
         evento_raton = new java.awt.event.MouseEvent(this, WIDTH, WIDTH, SOMEBITS, WIDTH, WIDTH, HEIGHT, true);
@@ -138,6 +138,13 @@ public class Lienzo extends javax.swing.JPanel {
     public boolean getRelleno(){
         return relleno;
     }
+    
+    public void borrar(){
+        p_ini.setLocation(-10, -10);
+        p_fin.setLocation(-10, -10);
+        
+        this.repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -148,23 +155,49 @@ public class Lienzo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        FormListener formListener = new FormListener();
+
         setBackground(new java.awt.Color(254, 254, 254));
-        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                formMouseDragged(evt);
+        addMouseMotionListener(formListener);
+        addMouseListener(formListener);
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    private class FormListener implements java.awt.event.MouseListener, java.awt.event.MouseMotionListener {
+        FormListener() {}
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            if (evt.getSource() == Lienzo.this) {
+                Lienzo.this.formMouseClicked(evt);
             }
-        });
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                formMousePressed(evt);
+        }
+
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+        }
+
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+        }
+
+        public void mousePressed(java.awt.event.MouseEvent evt) {
+            if (evt.getSource() == Lienzo.this) {
+                Lienzo.this.formMousePressed(evt);
             }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                formMouseReleased(evt);
+        }
+
+        public void mouseReleased(java.awt.event.MouseEvent evt) {
+            if (evt.getSource() == Lienzo.this) {
+                Lienzo.this.formMouseReleased(evt);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
+        }
+
+        public void mouseDragged(java.awt.event.MouseEvent evt) {
+            if (evt.getSource() == Lienzo.this) {
+                Lienzo.this.formMouseDragged(evt);
             }
-        });
+        }
+
+        public void mouseMoved(java.awt.event.MouseEvent evt) {
+        }
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked

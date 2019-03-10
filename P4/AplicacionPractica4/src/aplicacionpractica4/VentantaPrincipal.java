@@ -23,7 +23,9 @@ public class VentantaPrincipal extends javax.swing.JFrame {
     public VentantaPrincipal() {
         initComponents();
         
+        this.setTitle("Paint básico");
         this.setSize(600, 600);
+        estado_barra = true;
     }
     
     
@@ -46,7 +48,6 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_elipse = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        etiqueta_herramienta = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         boton_negro = new javax.swing.JButton();
@@ -57,7 +58,8 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_verde = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         check_relleno = new javax.swing.JCheckBox();
-        jSeparator2 = new javax.swing.JSeparator();
+        jPanel2 = new javax.swing.JPanel();
+        etiqueta_herramienta = new javax.swing.JLabel();
         lienzo = new aplicacionpractica4.Lienzo();
         jMenuBar1 = new javax.swing.JMenuBar();
         Archivo = new javax.swing.JMenu();
@@ -65,7 +67,9 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         menu_abrir = new javax.swing.JMenuItem();
         menu_guardar = new javax.swing.JMenuItem();
         Edición = new javax.swing.JMenu();
-        menu_barra_estado = new javax.swing.JMenuItem();
+        menu_barra_estado = new javax.swing.JCheckBoxMenuItem();
+
+        FormListener formListener = new FormListener();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,11 +80,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_lapiz.setFocusable(false);
         boton_lapiz.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_lapiz.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        boton_lapiz.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boton_lapizMouseClicked(evt);
-            }
-        });
+        boton_lapiz.addMouseListener(formListener);
         jToolBar1.add(boton_lapiz);
 
         botones_herramientas.add(boton_linea);
@@ -88,11 +88,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_linea.setFocusable(false);
         boton_linea.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_linea.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        boton_linea.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boton_lineaMouseClicked(evt);
-            }
-        });
+        boton_linea.addMouseListener(formListener);
         jToolBar1.add(boton_linea);
 
         botones_herramientas.add(boton_rectangulo);
@@ -100,11 +96,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_rectangulo.setFocusable(false);
         boton_rectangulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_rectangulo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        boton_rectangulo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boton_rectanguloMouseClicked(evt);
-            }
-        });
+        boton_rectangulo.addMouseListener(formListener);
         jToolBar1.add(boton_rectangulo);
 
         botones_herramientas.add(boton_elipse);
@@ -112,11 +104,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_elipse.setFocusable(false);
         boton_elipse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_elipse.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        boton_elipse.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boton_elipseMouseClicked(evt);
-            }
-        });
+        boton_elipse.addMouseListener(formListener);
         jToolBar1.add(boton_elipse);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
@@ -125,9 +113,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        etiqueta_herramienta.setText("Punto");
-        jPanel3.add(etiqueta_herramienta, java.awt.BorderLayout.SOUTH);
-
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(120, 120, 120)));
         jPanel6.setLayout(new java.awt.BorderLayout());
 
         jPanel5.setLayout(new java.awt.GridLayout(2, 3));
@@ -137,11 +123,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_negro.setMaximumSize(new java.awt.Dimension(30, 30));
         boton_negro.setMinimumSize(new java.awt.Dimension(20, 20));
         boton_negro.setPreferredSize(new java.awt.Dimension(25, 20));
-        boton_negro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boton_negroMouseClicked(evt);
-            }
-        });
+        boton_negro.addMouseListener(formListener);
         jPanel5.add(boton_negro);
 
         boton_rojo.setBackground(new java.awt.Color(255, 0, 0));
@@ -149,11 +131,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_rojo.setMaximumSize(new java.awt.Dimension(30, 30));
         boton_rojo.setMinimumSize(new java.awt.Dimension(20, 20));
         boton_rojo.setPreferredSize(new java.awt.Dimension(25, 20));
-        boton_rojo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boton_rojoMouseClicked(evt);
-            }
-        });
+        boton_rojo.addMouseListener(formListener);
         jPanel5.add(boton_rojo);
 
         boton_azul.setBackground(new java.awt.Color(0, 0, 255));
@@ -161,11 +139,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_azul.setMaximumSize(new java.awt.Dimension(30, 30));
         boton_azul.setMinimumSize(new java.awt.Dimension(20, 20));
         boton_azul.setPreferredSize(new java.awt.Dimension(25, 20));
-        boton_azul.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boton_azulMouseClicked(evt);
-            }
-        });
+        boton_azul.addMouseListener(formListener);
         jPanel5.add(boton_azul);
 
         boton_blanco.setBackground(new java.awt.Color(255, 255, 255));
@@ -173,11 +147,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_blanco.setMaximumSize(new java.awt.Dimension(30, 30));
         boton_blanco.setMinimumSize(new java.awt.Dimension(20, 20));
         boton_blanco.setPreferredSize(new java.awt.Dimension(25, 20));
-        boton_blanco.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boton_blancoMouseClicked(evt);
-            }
-        });
+        boton_blanco.addMouseListener(formListener);
         jPanel5.add(boton_blanco);
 
         boton_amarillo.setBackground(new java.awt.Color(255, 255, 0));
@@ -185,11 +155,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_amarillo.setMaximumSize(new java.awt.Dimension(30, 30));
         boton_amarillo.setMinimumSize(new java.awt.Dimension(20, 20));
         boton_amarillo.setPreferredSize(new java.awt.Dimension(25, 20));
-        boton_amarillo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boton_amarilloMouseClicked(evt);
-            }
-        });
+        boton_amarillo.addMouseListener(formListener);
         jPanel5.add(boton_amarillo);
 
         boton_verde.setBackground(new java.awt.Color(0, 255, 0));
@@ -197,11 +163,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         boton_verde.setMaximumSize(new java.awt.Dimension(30, 30));
         boton_verde.setMinimumSize(new java.awt.Dimension(20, 20));
         boton_verde.setPreferredSize(new java.awt.Dimension(25, 20));
-        boton_verde.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                boton_verdeMouseClicked(evt);
-            }
-        });
+        boton_verde.addMouseListener(formListener);
         jPanel5.add(boton_verde);
 
         jPanel6.add(jPanel5, java.awt.BorderLayout.WEST);
@@ -210,15 +172,18 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         jPanel6.add(jPanel4, java.awt.BorderLayout.EAST);
 
         check_relleno.setText("Relleno ");
-        check_relleno.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                check_rellenoMouseClicked(evt);
-            }
-        });
+        check_relleno.addMouseListener(formListener);
         jPanel6.add(check_relleno, java.awt.BorderLayout.EAST);
-        jPanel6.add(jSeparator2, java.awt.BorderLayout.PAGE_END);
 
         jPanel3.add(jPanel6, java.awt.BorderLayout.NORTH);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(120, 120, 120)));
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+
+        etiqueta_herramienta.setText("Punto");
+        jPanel2.add(etiqueta_herramienta);
+
+        jPanel3.add(jPanel2, java.awt.BorderLayout.SOUTH);
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
@@ -230,7 +195,7 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         );
         lienzoLayout.setVerticalGroup(
             lienzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+            .addGap(0, 179, Short.MAX_VALUE)
         );
 
         jPanel1.add(lienzo, java.awt.BorderLayout.CENTER);
@@ -240,29 +205,24 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         Archivo.setText("Archivo");
 
         menu_nuevo.setText("Nuevo");
+        menu_nuevo.addActionListener(formListener);
         Archivo.add(menu_nuevo);
 
         menu_abrir.setText("Abrir");
-        menu_abrir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_abrirActionPerformed(evt);
-            }
-        });
+        menu_abrir.addActionListener(formListener);
         Archivo.add(menu_abrir);
 
         menu_guardar.setText("Guardar");
-        menu_guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_guardarActionPerformed(evt);
-            }
-        });
+        menu_guardar.addActionListener(formListener);
         Archivo.add(menu_guardar);
 
         jMenuBar1.add(Archivo);
 
         Edición.setText("Edición");
 
+        menu_barra_estado.setSelected(true);
         menu_barra_estado.setText("Ver barra de estado");
+        menu_barra_estado.addActionListener(formListener);
         Edición.add(menu_barra_estado);
 
         jMenuBar1.add(Edición);
@@ -270,6 +230,74 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         setJMenuBar(jMenuBar1);
 
         pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    private class FormListener implements java.awt.event.ActionListener, java.awt.event.MouseListener {
+        FormListener() {}
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            if (evt.getSource() == menu_abrir) {
+                VentantaPrincipal.this.menu_abrirActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_guardar) {
+                VentantaPrincipal.this.menu_guardarActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_barra_estado) {
+                VentantaPrincipal.this.menu_barra_estadoActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_nuevo) {
+                VentantaPrincipal.this.menu_nuevoActionPerformed(evt);
+            }
+        }
+
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            if (evt.getSource() == boton_lapiz) {
+                VentantaPrincipal.this.boton_lapizMouseClicked(evt);
+            }
+            else if (evt.getSource() == boton_linea) {
+                VentantaPrincipal.this.boton_lineaMouseClicked(evt);
+            }
+            else if (evt.getSource() == boton_rectangulo) {
+                VentantaPrincipal.this.boton_rectanguloMouseClicked(evt);
+            }
+            else if (evt.getSource() == boton_elipse) {
+                VentantaPrincipal.this.boton_elipseMouseClicked(evt);
+            }
+            else if (evt.getSource() == boton_negro) {
+                VentantaPrincipal.this.boton_negroMouseClicked(evt);
+            }
+            else if (evt.getSource() == boton_rojo) {
+                VentantaPrincipal.this.boton_rojoMouseClicked(evt);
+            }
+            else if (evt.getSource() == boton_azul) {
+                VentantaPrincipal.this.boton_azulMouseClicked(evt);
+            }
+            else if (evt.getSource() == boton_blanco) {
+                VentantaPrincipal.this.boton_blancoMouseClicked(evt);
+            }
+            else if (evt.getSource() == boton_amarillo) {
+                VentantaPrincipal.this.boton_amarilloMouseClicked(evt);
+            }
+            else if (evt.getSource() == boton_verde) {
+                VentantaPrincipal.this.boton_verdeMouseClicked(evt);
+            }
+            else if (evt.getSource() == check_relleno) {
+                VentantaPrincipal.this.check_rellenoMouseClicked(evt);
+            }
+        }
+
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+        }
+
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+        }
+
+        public void mousePressed(java.awt.event.MouseEvent evt) {
+        }
+
+        public void mouseReleased(java.awt.event.MouseEvent evt) {
+        }
     }// </editor-fold>//GEN-END:initComponents
 
     private void boton_lapizMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_lapizMouseClicked
@@ -339,6 +367,15 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_menu_guardarActionPerformed
 
+    private void menu_barra_estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_barra_estadoActionPerformed
+        estado_barra = !estado_barra;
+        jPanel2.setVisible(estado_barra);
+    }//GEN-LAST:event_menu_barra_estadoActionPerformed
+
+    private void menu_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_nuevoActionPerformed
+        lienzo.borrar();
+    }//GEN-LAST:event_menu_nuevoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Archivo;
     private javax.swing.JMenu Edición;
@@ -358,16 +395,17 @@ public class VentantaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel etiqueta_herramienta;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
     private aplicacionpractica4.Lienzo lienzo;
     private javax.swing.JMenuItem menu_abrir;
-    private javax.swing.JMenuItem menu_barra_estado;
+    private javax.swing.JCheckBoxMenuItem menu_barra_estado;
     private javax.swing.JMenuItem menu_guardar;
     private javax.swing.JMenuItem menu_nuevo;
     // End of variables declaration//GEN-END:variables
+    private boolean estado_barra;
 }
