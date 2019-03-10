@@ -6,7 +6,9 @@
 package aplicacionpractica4;
 
 import java.awt.Color;
+import java.io.File;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JToggleButton;
 
 /**
@@ -241,9 +243,19 @@ public class VentantaPrincipal extends javax.swing.JFrame {
         Archivo.add(menu_nuevo);
 
         menu_abrir.setText("Abrir");
+        menu_abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_abrirActionPerformed(evt);
+            }
+        });
         Archivo.add(menu_abrir);
 
         menu_guardar.setText("Guardar");
+        menu_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_guardarActionPerformed(evt);
+            }
+        });
         Archivo.add(menu_guardar);
 
         jMenuBar1.add(Archivo);
@@ -261,22 +273,22 @@ public class VentantaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void boton_lapizMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_lapizMouseClicked
-        lienzo.setHerramienta(0);
+        lienzo.setHerramienta(TipoHerramienta.PUNTOS);
         etiqueta_herramienta.setText("Punto");
     }//GEN-LAST:event_boton_lapizMouseClicked
 
     private void boton_lineaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_lineaMouseClicked
-        lienzo.setHerramienta(1);
+        lienzo.setHerramienta(TipoHerramienta.LINEAS);
         etiqueta_herramienta.setText("Línea");
     }//GEN-LAST:event_boton_lineaMouseClicked
 
     private void boton_rectanguloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_rectanguloMouseClicked
-        lienzo.setHerramienta(2);
+        lienzo.setHerramienta(TipoHerramienta.RECTANGULOS);
         etiqueta_herramienta.setText("Rectángulo");
     }//GEN-LAST:event_boton_rectanguloMouseClicked
 
     private void boton_elipseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_elipseMouseClicked
-        lienzo.setHerramienta(3);
+        lienzo.setHerramienta(TipoHerramienta.ELIPSES);
         etiqueta_herramienta.setText("Elipse");
     }//GEN-LAST:event_boton_elipseMouseClicked
 
@@ -310,6 +322,22 @@ public class VentantaPrincipal extends javax.swing.JFrame {
     private void boton_verdeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_verdeMouseClicked
         lienzo.setColor(Color.green);
     }//GEN-LAST:event_boton_verdeMouseClicked
+
+    private void menu_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_abrirActionPerformed
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showOpenDialog(this);
+        if(resp == JFileChooser.APPROVE_OPTION) {
+            File f = dlg.getSelectedFile();
+        }
+    }//GEN-LAST:event_menu_abrirActionPerformed
+
+    private void menu_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_guardarActionPerformed
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showSaveDialog(this);
+        if(resp == JFileChooser.APPROVE_OPTION) {
+            File f = dlg.getSelectedFile();
+        }
+    }//GEN-LAST:event_menu_guardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Archivo;

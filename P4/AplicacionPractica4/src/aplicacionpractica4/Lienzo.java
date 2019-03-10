@@ -24,6 +24,7 @@ public class Lienzo extends javax.swing.JPanel {
         p_ini = new Point();
         p_fin = new Point();
         color = new Color(0,0,0);
+        herramienta = TipoHerramienta.PUNTOS;
         evento_raton = new java.awt.event.MouseEvent(this, WIDTH, WIDTH, SOMEBITS, WIDTH, WIDTH, HEIGHT, true);
     }
     
@@ -37,13 +38,13 @@ public class Lienzo extends javax.swing.JPanel {
         int x2 = (int)p_fin.getX(), y2 = (int)p_fin.getY();
         
         switch(herramienta){
-            case 0:
+            case PUNTOS:
                 g.fillOval((int)p_ini.getX()-5, (int)p_ini.getY()-5, 10, 10);
                 break;
-            case 1:
+            case LINEAS:
                 g.drawLine((int)p_ini.getX(), (int)p_ini.getY(), (int)p_fin.getX(), (int)p_fin.getY());
                 break;
-            case 2:
+            case RECTANGULOS:
                 if(relleno == true){
                     if(x1 < x2){
                         if(y1 < y2)
@@ -77,7 +78,7 @@ public class Lienzo extends javax.swing.JPanel {
                 }
                 
                 break;
-            case 3:
+            case ELIPSES:
                 if(relleno == true){
                     if(x1 < x2){
                         if(y1 < y2)
@@ -122,11 +123,11 @@ public class Lienzo extends javax.swing.JPanel {
         return color;
     }
     
-    public void setHerramienta(int num_tool){
+    public void setHerramienta(TipoHerramienta num_tool){
         herramienta = num_tool;
     }
     
-    public int getHerramienta(){
+    public TipoHerramienta getHerramienta(){
         return herramienta;
     }
     
@@ -168,7 +169,6 @@ public class Lienzo extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         p_ini = evt.getPoint();
-        //this.repaint();
     }//GEN-LAST:event_formMouseClicked
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
@@ -192,6 +192,6 @@ public class Lienzo extends javax.swing.JPanel {
     Point p_fin;    // Punto de fin para líneas, rectángulos y elipses
     java.awt.event.MouseEvent evento_raton;
     Color color;
-    int herramienta;
+    TipoHerramienta herramienta;
     boolean relleno;
 }
