@@ -183,6 +183,9 @@ public class Lienzo extends javax.swing.JPanel {
             r = new Rectangle(p_aux);
             v_shape.add(r);
         }
+        
+        else
+            r = (Rectangle)getSelected(evt.getPoint());
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
@@ -191,7 +194,6 @@ public class Lienzo extends javax.swing.JPanel {
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         if(mover){
-            r = (Rectangle)getSelected(evt.getPoint());
             if(r != null)
                 r.setLocation(evt.getPoint());
         }
