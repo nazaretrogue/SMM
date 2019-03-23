@@ -32,6 +32,12 @@ public class Lienzo extends javax.swing.JPanel {
         
         mover = false;
         fuente = "";
+        /*izda = new Ellipse2D.Double(200, 200, 100, 100);
+        dcha = new Ellipse2D.Double(320, 200, 100, 100);
+        p_izda = new Area(izda);
+        p_dcha = new Area(dcha);
+        p_izda.add(p_dcha);*/
+        clip_circular = new Ellipse2D.Double(100, 100, 100, 100);
     }
     
     @Override
@@ -41,6 +47,9 @@ public class Lienzo extends javax.swing.JPanel {
         Graphics2D g2d=(Graphics2D)g;
         
         //pruebaShape(g2d);
+        if(ventana_clip_activa)
+            g2d.setClip(clip_circular);
+        
         this.setAtributos(g2d);
         
         for(Shape s:v_shape)
@@ -181,20 +190,22 @@ public class Lienzo extends javax.swing.JPanel {
         g2d.addRenderingHints(rh);
         
         g2d.drawString("mundo", 200, 450);
-        
-        // Recorte
-        Ellipse2D izda = new Ellipse2D.Double(200, 200, 100, 100);
-        Ellipse2D dcha = new Ellipse2D.Double(320, 200, 100, 100);
-        Area p_izda = new Area(izda);
-        Area p_dcha = new Area(dcha);
-        p_izda.add(p_dcha);
-        
-        g2d.draw(p_izda);
-        g2d.clip(p_izda);
     }
     
     public void setFuente(String f){
         fuente = f;
+    }
+    
+    public String getFuente(){
+        return fuente;
+    }
+    
+    public void setClipActivo(boolean clip){
+        ventana_clip_activa = clip;
+    }
+    
+    public boolean getClipActivo(){
+        return ventana_clip_activa;
     }
 
     /**
@@ -289,7 +300,14 @@ public class Lienzo extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseDragged
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
-        
+        if(ventana_clip_activa){
+            Point esquina = evt.getPoint();
+            /*esquina.translate((int)p_izda.getBounds().getWidth()+10, (int)p_izda.getBounds().getHeight()/2);
+            p_izda.getBounds().setFrameFromCenter(evt.getPoint(), esquina);*/
+            esquina.translate((int)clip_circular.getWidth()/2, (int)clip_circular.getHeight()/2);
+            clip_circular.setFrameFromCenter(evt.getPoint(), esquina);
+            this.repaint();
+        }
     }//GEN-LAST:event_formMouseMoved
 
 
@@ -300,4 +318,7 @@ public class Lienzo extends javax.swing.JPanel {
     List<Shape> v_shape = new ArrayList();
     boolean mover;
     String fuente;
+    Ellipse2D izda, dcha, clip_circular;
+    Area p_izda, p_dcha;
+    boolean ventana_clip_activa;
 }

@@ -6,6 +6,7 @@
 package aplicacionpractica6;
 
 import java.awt.GraphicsEnvironment;
+import javax.swing.DefaultComboBoxModel;
 
 
 /**
@@ -25,7 +26,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         GraphicsEnvironment ge;
         ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String []fuentes_sistema = ge.getAvailableFontFamilyNames();
-        lista_fuentes = new javax.swing.JComboBox<>(fuentes_sistema);
+        lista_fuentes.setModel(new DefaultComboBoxModel(fuentes_sistema));
     }
 
     /**
@@ -41,6 +42,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         check_mover = new javax.swing.JCheckBox();
         lista_fuentes = new javax.swing.JComboBox<>();
+        check_ventana = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +75,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel1.add(lista_fuentes);
 
+        check_ventana.setText("Efecto ventana");
+        check_ventana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                check_ventanaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(check_ventana);
+
         getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -83,16 +93,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_check_moverActionPerformed
 
     private void lista_fuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lista_fuentesActionPerformed
+        tipo_fuente = (String)lista_fuentes.getSelectedItem();
         
-        
-        lienzo1.setFuente("afa");
+        lienzo1.setFuente(tipo_fuente);
     }//GEN-LAST:event_lista_fuentesActionPerformed
+
+    private void check_ventanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_ventanaActionPerformed
+        lienzo1.setClipActivo(check_ventana.isSelected());
+    }//GEN-LAST:event_check_ventanaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox check_mover;
+    private javax.swing.JCheckBox check_ventana;
     private javax.swing.JPanel jPanel1;
     private aplicacionpractica6.Lienzo lienzo1;
     private javax.swing.JComboBox<String> lista_fuentes;
     // End of variables declaration//GEN-END:variables
+    private String tipo_fuente;
 }
