@@ -31,6 +31,7 @@ public class Lienzo extends javax.swing.JPanel {
         initComponents();
         
         mover = false;
+        fuente = "";
     }
     
     @Override
@@ -191,6 +192,10 @@ public class Lienzo extends javax.swing.JPanel {
         g2d.draw(p_izda);
         g2d.clip(p_izda);
     }
+    
+    public void setFuente(String f){
+        fuente = f;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -294,4 +299,5 @@ public class Lienzo extends javax.swing.JPanel {
     Point p_aux;
     List<Shape> v_shape = new ArrayList();
     boolean mover;
+    String fuente;
 }

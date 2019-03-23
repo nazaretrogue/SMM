@@ -5,6 +5,8 @@
  */
 package aplicacionpractica6;
 
+import java.awt.GraphicsEnvironment;
+
 
 /**
  *
@@ -19,6 +21,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
         
         this.setSize(600, 600);
+        
+        GraphicsEnvironment ge;
+        ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String []fuentes_sistema = ge.getAvailableFontFamilyNames();
+        lista_fuentes = new javax.swing.JComboBox<>(fuentes_sistema);
     }
 
     /**
@@ -30,10 +37,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        check_mover = new javax.swing.JCheckBox();
         lienzo1 = new aplicacionpractica6.Lienzo();
+        jPanel1 = new javax.swing.JPanel();
+        check_mover = new javax.swing.JCheckBox();
+        lista_fuentes = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout lienzo1Layout = new javax.swing.GroupLayout(lienzo1);
+        lienzo1.setLayout(lienzo1Layout);
+        lienzo1Layout.setHorizontalGroup(
+            lienzo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        lienzo1Layout.setVerticalGroup(
+            lienzo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 253, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(lienzo1, java.awt.BorderLayout.CENTER);
 
         check_mover.setText("Mover figura");
         check_mover.addActionListener(new java.awt.event.ActionListener() {
@@ -41,20 +63,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 check_moverActionPerformed(evt);
             }
         });
-        getContentPane().add(check_mover, java.awt.BorderLayout.SOUTH);
+        jPanel1.add(check_mover);
 
-        javax.swing.GroupLayout lienzo1Layout = new javax.swing.GroupLayout(lienzo1);
-        lienzo1.setLayout(lienzo1Layout);
-        lienzo1Layout.setHorizontalGroup(
-            lienzo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        lienzo1Layout.setVerticalGroup(
-            lienzo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 268, Short.MAX_VALUE)
-        );
+        lista_fuentes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lista_fuentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lista_fuentesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(lista_fuentes);
 
-        getContentPane().add(lienzo1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -63,9 +82,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lienzo1.setMover(check_mover.isSelected());
     }//GEN-LAST:event_check_moverActionPerformed
 
+    private void lista_fuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lista_fuentesActionPerformed
+        
+        
+        lienzo1.setFuente("afa");
+    }//GEN-LAST:event_lista_fuentesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox check_mover;
+    private javax.swing.JPanel jPanel1;
     private aplicacionpractica6.Lienzo lienzo1;
+    private javax.swing.JComboBox<String> lista_fuentes;
     // End of variables declaration//GEN-END:variables
 }
