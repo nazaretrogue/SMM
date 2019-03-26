@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package aplicacionpractica7;
+import sm.nrg.iu.VentanaInterna;
 
 /**
  *
@@ -50,13 +51,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_amarillo = new javax.swing.JToggleButton();
         boton_verde = new javax.swing.JToggleButton();
         panel_grosor = new javax.swing.JPanel();
-        jSpinner1 = new javax.swing.JSpinner();
+        spinner_grosor = new javax.swing.JSpinner();
         panel_atr = new javax.swing.JPanel();
         check_relleno = new javax.swing.JCheckBox();
         check_transp = new javax.swing.JCheckBox();
         check_alisar = new javax.swing.JCheckBox();
         check_editar = new javax.swing.JCheckBox();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        escritorio = new javax.swing.JDesktopPane();
         barra_menu = new javax.swing.JMenuBar();
         menu_archivo = new javax.swing.JMenu();
         menu_op_nuevo = new javax.swing.JMenuItem();
@@ -121,6 +122,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         panel_atr_generico.setLayout(new java.awt.BorderLayout());
 
+        barra_atr.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         barra_atr.setRollover(true);
 
         panel_colores.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Colores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
@@ -173,7 +175,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         panel_grosor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Grosor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
         panel_grosor.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING));
-        panel_grosor.add(jSpinner1);
+        panel_grosor.add(spinner_grosor);
 
         barra_atr.add(panel_grosor);
 
@@ -209,7 +211,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panel_atr_generico.add(barra_atr, java.awt.BorderLayout.SOUTH);
 
         panel_atr_lienzo.add(panel_atr_generico, java.awt.BorderLayout.SOUTH);
-        panel_atr_lienzo.add(jDesktopPane1, java.awt.BorderLayout.CENTER);
+        panel_atr_lienzo.add(escritorio, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panel_atr_lienzo, java.awt.BorderLayout.CENTER);
 
@@ -217,6 +219,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         menu_op_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevo.png"))); // NOI18N
         menu_op_nuevo.setText("Nuevo");
+        menu_op_nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_op_nuevoActionPerformed(evt);
+            }
+        });
         menu_archivo.add(menu_op_nuevo);
 
         menu_op_abrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/abrir.png"))); // NOI18N
@@ -250,6 +257,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void menu_op_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_nuevoActionPerformed
+        VentanaInterna vi = new VentanaInterna();
+        escritorio.add(vi);
+        vi.setVisible(true);
+    }//GEN-LAST:event_menu_op_nuevoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar barra_atr;
     private javax.swing.JToolBar barra_herramientas;
@@ -269,11 +282,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBox check_editar;
     private javax.swing.JCheckBox check_relleno;
     private javax.swing.JCheckBox check_transp;
+    private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel etiq_estado;
     private javax.swing.ButtonGroup grupo_colores;
     private javax.swing.ButtonGroup grupo_herramientas;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JMenu menu_archivo;
     private javax.swing.JMenu menu_edicion;
     private javax.swing.JMenuItem menu_op_abrir;
@@ -288,5 +300,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panel_colores;
     private javax.swing.JPanel panel_estado;
     private javax.swing.JPanel panel_grosor;
+    private javax.swing.JSpinner spinner_grosor;
     // End of variables declaration//GEN-END:variables
 }

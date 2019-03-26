@@ -20,6 +20,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_op_nuevoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_op_abrir">
               <Properties>
@@ -273,6 +276,11 @@
           <SubComponents>
             <Container class="javax.swing.JToolBar" name="barra_atr">
               <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                    <EtchetBorder/>
+                  </Border>
+                </Property>
                 <Property name="rollover" type="boolean" value="true"/>
               </Properties>
               <Constraints>
@@ -419,7 +427,7 @@
                     <Property name="alignment" type="int" value="3"/>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JSpinner" name="jSpinner1">
+                    <Component class="javax.swing.JSpinner" name="spinner_grosor">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -475,7 +483,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JDesktopPane" name="jDesktopPane1">
+        <Component class="javax.swing.JDesktopPane" name="escritorio">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="Center"/>
