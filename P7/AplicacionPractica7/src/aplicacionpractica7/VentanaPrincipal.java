@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package aplicacionpractica7;
+import java.io.File;
+import javax.swing.JFileChooser;
 import sm.nrg.iu.VentanaInterna;
 
 /**
@@ -67,6 +69,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menu_op_barra_est = new javax.swing.JCheckBoxMenuItem();
         menu_op_barra_form = new javax.swing.JCheckBoxMenuItem();
         menu_op_barra_atr = new javax.swing.JCheckBoxMenuItem();
+
+        FormListener formListener = new FormListener();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -219,19 +223,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         menu_op_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevo.png"))); // NOI18N
         menu_op_nuevo.setText("Nuevo");
-        menu_op_nuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_op_nuevoActionPerformed(evt);
-            }
-        });
+        menu_op_nuevo.addActionListener(formListener);
         menu_archivo.add(menu_op_nuevo);
 
         menu_op_abrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/abrir.png"))); // NOI18N
         menu_op_abrir.setText("Abrir");
+        menu_op_abrir.addActionListener(formListener);
         menu_archivo.add(menu_op_abrir);
 
         menu_op_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
         menu_op_guardar.setText("Guardar");
+        menu_op_guardar.addActionListener(formListener);
         menu_archivo.add(menu_op_guardar);
 
         barra_menu.add(menu_archivo);
@@ -240,14 +242,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         menu_op_barra_est.setSelected(true);
         menu_op_barra_est.setText("Ver barra de estado");
+        menu_op_barra_est.addActionListener(formListener);
         menu_edicion.add(menu_op_barra_est);
 
         menu_op_barra_form.setSelected(true);
         menu_op_barra_form.setText("Ver barra de formas");
+        menu_op_barra_form.addActionListener(formListener);
         menu_edicion.add(menu_op_barra_form);
 
         menu_op_barra_atr.setSelected(true);
         menu_op_barra_atr.setText("Ver barra de atributos");
+        menu_op_barra_atr.addActionListener(formListener);
         menu_edicion.add(menu_op_barra_atr);
 
         barra_menu.add(menu_edicion);
@@ -255,6 +260,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         setJMenuBar(barra_menu);
 
         pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    private class FormListener implements java.awt.event.ActionListener {
+        FormListener() {}
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            if (evt.getSource() == menu_op_nuevo) {
+                VentanaPrincipal.this.menu_op_nuevoActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_abrir) {
+                VentanaPrincipal.this.menu_op_abrirActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_guardar) {
+                VentanaPrincipal.this.menu_op_guardarActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_barra_est) {
+                VentanaPrincipal.this.menu_op_barra_estActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_barra_form) {
+                VentanaPrincipal.this.menu_op_barra_formActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_barra_atr) {
+                VentanaPrincipal.this.menu_op_barra_atrActionPerformed(evt);
+            }
+        }
     }// </editor-fold>//GEN-END:initComponents
 
     private void menu_op_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_nuevoActionPerformed
@@ -262,6 +293,34 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         escritorio.add(vi);
         vi.setVisible(true);
     }//GEN-LAST:event_menu_op_nuevoActionPerformed
+
+    private void menu_op_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_abrirActionPerformed
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showOpenDialog(this);
+        if(resp == JFileChooser.APPROVE_OPTION) {
+            File f = dlg.getSelectedFile();
+        }
+    }//GEN-LAST:event_menu_op_abrirActionPerformed
+
+    private void menu_op_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_guardarActionPerformed
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showSaveDialog(this);
+        if(resp == JFileChooser.APPROVE_OPTION) {
+            File f = dlg.getSelectedFile();
+        }
+    }//GEN-LAST:event_menu_op_guardarActionPerformed
+
+    private void menu_op_barra_estActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_barra_estActionPerformed
+        this.panel_estado.setVisible(!this.panel_estado.isVisible());
+    }//GEN-LAST:event_menu_op_barra_estActionPerformed
+
+    private void menu_op_barra_formActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_barra_formActionPerformed
+        this.barra_herramientas.setVisible(!this.barra_herramientas.isVisible());
+    }//GEN-LAST:event_menu_op_barra_formActionPerformed
+
+    private void menu_op_barra_atrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_barra_atrActionPerformed
+        this.barra_atr.setVisible(!this.barra_atr.isVisible());
+    }//GEN-LAST:event_menu_op_barra_atrActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar barra_atr;

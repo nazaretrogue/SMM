@@ -5,6 +5,7 @@
  */
 package sm.nrg.iu;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -30,6 +31,8 @@ public class Lienzo2D extends javax.swing.JPanel {
         color_figuras = Color.BLACK;
         es_transparente = false;
         v_shape = new ArrayList<>();
+        trazo = new BasicStroke();
+        herramienta = TipoHerramienta.PUNTOS;
     }
     
     @Override
@@ -50,10 +53,25 @@ public class Lienzo2D extends javax.swing.JPanel {
         }
     }
     
-    private void createShape(Point2D p_i, Point2D p_f){
+    private void createShape(Point2D p_i){
         switch(herramienta){
             case PUNTOS:
-                v_shape.add(new Ellipse2D.Double(p_i.getX(), p_i.getY(), 10, 10));
+                v_shape.add(new Ellipse2D.Double(p_i.getX(), p_i.getY(), 5, 5));
+                break;
+            case LINEAS:
+                break;
+            case RECTANGULOS:
+                break;
+            case ELIPSES:
+                break;
+        }
+        
+        this.repaint();
+    }
+    
+    private void updateShape(Point2D p_f){
+        switch(herramienta){
+            case PUNTOS:
                 break;
             case LINEAS:
                 break;
@@ -73,8 +91,52 @@ public class Lienzo2D extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        FormListener formListener = new FormListener();
+
         setBackground(new java.awt.Color(254, 254, 254));
+        addMouseMotionListener(formListener);
+        addMouseListener(formListener);
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    private class FormListener implements java.awt.event.MouseListener, java.awt.event.MouseMotionListener {
+        FormListener() {}
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+        }
+
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+        }
+
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+        }
+
+        public void mousePressed(java.awt.event.MouseEvent evt) {
+            if (evt.getSource() == Lienzo2D.this) {
+                Lienzo2D.this.formMousePressed(evt);
+            }
+        }
+
+        public void mouseReleased(java.awt.event.MouseEvent evt) {
+        }
+
+        public void mouseDragged(java.awt.event.MouseEvent evt) {
+            if (evt.getSource() == Lienzo2D.this) {
+                Lienzo2D.this.formMouseDragged(evt);
+            }
+        }
+
+        public void mouseMoved(java.awt.event.MouseEvent evt) {
+        }
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        this.createShape(evt.getPoint());
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        
+    }//GEN-LAST:event_formMouseDragged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
