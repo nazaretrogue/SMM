@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sm.nrg.iu;
+package aplicacionpractica7;
 
 /**
  *
@@ -16,6 +16,16 @@ public class VentanaInterna extends javax.swing.JInternalFrame {
      */
     public VentanaInterna() {
         initComponents();
+        
+        this.setSize(400, 400);
+    }
+    
+    public void setLienzo(sm.nrg.iu.Lienzo2D lienzo){
+        lienzo2D = lienzo;
+    }
+    
+    public sm.nrg.iu.Lienzo2D getLienzo(){
+        return lienzo2D;
     }
 
     /**

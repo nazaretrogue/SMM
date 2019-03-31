@@ -12,7 +12,9 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -56,17 +58,18 @@ public class Lienzo2D extends javax.swing.JPanel {
     private void createShape(Point2D p_i){
         switch(herramienta){
             case PUNTOS:
-                v_shape.add(new Ellipse2D.Double(p_i.getX(), p_i.getY(), 5, 5));
+                v_shape.add(new Line2D.Double(p_i.getX(), p_i.getY(), p_i.getX(), p_i.getY()));
                 break;
             case LINEAS:
+                v_shape.add(new Line2D.Double(p_i, p_i));
                 break;
             case RECTANGULOS:
+                v_shape.add(new Rectangle2D.Double(p_i.getX(), p_i.getY(), 1, 1));
                 break;
             case ELIPSES:
+                v_shape.add(new Ellipse2D.Double(p_i.getX(), p_i.getY(), 1, 1));
                 break;
         }
-        
-        this.repaint();
     }
     
     private void updateShape(Point2D p_f){
@@ -74,12 +77,77 @@ public class Lienzo2D extends javax.swing.JPanel {
             case PUNTOS:
                 break;
             case LINEAS:
+                Line2D laux = (Line2D)v_shape.get(v_shape.size()-1);
+                laux.setLine(laux.getP1(), p_f);
+                
+                v_shape.set(v_shape.size()-1, laux);
                 break;
             case RECTANGULOS:
+                Rectangle2D raux = new Rectangle2D.Double(((Rectangle2D)(v_shape.get(v_shape.size()-1))).getX(),
+                                   ((Rectangle2D)(v_shape.get(v_shape.size()-1))).getY(), p_f.getX(), p_f.getY());
+               
+                
+                v_shape.set(v_shape.size()-1, raux);
                 break;
             case ELIPSES:
                 break;
         }
+    }
+    
+    public void setTrazo(Stroke st){
+        this.trazo = st;this.repaint();
+    }
+    
+    public Stroke getTrazo(){
+        return trazo;
+    }
+    
+    public void setColor(Color c){
+        this.color_figuras = c;
+    }
+    
+    public Color getColor(){
+        return color_figuras;
+    }
+    
+    public void setTransparencia(boolean transp){
+        this.es_transparente = transp;
+    }
+    
+    public boolean getTransparencia(){
+        return es_transparente;
+    }
+    
+    public void setRelleno(boolean rell){
+        this.esta_relleno = rell;
+    }
+    
+    public boolean getRelleno(){
+        return esta_relleno;
+    }
+    
+    public void setHerramienta(TipoHerramienta herr){
+        this.herramienta = herr;
+    }
+    
+    public TipoHerramienta getHerramienta(){
+        return herramienta;
+    }
+    
+    public void setMover(boolean mov){
+        this.mover = mov;
+    }
+    
+    public boolean getMover(){
+        return mover;
+    }
+    
+    public void setAlisar(boolean alisar){
+        this.alisar = alisar;
+    }
+    
+    public boolean getAlisar(){
+        return alisar;
     }
 
     /**
@@ -118,6 +186,9 @@ public class Lienzo2D extends javax.swing.JPanel {
         }
 
         public void mouseReleased(java.awt.event.MouseEvent evt) {
+            if (evt.getSource() == Lienzo2D.this) {
+                Lienzo2D.this.formMouseReleased(evt);
+            }
         }
 
         public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -135,8 +206,13 @@ public class Lienzo2D extends javax.swing.JPanel {
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        
+        this.updateShape(evt.getPoint());
+        this.repaint();
     }//GEN-LAST:event_formMouseDragged
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        this.formMouseDragged(evt);
+    }//GEN-LAST:event_formMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -148,4 +224,6 @@ public class Lienzo2D extends javax.swing.JPanel {
     Stroke trazo;
     ArrayList<Shape> v_shape;
     TipoHerramienta herramienta;
+    boolean mover;
+    boolean alisar;
 }
