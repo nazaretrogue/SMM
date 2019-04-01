@@ -13,12 +13,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
 import sm.nrg.graficos.Linea2D;
 
@@ -48,6 +49,12 @@ public class Lienzo2D extends javax.swing.JPanel {
         
         Graphics2D g2d = (Graphics2D)g;
         
+        if(alisar)
+            rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        else
+            rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+        
         if(es_transparente)
             comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, TRANSPARENCIA);
         
@@ -70,10 +77,10 @@ public class Lienzo2D extends javax.swing.JPanel {
     private void createShape(Point p_i){
         switch(herramienta){
             case PUNTOS:
-                v_shape.add(new Linea2D.Double(p_i.getX(), p_i.getY(), p_i.getX(), p_i.getY()));
+                v_shape.add(new Linea2D(p_i, p_i));
                 break;
             case LINEAS:
-                v_shape.add(new Linea2D.Double(p_i, p_i));
+                v_shape.add(new Linea2D(p_i, p_i));
                 break;
             case RECTANGULOS:
                 v_shape.add(new Rectangle(p_i));
@@ -118,14 +125,24 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     private void moverFigura(Point p){
         if(fig_mover != null){
-            if(fig_mover.getClass().getSimpleName().equals("Linea2D"))
-                ((Linea2D)fig_mover).setLocation(p);
-            
-            else if(fig_mover.getClass().getSimpleName().equals("Rectangle"))
-                ((Rectangle)fig_mover).setLocation(p);
-            
-            else if(fig_mover.getClass().getSimpleName().equals("Ellipse2D"))
-                (((Ellipse2D)fig_mover).getBounds()).setLocation(p);
+            switch (fig_mover.getClass().getSimpleName()) {
+                case "Linea2D":
+                    ((Linea2D)fig_mover).setLocation(p);
+                    break;
+                case "Rectangle":
+                    ((Rectangle)fig_mover).setLocation(p);
+                    break;
+                case "Ellipse2D":
+                    RectangularShape elipse = (RectangularShape)fig_mover;
+                    //Point2D esquina = new Point2D.Double(elipse.getX(), elipse.getY());
+                    elipse.setFrameFromCenter(p.getX(), 
+                                              p.getY(), 
+                                              p.getX()+(elipse.getMaxX()-elipse.getCenterX()), 
+                                              p.getY()+(elipse.getMaxY()-elipse.getCenterY()));
+                    fig_mover = elipse; this.repaint();
+                    break;
+                //(((Ellipse2D)fig_mover).getBounds()).setLocation(p);
+            }
         }
     }
     
@@ -272,6 +289,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     TipoHerramienta herramienta;
     boolean mover;
     boolean alisar;
+    RenderingHints rh;
     Point p_aux;
     Shape fig_mover;
 }
