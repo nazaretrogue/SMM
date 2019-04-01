@@ -61,7 +61,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         check_relleno = new javax.swing.JCheckBox();
         check_transp = new javax.swing.JCheckBox();
         check_alisar = new javax.swing.JCheckBox();
-        check_editar = new javax.swing.JCheckBox();
         escritorio = new javax.swing.JDesktopPane();
         barra_menu = new javax.swing.JMenuBar();
         menu_archivo = new javax.swing.JMenu();
@@ -225,13 +224,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         check_alisar.addActionListener(formListener);
         panel_atr.add(check_alisar);
 
-        check_editar.setText("Editar");
-        check_editar.setFocusable(false);
-        check_editar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        check_editar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        check_editar.addActionListener(formListener);
-        panel_atr.add(check_editar);
-
         barra_atr.add(panel_atr);
 
         panel_atr_generico.add(barra_atr, java.awt.BorderLayout.SOUTH);
@@ -331,9 +323,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == check_alisar) {
                 VentanaPrincipal.this.check_alisarActionPerformed(evt);
             }
-            else if (evt.getSource() == check_editar) {
-                VentanaPrincipal.this.check_editarActionPerformed(evt);
-            }
             else if (evt.getSource() == menu_op_nuevo) {
                 VentanaPrincipal.this.menu_op_nuevoActionPerformed(evt);
             }
@@ -397,24 +386,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void boton_puntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_puntoActionPerformed
         ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.PUNTOS);
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
         
         this.etiq_estado.setText("Punto");
     }//GEN-LAST:event_boton_puntoActionPerformed
 
     private void boton_lineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_lineaActionPerformed
         ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.LINEAS);
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
         
         this.etiq_estado.setText("Línea");
     }//GEN-LAST:event_boton_lineaActionPerformed
 
     private void boton_rectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rectanguloActionPerformed
         ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.RECTANGULOS);
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
         
         this.etiq_estado.setText("Rectángulo");
     }//GEN-LAST:event_boton_rectanguloActionPerformed
 
     private void boton_elipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_elipseActionPerformed
         ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.ELIPSES);
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
         
         this.etiq_estado.setText("Elipse");
     }//GEN-LAST:event_boton_elipseActionPerformed
@@ -457,10 +450,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTransparencia(check_transp.isSelected());
     }//GEN-LAST:event_check_transpActionPerformed
 
-    private void check_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_editarActionPerformed
-        this.boton_seleccionActionPerformed(evt);
-    }//GEN-LAST:event_check_editarActionPerformed
-
     private void check_alisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_alisarActionPerformed
         ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setAlisar(check_alisar.isSelected());
     }//GEN-LAST:event_check_alisarActionPerformed
@@ -487,7 +476,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton boton_seleccion;
     private javax.swing.JToggleButton boton_verde;
     private javax.swing.JCheckBox check_alisar;
-    private javax.swing.JCheckBox check_editar;
     private javax.swing.JCheckBox check_relleno;
     private javax.swing.JCheckBox check_transp;
     private javax.swing.JDesktopPane escritorio;

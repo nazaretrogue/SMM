@@ -20,6 +20,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import sm.nrg.graficos.Linea2D;
 
 /**
  *
@@ -69,10 +70,10 @@ public class Lienzo2D extends javax.swing.JPanel {
     private void createShape(Point p_i){
         switch(herramienta){
             case PUNTOS:
-                v_shape.add(new Line2D.Double(p_i.getX(), p_i.getY(), p_i.getX(), p_i.getY()));
+                v_shape.add(new Linea2D.Double(p_i.getX(), p_i.getY(), p_i.getX(), p_i.getY()));
                 break;
             case LINEAS:
-                v_shape.add(new Line2D.Double(p_i, p_i));
+                v_shape.add(new Linea2D.Double(p_i, p_i));
                 break;
             case RECTANGULOS:
                 v_shape.add(new Rectangle(p_i));
@@ -86,7 +87,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     private void updateShape(Point p_f){
         switch(herramienta){
             case LINEAS:
-                Line2D laux = (Line2D)v_shape.get(v_shape.size()-1);
+                Linea2D laux = (Linea2D)v_shape.get(v_shape.size()-1);
                 laux.setLine(laux.getP1(), p_f);
                 
                 v_shape.set(v_shape.size()-1, laux);
@@ -108,10 +109,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     private Shape getSelectedShape(Point p){
         for(Shape s:v_shape){
-            /*if(s.getClass().getSimpleName().equals("Line2D"))
-                
-            else*/
-                if(s.contains(p))
+            if(s.contains(p))
                 return s;
         }
         
@@ -120,11 +118,14 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     private void moverFigura(Point p){
         if(fig_mover != null){
-            if(fig_mover.getClass().getSimpleName().equals("Rectangle"))
+            if(fig_mover.getClass().getSimpleName().equals("Linea2D"))
+                ((Linea2D)fig_mover).setLocation(p);
+            
+            else if(fig_mover.getClass().getSimpleName().equals("Rectangle"))
                 ((Rectangle)fig_mover).setLocation(p);
             
             else if(fig_mover.getClass().getSimpleName().equals("Ellipse2D"))
-                ((Ellipse2D)fig_mover).getBounds().setLocation(p);
+                (((Ellipse2D)fig_mover).getBounds()).setLocation(p);
         }
     }
     
