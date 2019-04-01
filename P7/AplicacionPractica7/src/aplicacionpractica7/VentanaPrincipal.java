@@ -196,7 +196,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panel_grosor.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING));
 
         spinner_grosor.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        spinner_grosor.addMouseListener(formListener);
+        spinner_grosor.addChangeListener(formListener);
         panel_grosor.add(spinner_grosor);
 
         barra_atr.add(panel_grosor);
@@ -286,28 +286,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Code for dispatching events from components to event handlers.
 
-    private class FormListener implements java.awt.event.ActionListener, java.awt.event.MouseListener {
+    private class FormListener implements java.awt.event.ActionListener, javax.swing.event.ChangeListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == menu_op_nuevo) {
-                VentanaPrincipal.this.menu_op_nuevoActionPerformed(evt);
-            }
-            else if (evt.getSource() == menu_op_abrir) {
-                VentanaPrincipal.this.menu_op_abrirActionPerformed(evt);
-            }
-            else if (evt.getSource() == menu_op_guardar) {
-                VentanaPrincipal.this.menu_op_guardarActionPerformed(evt);
-            }
-            else if (evt.getSource() == menu_op_barra_est) {
-                VentanaPrincipal.this.menu_op_barra_estActionPerformed(evt);
-            }
-            else if (evt.getSource() == menu_op_barra_form) {
-                VentanaPrincipal.this.menu_op_barra_formActionPerformed(evt);
-            }
-            else if (evt.getSource() == menu_op_barra_atr) {
-                VentanaPrincipal.this.menu_op_barra_atrActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_punto) {
+            if (evt.getSource() == boton_punto) {
                 VentanaPrincipal.this.boton_puntoActionPerformed(evt);
             }
             else if (evt.getSource() == boton_linea) {
@@ -346,30 +328,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == check_transp) {
                 VentanaPrincipal.this.check_transpActionPerformed(evt);
             }
-            else if (evt.getSource() == check_editar) {
-                VentanaPrincipal.this.check_editarActionPerformed(evt);
-            }
             else if (evt.getSource() == check_alisar) {
                 VentanaPrincipal.this.check_alisarActionPerformed(evt);
             }
-        }
-
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            if (evt.getSource() == spinner_grosor) {
-                VentanaPrincipal.this.spinner_grosorMouseClicked(evt);
+            else if (evt.getSource() == check_editar) {
+                VentanaPrincipal.this.check_editarActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_nuevo) {
+                VentanaPrincipal.this.menu_op_nuevoActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_abrir) {
+                VentanaPrincipal.this.menu_op_abrirActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_guardar) {
+                VentanaPrincipal.this.menu_op_guardarActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_barra_est) {
+                VentanaPrincipal.this.menu_op_barra_estActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_barra_form) {
+                VentanaPrincipal.this.menu_op_barra_formActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_barra_atr) {
+                VentanaPrincipal.this.menu_op_barra_atrActionPerformed(evt);
             }
         }
 
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-        }
-
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-        }
-
-        public void mousePressed(java.awt.event.MouseEvent evt) {
-        }
-
-        public void mouseReleased(java.awt.event.MouseEvent evt) {
+        public void stateChanged(javax.swing.event.ChangeEvent evt) {
+            if (evt.getSource() == spinner_grosor) {
+                VentanaPrincipal.this.spinner_grosorStateChanged(evt);
+            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -407,12 +395,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.barra_atr.setVisible(!this.barra_atr.isVisible());
     }//GEN-LAST:event_menu_op_barra_atrActionPerformed
 
-    private void spinner_grosorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spinner_grosorMouseClicked
-        Stroke grosor = new BasicStroke((int)spinner_grosor.getValue());
-        
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTrazo(grosor);
-    }//GEN-LAST:event_spinner_grosorMouseClicked
-
     private void boton_puntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_puntoActionPerformed
         ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.PUNTOS);
         
@@ -438,7 +420,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_boton_elipseActionPerformed
 
     private void boton_seleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_seleccionActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(!boton_seleccion.isSelected());
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(boton_seleccion.isSelected());
         
         this.etiq_estado.setText("Moviendo figura");
     }//GEN-LAST:event_boton_seleccionActionPerformed
@@ -468,11 +450,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_boton_verdeActionPerformed
 
     private void check_rellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_rellenoActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(!check_relleno.isSelected());
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(check_relleno.isSelected());
     }//GEN-LAST:event_check_rellenoActionPerformed
 
     private void check_transpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_transpActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTransparencia(!check_transp.isSelected());
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTransparencia(check_transp.isSelected());
     }//GEN-LAST:event_check_transpActionPerformed
 
     private void check_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_editarActionPerformed
@@ -480,8 +462,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_check_editarActionPerformed
 
     private void check_alisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_alisarActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setAlisar(!check_alisar.isSelected());
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setAlisar(check_alisar.isSelected());
     }//GEN-LAST:event_check_alisarActionPerformed
+
+    private void spinner_grosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinner_grosorStateChanged
+        Stroke grosor = new BasicStroke((int)spinner_grosor.getValue());
+        
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTrazo(grosor);
+    }//GEN-LAST:event_spinner_grosorStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar barra_atr;

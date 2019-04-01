@@ -5,10 +5,14 @@
  */
 package sm.nrg.iu;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
@@ -43,8 +47,15 @@ public class Lienzo2D extends javax.swing.JPanel {
         
         Graphics2D g2d = (Graphics2D)g;
         
+        if(es_transparente)
+            comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, TRANSPARENCIA);
+        
+        else
+            comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f);
+        
         g2d.setPaint(color_figuras);
         g2d.setStroke(trazo);
+        g2d.setComposite(comp);
         
         for(Shape s:v_shape){
             if(esta_relleno)
@@ -55,7 +66,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         }
     }
     
-    private void createShape(Point2D p_i){
+    private void createShape(Point p_i){
         switch(herramienta){
             case PUNTOS:
                 v_shape.add(new Line2D.Double(p_i.getX(), p_i.getY(), p_i.getX(), p_i.getY()));
@@ -64,7 +75,7 @@ public class Lienzo2D extends javax.swing.JPanel {
                 v_shape.add(new Line2D.Double(p_i, p_i));
                 break;
             case RECTANGULOS:
-                v_shape.add(new Rectangle2D.Double(p_i.getX(), p_i.getY(), 1, 1));
+                v_shape.add(new Rectangle(p_i));
                 break;
             case ELIPSES:
                 v_shape.add(new Ellipse2D.Double(p_i.getX(), p_i.getY(), 1, 1));
@@ -72,10 +83,8 @@ public class Lienzo2D extends javax.swing.JPanel {
         }
     }
     
-    private void updateShape(Point2D p_f){
+    private void updateShape(Point p_f){
         switch(herramienta){
-            case PUNTOS:
-                break;
             case LINEAS:
                 Line2D laux = (Line2D)v_shape.get(v_shape.size()-1);
                 laux.setLine(laux.getP1(), p_f);
@@ -83,14 +92,39 @@ public class Lienzo2D extends javax.swing.JPanel {
                 v_shape.set(v_shape.size()-1, laux);
                 break;
             case RECTANGULOS:
-                Rectangle2D raux = new Rectangle2D.Double(((Rectangle2D)(v_shape.get(v_shape.size()-1))).getX(),
-                                   ((Rectangle2D)(v_shape.get(v_shape.size()-1))).getY(), p_f.getX(), p_f.getY());
-               
-                
+                Rectangle raux = (Rectangle)(v_shape.get(v_shape.size()-1));
+                raux.setFrameFromDiagonal(p_aux, p_f);
+
                 v_shape.set(v_shape.size()-1, raux);
                 break;
             case ELIPSES:
+                Ellipse2D eaux = (Ellipse2D)(v_shape.get(v_shape.size()-1));
+                eaux.setFrameFromDiagonal(p_aux, p_f);
+                
+                v_shape.set(v_shape.size()-1, eaux);
                 break;
+        }
+    }
+    
+    private Shape getSelectedShape(Point p){
+        for(Shape s:v_shape){
+            /*if(s.getClass().getSimpleName().equals("Line2D"))
+                
+            else*/
+                if(s.contains(p))
+                return s;
+        }
+        
+        return null;
+    }
+    
+    private void moverFigura(Point p){
+        if(fig_mover != null){
+            if(fig_mover.getClass().getSimpleName().equals("Rectangle"))
+                ((Rectangle)fig_mover).setLocation(p);
+            
+            else if(fig_mover.getClass().getSimpleName().equals("Ellipse2D"))
+                ((Ellipse2D)fig_mover).getBounds().setLocation(p);
         }
     }
     
@@ -202,12 +236,22 @@ public class Lienzo2D extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        this.createShape(evt.getPoint());
+        p_aux = evt.getPoint();
+        
+        if(mover)
+            fig_mover = this.getSelectedShape(p_aux);
+            
+        else
+            this.createShape(p_aux);
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        this.updateShape(evt.getPoint());
-        this.repaint();
+        if(mover)
+            this.moverFigura(evt.getPoint());
+        
+        else
+            this.updateShape(evt.getPoint());
+            this.repaint();
     }//GEN-LAST:event_formMouseDragged
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
@@ -220,10 +264,13 @@ public class Lienzo2D extends javax.swing.JPanel {
     Color color_figuras;
     static final float TRANSPARENCIA = 0.5f;
     boolean es_transparente;
+    Composite comp;
     boolean esta_relleno;
     Stroke trazo;
     ArrayList<Shape> v_shape;
     TipoHerramienta herramienta;
     boolean mover;
     boolean alisar;
+    Point p_aux;
+    Shape fig_mover;
 }
