@@ -17,7 +17,7 @@ public class Linea2D extends java.awt.geom.Line2D.Double{
     }
     
     public boolean isNear(Point2D p){
-        return this.ptLineDist(p)<=2.0;
+        return this.ptSegDist(p)<=5.0;
     }
     
     @Override

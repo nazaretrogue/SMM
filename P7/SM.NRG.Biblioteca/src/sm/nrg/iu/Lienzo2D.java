@@ -125,6 +125,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     private void moverFigura(Point p){
         if(fig_mover != null){
+            
             switch (fig_mover.getClass().getSimpleName()) {
                 case "Linea2D":
                     ((Linea2D)fig_mover).setLocation(p);
@@ -132,22 +133,22 @@ public class Lienzo2D extends javax.swing.JPanel {
                 case "Rectangle":
                     ((Rectangle)fig_mover).setLocation(p);
                     break;
-                case "Ellipse2D":
+                case "Double":  // Lo detecta asi
                     RectangularShape elipse = (RectangularShape)fig_mover;
-                    //Point2D esquina = new Point2D.Double(elipse.getX(), elipse.getY());
                     elipse.setFrameFromCenter(p.getX(), 
                                               p.getY(), 
                                               p.getX()+(elipse.getMaxX()-elipse.getCenterX()), 
                                               p.getY()+(elipse.getMaxY()-elipse.getCenterY()));
-                    fig_mover = elipse; this.repaint();
+                    fig_mover = elipse;
                     break;
-                //(((Ellipse2D)fig_mover).getBounds()).setLocation(p);
             }
+
         }
     }
     
     public void setTrazo(Stroke st){
-        this.trazo = st;this.repaint();
+        this.trazo = st;
+        this.repaint();
     }
     
     public Stroke getTrazo(){
@@ -156,6 +157,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     public void setColor(Color c){
         this.color_figuras = c;
+        this.repaint();
     }
     
     public Color getColor(){
@@ -164,6 +166,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     public void setTransparencia(boolean transp){
         this.es_transparente = transp;
+        this.repaint();
     }
     
     public boolean getTransparencia(){
@@ -172,6 +175,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     public void setRelleno(boolean rell){
         this.esta_relleno = rell;
+        this.repaint();
     }
     
     public boolean getRelleno(){
@@ -180,6 +184,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     public void setHerramienta(TipoHerramienta herr){
         this.herramienta = herr;
+        this.repaint();
     }
     
     public TipoHerramienta getHerramienta(){
@@ -188,6 +193,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     public void setMover(boolean mov){
         this.mover = mov;
+        this.repaint();
     }
     
     public boolean getMover(){
@@ -196,6 +202,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     public void setAlisar(boolean alisar){
         this.alisar = alisar;
+        this.repaint();
     }
     
     public boolean getAlisar(){

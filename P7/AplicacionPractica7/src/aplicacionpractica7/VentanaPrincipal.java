@@ -40,11 +40,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panel_estado = new javax.swing.JPanel();
         etiq_estado = new javax.swing.JLabel();
         barra_herramientas = new javax.swing.JToolBar();
+        boton_nuevo = new javax.swing.JToggleButton();
+        boton_abrir = new javax.swing.JToggleButton();
+        boton_guardar = new javax.swing.JToggleButton();
+        separador1 = new javax.swing.JToolBar.Separator();
         boton_punto = new javax.swing.JToggleButton();
         boton_linea = new javax.swing.JToggleButton();
         boton_rectangulo = new javax.swing.JToggleButton();
         boton_elipse = new javax.swing.JToggleButton();
         boton_seleccion = new javax.swing.JToggleButton();
+        separador2 = new javax.swing.JToolBar.Separator();
+        desplegable_color = new javax.swing.JComboBox<>();
+        separador3 = new javax.swing.JToolBar.Separator();
+        spinner_grosor = new javax.swing.JSpinner();
+        boton_rellenar = new javax.swing.JToggleButton();
+        boton_transp = new javax.swing.JToggleButton();
+        boton_alisar = new javax.swing.JToggleButton();
         panel_atr_lienzo = new javax.swing.JPanel();
         panel_atr_generico = new javax.swing.JPanel();
         barra_atr = new javax.swing.JToolBar();
@@ -55,18 +66,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_blanco = new javax.swing.JToggleButton();
         boton_amarillo = new javax.swing.JToggleButton();
         boton_verde = new javax.swing.JToggleButton();
-        panel_grosor = new javax.swing.JPanel();
-        spinner_grosor = new javax.swing.JSpinner();
-        panel_atr = new javax.swing.JPanel();
-        check_relleno = new javax.swing.JCheckBox();
-        check_transp = new javax.swing.JCheckBox();
-        check_alisar = new javax.swing.JCheckBox();
         escritorio = new javax.swing.JDesktopPane();
         barra_menu = new javax.swing.JMenuBar();
-        menu_archivo = new javax.swing.JMenu();
-        menu_op_nuevo = new javax.swing.JMenuItem();
-        menu_op_abrir = new javax.swing.JMenuItem();
-        menu_op_guardar = new javax.swing.JMenuItem();
         menu_edicion = new javax.swing.JMenu();
         menu_op_barra_est = new javax.swing.JCheckBoxMenuItem();
         menu_op_barra_form = new javax.swing.JCheckBoxMenuItem();
@@ -86,6 +87,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().add(panel_estado, java.awt.BorderLayout.SOUTH);
 
         barra_herramientas.setRollover(true);
+
+        boton_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevo.png"))); // NOI18N
+        boton_nuevo.setFocusable(false);
+        boton_nuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_nuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_nuevo.addActionListener(formListener);
+        barra_herramientas.add(boton_nuevo);
+
+        boton_abrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/abrir.png"))); // NOI18N
+        boton_abrir.setFocusable(false);
+        boton_abrir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_abrir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_abrir.addActionListener(formListener);
+        barra_herramientas.add(boton_abrir);
+
+        boton_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
+        boton_guardar.setFocusable(false);
+        boton_guardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_guardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_guardar.addActionListener(formListener);
+        barra_herramientas.add(boton_guardar);
+        barra_herramientas.add(separador1);
 
         grupo_herramientas.add(boton_punto);
         boton_punto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/punto.png"))); // NOI18N
@@ -127,6 +150,36 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_seleccion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         boton_seleccion.addActionListener(formListener);
         barra_herramientas.add(boton_seleccion);
+        barra_herramientas.add(separador2);
+
+        desplegable_color.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" }));
+        barra_herramientas.add(desplegable_color);
+        barra_herramientas.add(separador3);
+
+        spinner_grosor.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        spinner_grosor.addChangeListener(formListener);
+        barra_herramientas.add(spinner_grosor);
+
+        boton_rellenar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/rellenar.png"))); // NOI18N
+        boton_rellenar.setFocusable(false);
+        boton_rellenar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_rellenar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_rellenar.addActionListener(formListener);
+        barra_herramientas.add(boton_rellenar);
+
+        boton_transp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/transparencia.png"))); // NOI18N
+        boton_transp.setFocusable(false);
+        boton_transp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_transp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_transp.addActionListener(formListener);
+        barra_herramientas.add(boton_transp);
+
+        boton_alisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/alisar.png"))); // NOI18N
+        boton_alisar.setFocusable(false);
+        boton_alisar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_alisar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_alisar.addActionListener(formListener);
+        barra_herramientas.add(boton_alisar);
 
         getContentPane().add(barra_herramientas, java.awt.BorderLayout.NORTH);
 
@@ -191,66 +244,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         barra_atr.add(panel_colores);
 
-        panel_grosor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Grosor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
-        panel_grosor.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEADING));
-
-        spinner_grosor.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        spinner_grosor.addChangeListener(formListener);
-        panel_grosor.add(spinner_grosor);
-
-        barra_atr.add(panel_grosor);
-
-        panel_atr.setBorder(javax.swing.BorderFactory.createTitledBorder("   "));
-        panel_atr.setLayout(new java.awt.GridLayout(2, 2));
-
-        check_relleno.setText("Relleno");
-        check_relleno.setFocusable(false);
-        check_relleno.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        check_relleno.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        check_relleno.addActionListener(formListener);
-        panel_atr.add(check_relleno);
-
-        check_transp.setText("Transparencia");
-        check_transp.setFocusable(false);
-        check_transp.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        check_transp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        check_transp.addActionListener(formListener);
-        panel_atr.add(check_transp);
-
-        check_alisar.setText("Alisar");
-        check_alisar.setFocusable(false);
-        check_alisar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        check_alisar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        check_alisar.addActionListener(formListener);
-        panel_atr.add(check_alisar);
-
-        barra_atr.add(panel_atr);
-
         panel_atr_generico.add(barra_atr, java.awt.BorderLayout.SOUTH);
 
         panel_atr_lienzo.add(panel_atr_generico, java.awt.BorderLayout.SOUTH);
         panel_atr_lienzo.add(escritorio, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panel_atr_lienzo, java.awt.BorderLayout.CENTER);
-
-        menu_archivo.setText("Archivo");
-
-        menu_op_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevo.png"))); // NOI18N
-        menu_op_nuevo.setText("Nuevo");
-        menu_op_nuevo.addActionListener(formListener);
-        menu_archivo.add(menu_op_nuevo);
-
-        menu_op_abrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/abrir.png"))); // NOI18N
-        menu_op_abrir.setText("Abrir");
-        menu_op_abrir.addActionListener(formListener);
-        menu_archivo.add(menu_op_abrir);
-
-        menu_op_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/guardar.png"))); // NOI18N
-        menu_op_guardar.setText("Guardar");
-        menu_op_guardar.addActionListener(formListener);
-        menu_archivo.add(menu_op_guardar);
-
-        barra_menu.add(menu_archivo);
 
         menu_edicion.setText("Edición");
 
@@ -314,24 +313,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == boton_verde) {
                 VentanaPrincipal.this.boton_verdeActionPerformed(evt);
             }
-            else if (evt.getSource() == check_relleno) {
-                VentanaPrincipal.this.check_rellenoActionPerformed(evt);
-            }
-            else if (evt.getSource() == check_transp) {
-                VentanaPrincipal.this.check_transpActionPerformed(evt);
-            }
-            else if (evt.getSource() == check_alisar) {
-                VentanaPrincipal.this.check_alisarActionPerformed(evt);
-            }
-            else if (evt.getSource() == menu_op_nuevo) {
-                VentanaPrincipal.this.menu_op_nuevoActionPerformed(evt);
-            }
-            else if (evt.getSource() == menu_op_abrir) {
-                VentanaPrincipal.this.menu_op_abrirActionPerformed(evt);
-            }
-            else if (evt.getSource() == menu_op_guardar) {
-                VentanaPrincipal.this.menu_op_guardarActionPerformed(evt);
-            }
             else if (evt.getSource() == menu_op_barra_est) {
                 VentanaPrincipal.this.menu_op_barra_estActionPerformed(evt);
             }
@@ -341,6 +322,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == menu_op_barra_atr) {
                 VentanaPrincipal.this.menu_op_barra_atrActionPerformed(evt);
             }
+            else if (evt.getSource() == boton_nuevo) {
+                VentanaPrincipal.this.boton_nuevoActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_abrir) {
+                VentanaPrincipal.this.boton_abrirActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_guardar) {
+                VentanaPrincipal.this.boton_guardarActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_rellenar) {
+                VentanaPrincipal.this.boton_rellenarActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_transp) {
+                VentanaPrincipal.this.boton_transpActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_alisar) {
+                VentanaPrincipal.this.boton_alisarActionPerformed(evt);
+            }
         }
 
         public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -349,28 +348,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menu_op_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_nuevoActionPerformed
-        VentanaInterna vi = new VentanaInterna();
-        escritorio.add(vi);
-        vi.setVisible(true);
-    }//GEN-LAST:event_menu_op_nuevoActionPerformed
-
-    private void menu_op_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_abrirActionPerformed
-        JFileChooser dlg = new JFileChooser();
-        int resp = dlg.showOpenDialog(this);
-        if(resp == JFileChooser.APPROVE_OPTION) {
-            File f = dlg.getSelectedFile();
-        }
-    }//GEN-LAST:event_menu_op_abrirActionPerformed
-
-    private void menu_op_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_guardarActionPerformed
-        JFileChooser dlg = new JFileChooser();
-        int resp = dlg.showSaveDialog(this);
-        if(resp == JFileChooser.APPROVE_OPTION) {
-            File f = dlg.getSelectedFile();
-        }
-    }//GEN-LAST:event_menu_op_guardarActionPerformed
 
     private void menu_op_barra_estActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_op_barra_estActionPerformed
         this.panel_estado.setVisible(!this.panel_estado.isVisible());
@@ -442,60 +419,83 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.GREEN);
     }//GEN-LAST:event_boton_verdeActionPerformed
 
-    private void check_rellenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_rellenoActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(check_relleno.isSelected());
-    }//GEN-LAST:event_check_rellenoActionPerformed
-
-    private void check_transpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_transpActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTransparencia(check_transp.isSelected());
-    }//GEN-LAST:event_check_transpActionPerformed
-
-    private void check_alisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_alisarActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setAlisar(check_alisar.isSelected());
-    }//GEN-LAST:event_check_alisarActionPerformed
-
     private void spinner_grosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinner_grosorStateChanged
         Stroke grosor = new BasicStroke((int)spinner_grosor.getValue());
         
         ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTrazo(grosor);
     }//GEN-LAST:event_spinner_grosorStateChanged
 
+    private void boton_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_nuevoActionPerformed
+        VentanaInterna vi = new VentanaInterna();
+        escritorio.add(vi);
+        vi.setVisible(true);
+    }//GEN-LAST:event_boton_nuevoActionPerformed
+
+    private void boton_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_abrirActionPerformed
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showOpenDialog(this);
+        if(resp == JFileChooser.APPROVE_OPTION) {
+            File f = dlg.getSelectedFile();
+        }
+    }//GEN-LAST:event_boton_abrirActionPerformed
+
+    private void boton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_guardarActionPerformed
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showSaveDialog(this);
+        if(resp == JFileChooser.APPROVE_OPTION) {
+            File f = dlg.getSelectedFile();
+        }
+    }//GEN-LAST:event_boton_guardarActionPerformed
+
+    private void boton_rellenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rellenarActionPerformed
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(boton_rellenar.isSelected());
+    }//GEN-LAST:event_boton_rellenarActionPerformed
+
+    private void boton_transpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_transpActionPerformed
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTransparencia(boton_transp.isSelected());
+    }//GEN-LAST:event_boton_transpActionPerformed
+
+    private void boton_alisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_alisarActionPerformed
+        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setAlisar(boton_alisar.isSelected());
+    }//GEN-LAST:event_boton_alisarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar barra_atr;
     private javax.swing.JToolBar barra_herramientas;
     private javax.swing.JMenuBar barra_menu;
+    private javax.swing.JToggleButton boton_abrir;
+    private javax.swing.JToggleButton boton_alisar;
     private javax.swing.JToggleButton boton_amarillo;
     private javax.swing.JToggleButton boton_azul;
     private javax.swing.JToggleButton boton_blanco;
     private javax.swing.JToggleButton boton_elipse;
+    private javax.swing.JToggleButton boton_guardar;
     private javax.swing.JToggleButton boton_linea;
     private javax.swing.JToggleButton boton_negro;
+    private javax.swing.JToggleButton boton_nuevo;
     private javax.swing.JToggleButton boton_punto;
     private javax.swing.JToggleButton boton_rectangulo;
+    private javax.swing.JToggleButton boton_rellenar;
     private javax.swing.JToggleButton boton_rojo;
     private javax.swing.JToggleButton boton_seleccion;
+    private javax.swing.JToggleButton boton_transp;
     private javax.swing.JToggleButton boton_verde;
-    private javax.swing.JCheckBox check_alisar;
-    private javax.swing.JCheckBox check_relleno;
-    private javax.swing.JCheckBox check_transp;
+    private javax.swing.JComboBox<String> desplegable_color;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel etiq_estado;
     private javax.swing.ButtonGroup grupo_colores;
     private javax.swing.ButtonGroup grupo_herramientas;
-    private javax.swing.JMenu menu_archivo;
     private javax.swing.JMenu menu_edicion;
-    private javax.swing.JMenuItem menu_op_abrir;
     private javax.swing.JCheckBoxMenuItem menu_op_barra_atr;
     private javax.swing.JCheckBoxMenuItem menu_op_barra_est;
     private javax.swing.JCheckBoxMenuItem menu_op_barra_form;
-    private javax.swing.JMenuItem menu_op_guardar;
-    private javax.swing.JMenuItem menu_op_nuevo;
-    private javax.swing.JPanel panel_atr;
     private javax.swing.JPanel panel_atr_generico;
     private javax.swing.JPanel panel_atr_lienzo;
     private javax.swing.JPanel panel_colores;
     private javax.swing.JPanel panel_estado;
-    private javax.swing.JPanel panel_grosor;
+    private javax.swing.JToolBar.Separator separador1;
+    private javax.swing.JToolBar.Separator separador2;
+    private javax.swing.JToolBar.Separator separador3;
     private javax.swing.JSpinner spinner_grosor;
     // End of variables declaration//GEN-END:variables
 }
