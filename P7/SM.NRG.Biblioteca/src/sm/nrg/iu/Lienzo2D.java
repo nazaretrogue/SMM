@@ -66,8 +66,14 @@ public class Lienzo2D extends javax.swing.JPanel {
         g2d.setComposite(comp);
         
         for(Shape s:v_shape){
-            if(esta_relleno)
-                g2d.fill(s);
+            if(esta_relleno){
+                if(s.getClass().getSimpleName().equals("Linea2D"))
+                    g2d.draw(s);
+                    
+                else
+                    g2d.fill(s);
+            }
+                
             
             else
                 g2d.draw(s);

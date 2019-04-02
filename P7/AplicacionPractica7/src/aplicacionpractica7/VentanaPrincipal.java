@@ -8,22 +8,37 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Stroke;
 import java.io.File;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import sm.nrg.iu.TipoHerramienta;
+import sm.nrg.iu.PanelColor;
 
 /**
  *
  * @author nazaret
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
         initComponents();
         
-        this.setSize(800, 800);
+        desplegable_color = new JComboBox<JPanel>();
+        desplegable_color.setRenderer(new BasicComboBoxRenderer());
+        
+        Color[] colores = {Color.BLACK, Color.RED, Color.BLUE, Color.WHITE, Color.YELLOW, Color.GREEN};
+        for(Color c: colores) {
+            JPanel tmp = new PanelColor(c);
+            tmp.setOpaque(true);
+            desplegable_color.addItem(tmp);
+        }
+        
+        this.setSize(800, 800);     
     }
 
     /**
@@ -50,7 +65,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_elipse = new javax.swing.JToggleButton();
         boton_seleccion = new javax.swing.JToggleButton();
         separador2 = new javax.swing.JToolBar.Separator();
-        desplegable_color = new javax.swing.JComboBox<>();
+        try {
+            desplegable_color =(javax.swing.JComboBox)java.beans.Beans.instantiate(getClass().getClassLoader(), "aplicacionpractica7.VentanaPrincipal_desplegable_color");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
         separador3 = new javax.swing.JToolBar.Separator();
         spinner_grosor = new javax.swing.JSpinner();
         boton_rellenar = new javax.swing.JToggleButton();
@@ -151,8 +172,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_seleccion.addActionListener(formListener);
         barra_herramientas.add(boton_seleccion);
         barra_herramientas.add(separador2);
-
-        desplegable_color.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6" }));
         barra_herramientas.add(desplegable_color);
         barra_herramientas.add(separador3);
 
@@ -280,7 +299,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private class FormListener implements java.awt.event.ActionListener, javax.swing.event.ChangeListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == boton_punto) {
+            if (evt.getSource() == boton_nuevo) {
+                VentanaPrincipal.this.boton_nuevoActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_abrir) {
+                VentanaPrincipal.this.boton_abrirActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_guardar) {
+                VentanaPrincipal.this.boton_guardarActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_punto) {
                 VentanaPrincipal.this.boton_puntoActionPerformed(evt);
             }
             else if (evt.getSource() == boton_linea) {
@@ -294,6 +322,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == boton_seleccion) {
                 VentanaPrincipal.this.boton_seleccionActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_rellenar) {
+                VentanaPrincipal.this.boton_rellenarActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_transp) {
+                VentanaPrincipal.this.boton_transpActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_alisar) {
+                VentanaPrincipal.this.boton_alisarActionPerformed(evt);
             }
             else if (evt.getSource() == boton_negro) {
                 VentanaPrincipal.this.boton_negroActionPerformed(evt);
@@ -321,24 +358,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == menu_op_barra_atr) {
                 VentanaPrincipal.this.menu_op_barra_atrActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_nuevo) {
-                VentanaPrincipal.this.boton_nuevoActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_abrir) {
-                VentanaPrincipal.this.boton_abrirActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_guardar) {
-                VentanaPrincipal.this.boton_guardarActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_rellenar) {
-                VentanaPrincipal.this.boton_rellenarActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_transp) {
-                VentanaPrincipal.this.boton_transpActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_alisar) {
-                VentanaPrincipal.this.boton_alisarActionPerformed(evt);
             }
         }
 
@@ -480,7 +499,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton boton_seleccion;
     private javax.swing.JToggleButton boton_transp;
     private javax.swing.JToggleButton boton_verde;
-    private javax.swing.JComboBox<String> desplegable_color;
+    private javax.swing.JComboBox<JPanel> desplegable_color;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel etiq_estado;
     private javax.swing.ButtonGroup grupo_colores;
