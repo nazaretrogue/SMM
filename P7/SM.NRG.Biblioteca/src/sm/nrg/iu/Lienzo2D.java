@@ -139,7 +139,7 @@ public class Lienzo2D extends javax.swing.JPanel {
                 case "Rectangle":
                     ((Rectangle)fig_mover).setLocation(p);
                     break;
-                case "Double":  // Lo detecta asi
+                case "Double":  // Lo detecta así
                     RectangularShape elipse = (RectangularShape)fig_mover;
                     elipse.setFrameFromCenter(p.getX(), 
                                               p.getY(), 

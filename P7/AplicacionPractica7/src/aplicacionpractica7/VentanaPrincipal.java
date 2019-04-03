@@ -34,7 +34,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Color[] colores = {Color.BLACK, Color.RED, Color.BLUE, Color.WHITE, Color.YELLOW, Color.GREEN};
         for(Color c: colores) {
             JPanel tmp = new PanelColor(c);
-            tmp.setOpaque(true);
+            //tmp.setOpaque(true);
+            tmp.setVisible(true);
             desplegable_color.addItem(tmp);
         }
         
@@ -381,67 +382,83 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_op_barra_atrActionPerformed
 
     private void boton_puntoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_puntoActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.PUNTOS);
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null){
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.PUNTOS);
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
+        }
         
         this.etiq_estado.setText("Punto");
     }//GEN-LAST:event_boton_puntoActionPerformed
 
     private void boton_lineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_lineaActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.LINEAS);
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null){
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.LINEAS);
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
+        }
         
         this.etiq_estado.setText("Línea");
     }//GEN-LAST:event_boton_lineaActionPerformed
 
     private void boton_rectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rectanguloActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.RECTANGULOS);
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null){
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.RECTANGULOS);
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
+        }
         
         this.etiq_estado.setText("Rectángulo");
     }//GEN-LAST:event_boton_rectanguloActionPerformed
 
     private void boton_elipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_elipseActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.ELIPSES);
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null){
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.ELIPSES);
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
+        }
         
         this.etiq_estado.setText("Elipse");
     }//GEN-LAST:event_boton_elipseActionPerformed
 
     private void boton_seleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_seleccionActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(boton_seleccion.isSelected());
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setMover(boton_seleccion.isSelected());
         
         this.etiq_estado.setText("Moviendo figura");
     }//GEN-LAST:event_boton_seleccionActionPerformed
 
     private void boton_negroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_negroActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.BLACK);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.BLACK);
     }//GEN-LAST:event_boton_negroActionPerformed
 
     private void boton_rojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rojoActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.RED);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.RED);
     }//GEN-LAST:event_boton_rojoActionPerformed
 
     private void boton_azulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_azulActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.BLUE);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.BLUE);
     }//GEN-LAST:event_boton_azulActionPerformed
 
     private void boton_blancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_blancoActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.WHITE);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.WHITE);
     }//GEN-LAST:event_boton_blancoActionPerformed
 
     private void boton_amarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_amarilloActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.YELLOW);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.YELLOW);
     }//GEN-LAST:event_boton_amarilloActionPerformed
 
     private void boton_verdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_verdeActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.GREEN);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setColor(Color.GREEN);
     }//GEN-LAST:event_boton_verdeActionPerformed
 
     private void spinner_grosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinner_grosorStateChanged
         Stroke grosor = new BasicStroke((int)spinner_grosor.getValue());
         
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTrazo(grosor);
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTrazo(grosor);
     }//GEN-LAST:event_spinner_grosorStateChanged
 
     private void boton_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_nuevoActionPerformed
@@ -467,15 +484,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_boton_guardarActionPerformed
 
     private void boton_rellenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rellenarActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(boton_rellenar.isSelected());
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(boton_rellenar.isSelected());
     }//GEN-LAST:event_boton_rellenarActionPerformed
 
     private void boton_transpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_transpActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTransparencia(boton_transp.isSelected());
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setTransparencia(boton_transp.isSelected());
     }//GEN-LAST:event_boton_transpActionPerformed
 
     private void boton_alisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_alisarActionPerformed
-        ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setAlisar(boton_alisar.isSelected());
+        if((VentanaInterna)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInterna)(this.escritorio.getSelectedFrame())).getLienzo().setAlisar(boton_alisar.isSelected());
     }//GEN-LAST:event_boton_alisarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
