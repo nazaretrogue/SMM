@@ -64,6 +64,7 @@ public class Lienzo2D extends javax.swing.JPanel {
         g2d.setPaint(color_figuras);
         g2d.setStroke(trazo);
         g2d.setComposite(comp);
+        g2d.setRenderingHints(rh);
         
         for(Shape s:v_shape){
             if(esta_relleno){
