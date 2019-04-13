@@ -24,6 +24,7 @@
 
 # Directorios a ignorar
 P1/*
+Teoria/*
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
@@ -54,3 +55,6 @@ hs_err_pid*
 /P8/AplicacionPractica8/build/
 /P8/AplicacionPractica8/dist/
 /P8/SM.NRG.Biblioteca/nbproject/private/
+/P9/AplicacionPractica9/nbproject/private/
+/P9/AplicacionPractica9/build/
+/P9/AplicacionPractica9/dist/
