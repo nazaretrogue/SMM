@@ -24,7 +24,9 @@
 
 # Directorios a ignorar
 P1/*
-Teoria/*
+Teoria/SM*
+Teoria/Fundamentos*
+Teoria/Trabajo_sonido/Audios/*
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
