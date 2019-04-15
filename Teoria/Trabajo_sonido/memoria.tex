@@ -1,0 +1,458 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}	%Idioma
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx} 	%Añadir imágenes
+\usepackage{geometry}	%Ajustar márgenes
+\usepackage[export]{adjustbox}[2011/08/13]
+\usepackage{float}
+\restylefloat{table}
+\usepackage{diagbox}
+\usepackage{makecell}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titling}
+%\graphicspath{{/home/nazaret/Escritorio/LaTEX}}
+%\usepackage{minted}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{multicol}
+\usepackage{array}
+\selectlanguage{spanish}
+\usepackage{xcolor}
+
+%Opciones de encabezado y pie de página:
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Nazaret Román Guerrero}
+\rhead{Sistemas Multimedia}
+\lfoot{Grado en Ingeniería Informática}
+\cfoot{}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%Opciones de fuente:
+\usepackage[utf8]{inputenc}
+\usepackage[default]{sourcesanspro}
+\usepackage{sourcecodepro}
+\usepackage[T1]{fontenc}
+
+\setlength{\parindent}{15pt}
+\setlength{\headheight}{15pt}
+\setlength{\voffset}{10mm}
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+\begin{document}
+\begin{titlepage}
+
+\begin{minipage}{\textwidth}
+
+\centering
+\includegraphics[width=0.5\textwidth]{logo.png}\\
+
+\textsc{\Large Sistemas Multimedia\\[0.2cm]}
+\textsc{GRADO EN INGENIERÍA INFORMÁTICA}\\[1cm]
+
+{\Huge\bfseries Sonido\\}
+\noindent\rule[-1ex]{\textwidth}{3pt}\\[3.5ex]
+{\large\bfseries Trabajo voluntario}
+\end{minipage}
+
+\vspace{1.5cm}
+\begin{minipage}{\textwidth}
+\centering
+
+\textbf{Autora}\\ {Nazaret Román Guerrero}\\[2.5ex]
+\includegraphics[width=0.3\textwidth]{etsiit.jpeg}\\[0.1cm]
+\vspace{1cm}
+\textsc{Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación}\\
+\vspace{1cm}
+\textsc{Curso 2018-2019}
+\end{minipage}
+\end{titlepage}
+
+\pagenumbering{gobble}
+\pagenumbering{arabic}
+\tableofcontents
+\thispagestyle{empty}
+
+\newpage
+
+\section{Parámetros de digitalización}
+
+Para comparar la calidad de audio y relacionarlo con el tamaño, en esta sección cambiaremos la frecuencia de muestreo y la resolución de distintas pistas de audio:
+
+\begin{enumerate}
+	\item Grabación de voz
+	\item \textit{Power Ballad}
+	\item Rock progresivo
+\end{enumerate}
+
+En cada pista se creará una tabla en cuyas celdas habrá un valor numérico con su unidad, asociado al tamaño que ocupa la pista con esa resolución y ese muestreo, y un icono con forma de cara, con distintas expresiones y de distinto color, asociado a la calidad de audio, de forma que ver la tabla se haga un poco más visual que tan solo leer texto y cifras.\\
+
+La leyenda de iconos es la siguiente:
+
+\begin{itemize}
+	\item Muy buena = \includegraphics[width=0.05\textwidth]{mb.png}
+	\item Buena = \includegraphics[width=0.05\textwidth]{b.png}
+	\item Regular = \includegraphics[width=0.05\textwidth]{r.png}
+	\item Mala = \includegraphics[width=0.05\textwidth]{m.png}
+	\item Muy mala = \includegraphics[width=0.05\textwidth]{mm.png}
+\end{itemize}
+
+\subsection{Grabación de voz}
+
+En la primera prueba, utilizaremos una grabación de voz en la que se lee un fragmento del libro \textit{Juego de Tronos}.
+
+\begin{itemize}
+	\item Formato original: \textsc{.aac}
+	\item Formato: \textsc{.wav}
+	\item Tamaño original: 7.6 MB
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\diagbox[width=15em]{Frecuencia\\de muestreo}{\\Resolución} & 32 bits & 16 bits & 8 bits  \\ \hline
+
+8000 Hz (8 kHz) & \makecell{2.8 MB\\ \includegraphics[width=0.03\textwidth]{m.png}} & \makecell{1.4 MB\\ \includegraphics[width=0.03\textwidth]{m.png}} & \makecell{692.4 kB\\ \includegraphics[width=0.03\textwidth]{mm.png}} \\ \hline
+
+11025 Hz (11.025 kHz) & \makecell{3.8 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} & \makecell{1.9 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} & \makecell{954.2 kB\\ \includegraphics[width=0.03\textwidth]{m.png}} \\ \hline
+
+22050 Hz (22.05 kHz) & \makecell{7.6 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{3.8 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1.9 MB\\ \includegraphics[width=0.03\textwidth]{m.png}} \\ \hline
+
+44100 Hz (44.1 kHz) & \makecell{15.3 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{7.6 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{3.8 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+
+48000 Hz (48 kHz) & \makecell{16.6 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{8.3 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{4.2 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+
+72000 Hz (72 kHz) & \makecell{24.9 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{12.5 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{6.2 MB\\\includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+\end{tabular}
+\caption{Tabla comparativa}
+\label{my-label}
+\end{table}
+
+Hay tres parejas que mantienen la calidad del audio original y que ocupan menos tamaño. Son las siguientes:
+
+\begin{itemize}
+	\item 22.05 kHz y 16 bits de resolución. Ocupa 3.8 MB.
+	\item 22.05 kHz y 32 bits de resolución. Ocupa 7.6 MB, por lo que es mejor la primera opción.
+	\item 44.1 kHz y 16 bits de resolución. Al igual que la anterior, ocupa 7.6 MB, por lo que la primera opción sigue siendo la mejor.
+\end{itemize}
+
+\subsection{Nothing else matters}
+
+Para esta segunda prueba, utilizaremos una canción extraída de un CD (\textsc{.cda}), que ha sido convertida a \textsc{.wav} y sobre la que realizaremos los cambios.
+
+\begin{itemize}
+	\item Canción: Nothing else matters
+	\item Artista: Metallica
+	\item Género: \textit{Power Ballad}
+	\item Formato  original: \textsc{.cda}
+	\item Formato: \textsc{.wav}
+	\item Tamaño original: 68.1 MB
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\diagbox[width=15em]{Frecuencia\\de muestreo}{\\Resolución} & 32 bits & 16 bits & 8 bits  \\ \hline
+
+8000 Hz (8 kHz) & \makecell{27.4 MB\\ \includegraphics[width=0.03\textwidth]{mm.png}} & \makecell{12.3 MB\\ \includegraphics[width=0.03\textwidth]{mm.png}} & \makecell{6.2 MB\\ \includegraphics[width=0.03\textwidth]{mm.png}} \\ \hline
+
+11025 Hz (11.025 kHz) & \makecell{34 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} & \makecell{17 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} & \makecell{8.5 MB\\ \includegraphics[width=0.03\textwidth]{m.png}} \\ \hline
+
+22050 Hz (22.05 kHz) & \makecell{68.1 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{34 MB\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{17 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+
+44100 Hz (44.1 kHz) & \makecell{136.1 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{68.1 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{34 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+
+48000 Hz (48 kHz) & \makecell{148.1 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{74.1 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{37 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+
+72000 Hz (72 kHz) & \makecell{222.2 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{111.1 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{55.6 MB\\\includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+\end{tabular}
+\caption{Tabla comparativa}
+\label{my-label}
+\end{table}
+
+Como podemos comprobar, en este ejemplo, las parejas que mantienen la calidad del audio original y que ocupan menos tamaño (ambas ocupan 68.1 MB) son:
+
+\begin{itemize}
+	\item 22.05 kHz y 32 bits de resolución.
+	\item 44.1 kHz y 16 bits de resolución.
+\end{itemize}
+
+\subsection{The logical song}
+
+Para la última prueba, utilizaremos otra canción de un CD convertida a \textsc{.wav}.
+
+\begin{itemize}
+	\item Canción: The logical song
+	\item Artista: Supertramp
+	\item Género: Rock progresivo
+	\item Formato  original: \textsc{.cda}
+	\item Formato: \textsc{.wav}
+	\item Tamaño original: 43.9 MB
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\diagbox[width=15em]{Frecuencia\\de muestreo}{\\Resolución} & 32 bits & 16 bits & 8 bits  \\ \hline
+
+8000 Hz (8 kHz) & \makecell{15.9 MB\\ \includegraphics[width=0.03\textwidth]{mm.png}} & \makecell{8 MB\\ \includegraphics[width=0.03\textwidth]{mm.png}} & \makecell{4 MB\\ \includegraphics[width=0.03\textwidth]{mm.png}} \\ \hline
+
+11025 Hz (11.025 kHz) & \makecell{22 MB\\ \includegraphics[width=0.03\textwidth]{m.png}} & \makecell{11 MB\\ \includegraphics[width=0.03\textwidth]{m.png}} & \makecell{5.5 MB\\ \includegraphics[width=0.03\textwidth]{mm.png}} \\ \hline
+
+22050 Hz (22.05 kHz) & \makecell{43.9 MB\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{22 MB\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{11 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+
+44100 Hz (44.1 kHz) & \makecell{87.8 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{43.9 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{22 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+
+48000 Hz (48 kHz) & \makecell{95.6 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{47.8 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{23.9 MB\\ \includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+
+72000 Hz (72 kHz) & \makecell{143.4 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{71.7 MB\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{35.8 MB\\\includegraphics[width=0.03\textwidth]{r.png}} \\ \hline
+\end{tabular}
+\caption{Tabla comparativa}
+\label{my-label}
+\end{table}
+
+En este caso, la pista de audio que mejor se escucha y tiene un menor tamaño es la original.
+
+\subsection{Conclusiones}
+
+Como se ha observado en las tablas anteriores, la resolución de 8 bits siempre es muy mala, mala o regular en el mejor caso, ya que en todas las pistas de audio se escucha un zumbido muy molesto que hace que con esta resolución pierda mucha calidad y no sea agradable escuchar la pista de audio. Aunque el resto de la melodía y las voces se escuchen bien, ese ruido resulta muy desagradable y, aunque se mantenga la calidad del resto del audio, se hace imposible poner una buena calificación.\\
+
+Además, en cada pista de las tres diferentes, las tablas varían, especialmente la grabación de voz con respecto a las otras dos, tal vez debido a la calidad original del propio audio, lo que nos lleva a que la grabación, que originalmente estaba comprimida con el códec \textsc{aac}, tenga mucha diferencia con respecto a los audios que no tenían ningún tipo de compresión.
+
+\newpage
+
+\section{Comparativa de \textit{códecs}}
+
+En esta sección se probarán distintos \textit{códecs} sobre pistas de audio para comprobar las diferencias de calidad.
+
+\subsection{The Unforgiven}
+
+\begin{itemize}
+	\item Canción: The Unforgiven
+	\item Artista: Metallica
+	\item Género: \textit{Power Ballad}
+	\item Frecuencia de muestreo: 44.1 kHz
+	\item Resolución: 16 bits
+	\item Duración: 6:18
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\diagbox[width=15em]{Resolución}{\\\textit{Códec}} & \textsc{ mp3 } & \textsc{ aac } & \textsc{ wma } & \textsc{vorbis} & \textsc{ opus } \\ \hline
+
+32 bits & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+ 
+16 bits & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+ 
+ 8 bits & \makecell{3º\\ \includegraphics[width=0.03\textwidth]{m.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{4º\\ \includegraphics[width=0.03\textwidth]{m.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+\end{tabular}
+\caption{Tabla comparativa}
+\label{my-label}
+\end{table}
+
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textsc{mp3} y \textsc{wma}, 32 bits y 16 bits: se escuchan iguales a la original, han sido colocadas como las 2ª opciones solo por cómo se comportan con una resolución de 8 bits. Pero se escuchan perfectas.
+	\item \textsc{aac, vorbis} y \textsc{opus}, 32 bits y 16 bits: iguales a la original.
+	\item \textsc{vorbis} y \textsc{opus}, 8 bits: no se pierde nada de calidad de audio, se escuchan exactamente igual a la original.
+	\item \textsc{aac}, 8bits: casi igual a la original. Se escucha algo más grave, como si hubiesen tapado parcialmente el micrófono.
+	\item \textsc{mp3}, 8 bits: no se escucha bien, aunque sí algo mejor que \textsc{wma}.
+	\item \textsc{wma}, 8bits: el que peor se escucha, con diferencia. Hay ruido de fondo.
+\end{enumerate}
+
+\subsection{Nothing else matters}
+
+\begin{itemize}
+	\item Canción: Nothing else matters
+	\item Artista: Metallica
+	\item Género: \textit{Power Ballad}
+	\item Frecuencia de muestreo: 44.1 kHz
+	\item Resolución: 16 bits
+	\item Duración: 6:26
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\diagbox[width=15em]{Resolución}{\\\textit{Códec}} & \textsc{ mp3 } & \textsc{ aac } & \textsc{ wma } & \textsc{vorbis} & \textsc{ opus } \\ \hline
+
+32 bits & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+ 
+16 bits & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+ 
+ 8 bits & \makecell{3º\\ \includegraphics[width=0.03\textwidth]{r.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{4º\\ \includegraphics[width=0.03\textwidth]{m.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+\end{tabular}
+\caption{Tabla comparativa}
+\label{my-label}
+\end{table}
+
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textsc{mp3} y \textsc{wma}, 32 bits y 16 bits: se escuchan iguales a la original, y, al igual que la canción anterior, han sido colocadas como las 2ª por cómo se escuchan con una resolución de 8 bits.
+	\item \textsc{aac, vorbis} y \textsc{opus}, 32 bits y 16 bits: iguales a la original.
+	\item \textsc{vorbis} y \textsc{opus}, 8 bits: no se pierde nada de calidad de audio, se escuchan exactamente igual a la original.
+	\item \textsc{aac}, 8bits: casi igual a la original. Se escucha algo más grave, como si hubiesen tapado parcialmente el micrófono.
+	\item \textsc{mp3}, 8 bits: se escucha bastante mejor que la canción del caso anterior para esta misma resolución, pero sigue perdiendo calidad con respecto a la original.
+	\item \textsc{wma}, 8bits: se escucha un zumbido, el sonido no esta para nada claro.
+\end{enumerate}
+
+\subsection{The logical song}
+
+\begin{itemize}
+	\item Canción: The logical song
+	\item Artista: Supertramp
+	\item Género: Rock progresivo
+	\item Frecuencia de muestreo: 44.1 kHz
+	\item Resolución: 16 bits
+	\item Duración: 4:10
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\diagbox[width=15em]{Resolución}{\\\textit{Códec}} & \textsc{ mp3 } & \textsc{ aac } & \textsc{ wma } & \textsc{vorbis} & \textsc{ opus } \\ \hline
+
+32 bits & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+ 
+16 bits & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+ 
+ 8 bits & \makecell{3º\\ \includegraphics[width=0.03\textwidth]{m.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{4º\\ \includegraphics[width=0.03\textwidth]{mm.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+\end{tabular}
+\caption{Tabla comparativa}
+\label{my-label}
+\end{table}
+
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textsc{mp3, aac} y \textsc{wma}, 32 bits y 16 bits: en este caso, sí que se nota diferencia con la original, quizá por el tipo de canción o el tipo de instrumentos que se están utilizando. No se pierde casi calidad, pero sí se nota diferencia respecto a \textsc{vorbis} y \textsc{opus}.
+	\item \textsc{vorbis} y \textsc{opus}, 32, 16 y 8 bits: son iguales a la versión original, no se aprecia diferencia.
+	\item \textsc{mp3}, 8 bits: se escucha bastante mal, la melodía se escucha más grave, como si hubiese sido distorsionada.
+	\item \textsc{aac}, 8 bits: al igual que con 16 y 32 bits, se escucha muy similar a la versión original, no hay diferencias demasiado significativas aunque sí se aprecia un leve cambio en la tonalidad.
+	\item \textsc{wma}, 8 bits: se escucha muy mal, hay mucho ruido y se escucha la voz muy grave y baja, como si hubiese disminuido el volumen de la voz y aumentado el del ruido de fondo.
+\end{enumerate}
+
+\subsection{Smells like teen spirit}
+
+\begin{itemize}
+	\item Canción: Smells like teen spirit
+	\item Artista: Nirvana
+	\item Género: Grunge
+	\item Frecuencia de muestreo: 44.1 kHz
+	\item Resolución: 16 bits
+	\item Duración: 4:33
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\diagbox[width=15em]{Resolución}{\\\textit{Códec}} & \textsc{ mp3 } & \textsc{ aac } & \textsc{ wma } & \textsc{vorbis} & \textsc{ opus } \\ \hline
+
+32 bits & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+ 
+16 bits & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+ 
+ 8 bits & \makecell{3º\\ \includegraphics[width=0.03\textwidth]{r.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{b.png}} & \makecell{4º\\ \includegraphics[width=0.03\textwidth]{m.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+\end{tabular}
+\caption{Tabla comparativa}
+\label{my-label}
+\end{table}
+
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textsc{mp3} y \textsc{wma}, 32 y 16 bits: se escuchan similares a la original aunque con matices distintos. Son muy similares y tienen buena calidad aunque no tan buena como la original.
+	\item \textsc{aac, vorbis} y \textsc{opus}, 16 y 32 bits: iguales a la original, no hay diferencia.
+	\item \textsc{mp3}, 8 bits: se escucha regular, mejor que otras canciones para esta misma resolución pero se nota como ha perdido calidad de la original.
+	\item \textsc{aac}, 8 bits: pierde un poco de calidad con respecto a la original o al mismo \textit{códec} con otras resoluciones, pero se sigue escuchando muy bien, la diferencia es poco llamativa.
+	\item \textsc{wma}, 8 bits: de nuevo, al igual que en los casos anteriores, hay mucho ruido de fondo, pierde mucha calidad respecto a la original y respecto a otros \textit{códecs} para la misma resolución.
+	\item \textsc{vorbis} y \textsc{opus}, 8 bits: iguales a la original, no se aprecian cambios.
+\end{enumerate}
+
+\subsection{Animales de laboratorio}
+
+\begin{itemize}
+	\item Canción: Animales de laboratorio
+	\item Artista: Ska-P
+	\item Género: Ska-Punk
+	\item Frecuencia de muestreo: 44.1 kHz
+	\item Resolución: 16 bits
+	\item Duración: 4:48
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\diagbox[width=15em]{Resolución}{\\\textit{Códec}} & \textsc{ mp3 } & \textsc{ aac } & \textsc{ wma } & \textsc{vorbis} & \textsc{ opus } \\ \hline
+
+32 bits & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+ 
+16 bits & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+ 
+ 8 bits & \makecell{3º\\ \includegraphics[width=0.03\textwidth]{r.png}} & \makecell{2º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{4º\\ \includegraphics[width=0.03\textwidth]{m.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} & \makecell{1º\\ \includegraphics[width=0.03\textwidth]{mb.png}} \\ \hline
+\end{tabular}
+\caption{Tabla comparativa}
+\label{my-label}
+\end{table}
+
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textsc{mp3, aac, wma, vorbis} y \textsc{opus}, 32 y 16 bits: en esta canción no se aprecian diferencias con la original, quizá porque el estilo de la canción de por sí es ciertamente ruidoso y las pequeñas variaciones que se hubiesen producido no son apreciables.
+	\item \textsc{mp3}, 8 bits: en este caso sí se aprecia diferencia; la canción se hace más grave y se pierden timbres más agudos que sí estaban en la original.
+	\item \textsc{aac}, 8 bits: practicamente igual a la original, se pierden algunos timbres pero casi imperceptible.
+	\item \textsc{wma}, 8 bits: mucha diferencia con la original, hay ruido y se pierden más timbres que con \textsc{mp3}, definitivamente el peor.
+	\item \textsc{vorbis} y \textsc{opus}, 8 bits: se escuchan exactamente igual a la original, no hay variación apreciable.
+\end{enumerate}
+
+\subsection{Conclusiones}
+
+Como se ha podido comprobar tras este estudio, los \textit{códecs} en general, con una resolución de 16 o 32 bits (mejor de 16 puesto que ocupa menos espacio y se escuchan exactamente igual) las canciones no pierden practicamente nada o nada de la calidad original, por lo que merece la pena reducir el espacio que ocupan si conseguimos que la calidad sea la misma.\\
+
+No obstante, utilizando resoluciones de 8 bits, la cosa cambia. \textit{Códecs} clásicos como \textsc{mp3} y \textsc{wma} pierden mucha calidad (en algunos casos maś que en otros, depende del tipo de sonidos que tenga la canción) con respecto a la original, mientras que los \textit{códecs} más recientes como \textsc{vorbis} u \textsc{opus} mantienen la misma calidad siempre y no se aprecian diferencias con respecto a la pista de sonido inicial.\\
+
+A pesar de todo, esto es subjetivo y depende mucho de la capacidad auditiva de cada uno. Según lo que yo he ido escuchando en las distintas pistas y con todas las modificiaciones, mi clasificación de mejor a peor \textit{códec} sería la siguiente:
+
+\begin{enumerate}
+	\item \textsc{vorbis} y \textsc{opus}, al mismo nivel.
+	\item \textsc{aac}, en segundo puesto.
+	\item \textsc{mp3}, ya que mantiene mejor la calidad que \textsc{wma} según he comprobado.
+	\item \textsc{wma}, sin duda, para mi gusto, el que pierde más calidad.
+\end{enumerate}
+
+\newpage
+
+\section{Software utilizado}
+
+Para poder cambiar los parámetros de digitalización y para poder cambiar los distintos \textit{códecs}, se ha utilizado \textbf{\textit{SoundConverter}}, que permite modificar y generar pistas de audio como se desee, con distintas frecuencias de muestreo (hay más frecuencias de las que se han utilizado en las tablas del apartado de parámetros de digitalización).\\
+
+\begin{itemize}
+	\item \textcolor{blue}{\url{https://soundconverter.org/}}
+\end{itemize}
+
+\section{Bibliografía}
+
+\begin{itemize}
+	\item Transparencias de teoría de Sistemas Multimedia: el sonido
+	\item \footnotesize{\textcolor{blue}{\url{https://www.maketecheasier.com/convert-flac-to-mp3-easily-with-soundconverter/}}}
+\end{itemize}
+
+\end{document}
