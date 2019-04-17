@@ -299,7 +299,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         panel_desp_filtros.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
 
-        desplegable_filtro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Media", "Binomial", "Enfoque", "Relieve", "Laplaciano" }));
+        desplegable_filtro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Media", "Binomial", "Enfoque", "Relieve", "Laplaciano", "Media 5x5", "Media 7x7" }));
         desplegable_filtro.addActionListener(formListener);
         panel_desp_filtros.add(desplegable_filtro);
 
@@ -404,6 +404,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == boton_verde) {
                 VentanaPrincipal.this.boton_verdeActionPerformed(evt);
             }
+            else if (evt.getSource() == desplegable_filtro) {
+                VentanaPrincipal.this.desplegable_filtroActionPerformed(evt);
+            }
             else if (evt.getSource() == menu_op_barra_est) {
                 VentanaPrincipal.this.menu_op_barra_estActionPerformed(evt);
             }
@@ -418,9 +421,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == menu_op_convolveop) {
                 VentanaPrincipal.this.menu_op_convolveopActionPerformed(evt);
-            }
-            else if (evt.getSource() == desplegable_filtro) {
-                VentanaPrincipal.this.desplegable_filtroActionPerformed(evt);
             }
         }
 
@@ -676,6 +676,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void desplegable_filtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegable_filtroActionPerformed
         String opcion = String.valueOf(desplegable_filtro.getSelectedItem());
         float data[] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+        float data5[] = new float[25];
+        float data7[] = new float[49];
         Kernel k = new Kernel(3, 3, data);
         VentanaInterna vi = (VentanaInterna)(escritorio.getSelectedFrame());
         
@@ -697,6 +699,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     break;
                 case "Laplaciano":
                     k = KernelProducer.createKernel(KernelProducer.TYPE_LAPLACIANA_3x3);
+                    break;
+                case "Media 5x5":
+                    for(int i=0; i<25; i++)
+                        data5[i] = 0.04f;
+                    k = new Kernel(5, 5, data5);
+                    break;
+                case "Media 7x7":
+                    for(int i=0; i<49; i++)
+                        data7[i] = 0.02f;
+                    k = new Kernel(7, 7, data7);
                     break;
             }
 
