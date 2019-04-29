@@ -4,18 +4,20 @@
  * and open the template in the editor.
  */
 package aplicacionpractica10;
+import java.io.File;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.awt.image.*;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import sm.image.KernelProducer;
 import sm.image.LookupTableProducer;
@@ -775,17 +777,38 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_boton_nuevoActionPerformed
 
     private void boton_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_abrirActionPerformed
+        FileFilter jpg = new FileNameExtensionFilter("JPEG file", "jpg", "jpeg");
+        FileFilter png = new FileNameExtensionFilter("PNG file", "png");
         JFileChooser dlg = new JFileChooser();
+        dlg.addChoosableFileFilter(jpg);
+        dlg.addChoosableFileFilter(png);
         int resp = dlg.showOpenDialog(this);
         if(resp == JFileChooser.APPROVE_OPTION) {
             try {
                 File f = dlg.getSelectedFile();
-                BufferedImage img = ImageIO.read(f);
-                VentanaInterna vi = new VentanaInterna();
-                ((LienzoImagen2D)(vi.getLienzo())).setImagen(img);
-                this.escritorio.add(vi);
-                vi.setTitle(f.getName());
-                vi.setVisible(true);
+                
+                String[] formatos = ImageIO.getReaderFormatNames();
+                boolean encontrado = false;
+                int i = 0;
+                
+                while(i<formatos.length && !encontrado){
+                    if(formatos[i].equals("jpg") || formatos[i].equals("png"))
+                        encontrado = true;
+                    
+                    i++;
+                }
+                
+                if(encontrado){
+                    BufferedImage img = ImageIO.read(f);
+                    VentanaInterna vi = new VentanaInterna();
+                    ((LienzoImagen2D)(vi.getLienzo())).setImagen(img);
+                    this.escritorio.add(vi);
+                    vi.setTitle(f.getName());
+                    vi.setVisible(true);
+                }
+                
+                else
+                    System.err.println("Formato no soportado");
             }catch(Exception e){
                 System.err.println("Error al leer la imagen");
             }
@@ -795,17 +818,44 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void boton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_guardarActionPerformed
         VentanaInterna vi = (VentanaInterna) escritorio.getSelectedFrame();
         if(vi != null){
+            FileFilter jpg = new FileNameExtensionFilter("JPEG file", "jpg", "jpeg");
+            FileFilter png = new FileNameExtensionFilter("PNG file", "png");
             JFileChooser dlg = new JFileChooser();
+            dlg.addChoosableFileFilter(jpg);
+            dlg.addChoosableFileFilter(png);
             int resp = dlg.showSaveDialog(this);
             if(resp == JFileChooser.APPROVE_OPTION) {
                 try {
                     BufferedImage img = ((LienzoImagen2D)(vi.getLienzo())).getImagen(true);
                     if(img != null){
                         File f = dlg.getSelectedFile();
-                        ImageIO.write(img, "jpg", f);
-                        vi.setTitle(f.getName());
+                        String[] formatos = ImageIO.getWriterFormatNames();
+                        boolean encontrado = false;
+                        int i = 0;
+                        String extension = f.getPath().substring(f.getPath().lastIndexOf("."));
+
+                        while(i<formatos.length && !encontrado){
+                            if(formatos[i].equals("jpg") || formatos[i].equals("png"))
+                                encontrado = true;
+                            
+                            i++;
+                        }
+
+                        if(encontrado){
+                            if(extension.equals(".jpg"))
+                                ImageIO.write(img, "jpg", f);
+
+                            else if(extension.equals(".png"))
+                                ImageIO.write(img, "png", f);
+
+                            vi.setTitle(f.getName());
+                        }
+                        
+                        else
+                            System.out.println("Formato no soportado");
                     }
                 }catch(Exception e){
+                    System.err.print(e);
                     System.err.println("Error al guardar la imagen");
                 }
             }
