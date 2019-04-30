@@ -48,7 +48,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             desplegable_color.addItem(tmp);
         }
         
-        this.setSize(800, 800);     
+        this.setSize(1200, 1000);     
     }
     
     private void Escalado(float escalado){
@@ -116,16 +116,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     public LookupTable seno(double w){
-        byte data[][] = new byte[3][256];
+        byte data[] = new byte[256];
         double K = 255.0;
+        double f;
         
         for(int i=0; i<256; i++){
-            double f = K*(Math.abs(Math.sin(i*w)));
-            
-            data[0][i] = data[1][i] = data[2][i] = (byte)f;
+            f = (Math.abs(Math.sin(Math.toRadians(i*w))));
+            data[i] = (byte)(K*f);
         }
         
-        LookupTable t = new ByteLookupTable(0, data);
+        ByteLookupTable t = new ByteLookupTable(0, data);
         return t;
     }
 
@@ -1085,7 +1085,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_slider_rotacionFocusLost
 
     private void slider_rotacionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider_rotacionStateChanged
-        Rotacion(slider_rotacion.getValue(), null);
+        VentanaInterna vi = (VentanaInterna)(escritorio.getSelectedFrame());
+        
+        if(vi != null){
+            BufferedImage img_source = ((LienzoImagen2D)(vi.getLienzo())).getImagen();
+            if(img_source != null){
+                try{
+                    double r = Math.toRadians(slider_rotacion.getValue());
+                    Point c = new Point(img_aux.getWidth()/2, img_aux.getHeight()/2);
+                    AffineTransform at = AffineTransform.getRotateInstance(r, c.x, c.y);
+                    AffineTransformOp atop = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+                    BufferedImage dest = atop.filter(img_source, null);
+                    ((LienzoImagen2D)(vi.getLienzo())).setImagen(dest);
+                    vi.repaint();
+                }catch(IllegalArgumentException e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+        }
     }//GEN-LAST:event_slider_rotacionStateChanged
 
     
