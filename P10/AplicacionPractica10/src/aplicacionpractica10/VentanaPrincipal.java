@@ -1088,7 +1088,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaInterna vi = (VentanaInterna)(escritorio.getSelectedFrame());
         
         if(vi != null){
-            BufferedImage img_source = ((LienzoImagen2D)(vi.getLienzo())).getImagen();
+            BufferedImage img_source = img_aux;
             if(img_source != null){
                 try{
                     double r = Math.toRadians(slider_rotacion.getValue());
