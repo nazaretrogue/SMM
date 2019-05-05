@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package aplicacionpractica11;
-import java.io.File;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;
@@ -15,18 +14,14 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 import java.io.File;
 import javax.imageio.ImageIO;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import sm.image.KernelProducer;
 import sm.image.LookupTableProducer;
-import sm.nrg.iu.LienzoImagen2D;
-import sm.nrg.iu.TipoHerramienta;
 import sm.nrg.iu.*;
+import sm.nrg.image.SepiaOp;
 
 /**
  *
@@ -289,6 +284,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barra_herramientas.add(boton_seleccion);
         barra_herramientas.add(separador2);
 
+        desplegable_color.setToolTipText("Colores");
         desplegable_color.setPreferredSize(new java.awt.Dimension(50, 30));
         desplegable_color.setRenderer(new ColorRender());
         desplegable_color.addActionListener(formListener);
@@ -348,7 +344,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panel_desp_filtros.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
 
         desplegable_filtro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Media", "Binomial", "Enfoque", "Relieve", "Laplaciano", "Media 5x5", "Media 7x7" }));
-        desplegable_filtro.setToolTipText("Desplegable de filtros");
+        desplegable_filtro.setToolTipText("Filtros");
         desplegable_filtro.addActionListener(formListener);
         panel_desp_filtros.add(desplegable_filtro);
 
@@ -379,6 +375,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panel_sinusoidal.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         boton_seno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sinusoidal.png"))); // NOI18N
+        boton_seno.setToolTipText("Filtro sinusoidal");
         boton_seno.setFocusable(false);
         boton_seno.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_seno.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -386,6 +383,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panel_sinusoidal.add(boton_seno);
 
         boton_sepia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/sepia.png"))); // NOI18N
+        boton_sepia.setToolTipText("Sepia");
+        boton_sepia.addActionListener(formListener);
         panel_sinusoidal.add(boton_sepia);
 
         barra_atr.add(panel_sinusoidal);
@@ -393,10 +392,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panel_cs.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Color", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
 
         boton_bandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/bandas.png"))); // NOI18N
+        boton_bandas.setToolTipText("Extracción de bandas");
         boton_bandas.addActionListener(formListener);
         panel_cs.add(boton_bandas);
 
         desplegable_cs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "sRGB", "PYCC", "GRAY" }));
+        desplegable_cs.setToolTipText("Espacios de color");
         desplegable_cs.addActionListener(formListener);
         panel_cs.add(desplegable_cs);
 
@@ -559,6 +560,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == boton_seno) {
                 VentanaPrincipal.this.boton_senoActionPerformed(evt);
             }
+            else if (evt.getSource() == boton_sepia) {
+                VentanaPrincipal.this.boton_sepiaActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_bandas) {
+                VentanaPrincipal.this.boton_bandasActionPerformed(evt);
+            }
+            else if (evt.getSource() == desplegable_cs) {
+                VentanaPrincipal.this.desplegable_csActionPerformed(evt);
+            }
             else if (evt.getSource() == boton_rot90) {
                 VentanaPrincipal.this.boton_rot90ActionPerformed(evt);
             }
@@ -600,12 +610,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == menu_op_colorconvert) {
                 VentanaPrincipal.this.menu_op_colorconvertActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_bandas) {
-                VentanaPrincipal.this.boton_bandasActionPerformed(evt);
-            }
-            else if (evt.getSource() == desplegable_cs) {
-                VentanaPrincipal.this.desplegable_csActionPerformed(evt);
             }
         }
 
@@ -1207,6 +1211,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_desplegable_csActionPerformed
+
+    private void boton_sepiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_sepiaActionPerformed
+        VentanaInterna vi = (VentanaInterna)(escritorio.getSelectedFrame());
+        
+        if(vi != null){
+            BufferedImage img_source = ((LienzoImagen2D)(vi.getLienzo())).getImagen();
+            if(img_source != null){
+                try{
+                    SepiaOp sop = new SepiaOp();
+                    sop.filter(img_source, img_source);
+                    vi.repaint();
+                }catch(IllegalArgumentException e){
+                    System.err.println(e.getLocalizedMessage());
+                }
+            }
+            
+            RepintarEscritorio();
+        }
+    }//GEN-LAST:event_boton_sepiaActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
