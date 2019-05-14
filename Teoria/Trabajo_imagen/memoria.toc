@@ -9,5 +9,5 @@
 \contentsline {subsection}{\numberline {1.6}Imagen con texto}{7}{subsection.1.6}
 \contentsline {subsection}{\numberline {1.7}Imagen gr\IeC {\'a}fica}{8}{subsection.1.7}
 \contentsline {subsection}{\numberline {1.8}Conclusiones}{9}{subsection.1.8}
-\contentsline {section}{\numberline {2}Software utilizado}{9}{section.2}
-\contentsline {section}{\numberline {3}Bibliograf\IeC {\'\i }a}{9}{section.3}
+\contentsline {section}{\numberline {2}Software utilizado}{10}{section.2}
+\contentsline {section}{\numberline {3}Bibliograf\IeC {\'\i }a}{10}{section.3}
