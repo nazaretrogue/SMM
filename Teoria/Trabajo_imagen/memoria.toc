@@ -2,8 +2,9 @@
 \babel@toc {spanish}{}
 \contentsline {section}{\numberline {1}Par\IeC {\'a}metros}{2}{section.1}
 \contentsline {subsection}{\numberline {1.1}Imagen con pocos colores}{3}{subsection.1.1}
-\contentsline {subsection}{\numberline {1.2}Imagen con muchos colores}{3}{subsection.1.2}
-\contentsline {subsection}{\numberline {1.3}Retrato}{4}{subsection.1.3}
+\contentsline {subsubsection}{\numberline {1.1.1}Conclusi\IeC {\'o}n}{4}{subsubsection.1.1.1}
+\contentsline {subsection}{\numberline {1.2}Imagen con muchos colores}{4}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Retrato}{5}{subsection.1.3}
 \contentsline {subsection}{\numberline {1.4}Imagen con pocas texturas}{5}{subsection.1.4}
 \contentsline {subsection}{\numberline {1.5}Imagen con muchas texturas}{6}{subsection.1.5}
 \contentsline {subsection}{\numberline {1.6}Imagen con texto}{7}{subsection.1.6}
