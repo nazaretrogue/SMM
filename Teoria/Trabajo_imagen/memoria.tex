@@ -149,15 +149,22 @@ Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga
 \label{tab:my-table}
 \end{table}
 
-\newpage
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textsc{bmp} y \textsc{gif}: en esta primera imagen, dan los mejores resultados debido a que la imagen debe verse en blanco y negro y no en escalas de gris. Por tanto, estos formatos que tienen menos profundidad de color hacen que la imagen se vea mucho mejor que en el resto de casos.
+	\item \textsc{tiff} sin compresión y con deflación, \textsc{jpeg} con calidad 100 y 50 y \textsc{png}: la imagen se ve bien, pero se introduce ruido, ya que los tonos que deberían ser negros se ven de una tonalidad oscura de gris. Teniendo en cuenta cómo debe ser esta imagen en concreto, con estos \textit{códecs} se ve peor que con los dos anteriores.
+	\item \textsc{jpeg} con calidad 5: no solo esta imagen introduce ruido, sino que además se ven múltiples ``manchas'' por toda la imagen, ya que al comprimir más, los pixeles toman los valores de alrededor y parece una imagen con parches. Se pierde mucha calidad respecto a los demás \textit{códecs}.
+\end{enumerate}
 
 \subsubsection{Conclusión}
 
 En esta imagen del manga de \textit{Tokyo Ghoul:re}, en escala de grises, aquellos \textit{códecs} que permiten menos profundidad de color, es decir, que tienen menos variedad de color (y por tanto menos tonos de gris), hace que los colores se marquen mejor ya que la finalidad de un manga es que se vea en blanco o negro. Por tanto, se aprecian mejor estos colores en \textsc{.gif} y \textsc{.bmp}
 
+\newpage
+
 \subsection{Imagen con muchos colores}
 
-Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga, los cuales son impresos en escala de grises.
+Esta imagen fue tomada en un parque con flores y vegetación, tiene una gran variedad de colores.
 
 \begin{itemize}
 	\item Formato original: \textsc{.dng}
@@ -175,23 +182,36 @@ Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga
 \hline
 \diagbox[width=15em]{\textit{Códec}/Formato}{\\Información} & Tamaño & Valoración & Ranking \\
 \hline
-\textsc{bmp} &  &  &  \\ \hline
-\textsc{tiff} sin compresión &  &  &  \\ \hline
-\textsc{tiff} con deflación &  &  &  \\ \hline
-\textsc{gif} &  &  &  \\ \hline
-\textsc{jpeg} con calidad :100 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :50 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :5 &  &  &  \\ \hline
-\textsc{png} &  &  &  \\ \hline
+\textsc{bmp} & 36.4 MB & \includegraphics[width=0.03\textwidth]{r.png} & 3º \\ \hline
+\textsc{tiff} sin compresión & 36.6 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{tiff} con deflación & 29.5 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{gif} & 8.1 MB & \includegraphics[width=0.03\textwidth]{r.png} & 3º \\ \hline
+\textsc{jpeg} con calidad :100 & 36.4 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{jpeg} con calidad :50 & 22.4 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{jpeg} con calidad :5 & 328.7 kB & \includegraphics[width=0.03\textwidth]{mm.png} & 4º \\ \hline
+\textsc{png} & 27.1 MB & \includegraphics[width=0.03\textwidth]{b.png} & 2º \\ \hline
 \end{tabular}
 \caption{Imagen poco cromática}
 \label{tab:my-table}
 \end{table}
 
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textsc{tiff} sin compresión y con deflación, \textsc{jpeg} con calidad 100 y 50: la imagen se ve perfecta, se aprecian todas las tonalidades fieles a la realidad y sin que se introduzca ruido en la imagen.
+	\item \textsc{png}: la imagen se ve muy bien, al igual que con los anteriores; no obstante, hay algunas tonalidades (las de las flores rojas por ejemplo) que se ven algo más claras al acercar la imagen. Pero aún así, la imagen a simple vista se ve perfecta.
+	\item \textsc{bmp} y \textsc{gif}: con estos formatos sí se ven muchas diferencias respecto a la imagen real, ya que cambian todos los colores y se pierde casi la parte de la imagen más oscura, en los árboles de la izquierda, donde, con estos \textit{códecs} se deja de ver con nitidez y claridad qué hay ahí.
+	\item \textsc{jpeg} con calidad 5: con esta compresión se pierde toda la calidad original. Se ven ``cuadraditos'' por toda la imagen y se aprecia por ejemplo la forma de las flores ya que se ven pixeladas.
+\end{enumerate}
+
+\subsubsection{Conclusión}
+
+Para esta imagen, son mucho mejores los \textit{códecs} que tienen una gran profundidad de colores y que mantienen la calidad, comprimiendo sin pérdidas o con pérdidas pero no excesivas. Por eso en el ranking los \textit{códecs} como \textsc{jpeg}, \textsc{tiff} o \textsc{png} son los que mejor se ven.
+
+\newpage
 
 \subsection{Retrato}
 
-Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga, los cuales son impresos en escala de grises.
+En este caso, trataremos una imagen de una persona.
 
 \begin{itemize}
 	\item Formato original: \textsc{.dng}
@@ -368,17 +388,18 @@ Además, en cada pista de las tres diferentes, las tablas varían, especialmente
 
 \section{Software utilizado}
 
-Para poder cambiar los parámetros de digitalización y para poder cambiar los distintos \textit{códecs}, se ha utilizado \textbf{\textit{SoundConverter}}, que permite modificar y generar pistas de audio como se desee, con distintas frecuencias de muestreo (hay más frecuencias de las que se han utilizado en las tablas del apartado de parámetros de digitalización).\\
+Para poder cambiar los distintos \textit{códecs} y variar sus parámetros de compresión, se ha utilizado \textbf{\textit{darktable}}, una aplicación de escritorio que permite modificar una enorme cantidad de parámetros de las imágenes, que muestra el histograma de cada una y que tiene dos posibilidades: utilizar el cuarto oscuro, donde se pueden modificar unos atributos concretos de las imágenes, o utilizar la mesa de luz, donde se pueden modificar otros.\\
 
 \begin{itemize}
-	\item \textcolor{blue}{\url{https://soundconverter.org/}}
+	\item \textcolor{blue}{\url{https://www.darktable.org/}}
 \end{itemize}
 
 \section{Bibliografía}
 
 \begin{itemize}
-	\item Transparencias de teoría de Sistemas Multimedia: el sonido
-	\item \footnotesize{\textcolor{blue}{\url{https://www.maketecheasier.com/convert-flac-to-mp3-easily-with-soundconverter/}}}
+	\item Transparencias de teoría de Sistemas Multimedia: la imagen
+	\item \textcolor{blue}{\url{https://www.darktable.org/usermanual/en/}}
+	\item \textcolor{blue}{\url{https://opensource.com/life/16/4/how-use-darktable-digital-darkroom}}
 \end{itemize}
 
 \end{document}

@@ -2,13 +2,16 @@
 \babel@toc {spanish}{}
 \contentsline {section}{\numberline {1}Par\IeC {\'a}metros}{2}{section.1}
 \contentsline {subsection}{\numberline {1.1}Imagen con pocos colores}{3}{subsection.1.1}
-\contentsline {subsubsection}{\numberline {1.1.1}Conclusi\IeC {\'o}n}{4}{subsubsection.1.1.1}
-\contentsline {subsection}{\numberline {1.2}Imagen con muchos colores}{4}{subsection.1.2}
-\contentsline {subsection}{\numberline {1.3}Retrato}{5}{subsection.1.3}
-\contentsline {subsection}{\numberline {1.4}Imagen con pocas texturas}{5}{subsection.1.4}
-\contentsline {subsection}{\numberline {1.5}Imagen con muchas texturas}{6}{subsection.1.5}
-\contentsline {subsection}{\numberline {1.6}Imagen con texto}{7}{subsection.1.6}
-\contentsline {subsection}{\numberline {1.7}Imagen gr\IeC {\'a}fica}{8}{subsection.1.7}
-\contentsline {subsection}{\numberline {1.8}Conclusiones}{9}{subsection.1.8}
-\contentsline {section}{\numberline {2}Software utilizado}{10}{section.2}
-\contentsline {section}{\numberline {3}Bibliograf\IeC {\'\i }a}{10}{section.3}
+\contentsline {subsubsection}{\numberline {1.1.1}Explicaciones a las valoraciones}{3}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Conclusi\IeC {\'o}n}{4}{subsubsection.1.1.2}
+\contentsline {subsection}{\numberline {1.2}Imagen con muchos colores}{5}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Explicaciones a las valoraciones}{5}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}Conclusi\IeC {\'o}n}{6}{subsubsection.1.2.2}
+\contentsline {subsection}{\numberline {1.3}Retrato}{7}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Imagen con pocas texturas}{7}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}Imagen con muchas texturas}{8}{subsection.1.5}
+\contentsline {subsection}{\numberline {1.6}Imagen con texto}{9}{subsection.1.6}
+\contentsline {subsection}{\numberline {1.7}Imagen gr\IeC {\'a}fica}{10}{subsection.1.7}
+\contentsline {subsection}{\numberline {1.8}Conclusiones}{11}{subsection.1.8}
+\contentsline {section}{\numberline {2}Software utilizado}{12}{section.2}
+\contentsline {section}{\numberline {3}Bibliograf\IeC {\'\i }a}{12}{section.3}
