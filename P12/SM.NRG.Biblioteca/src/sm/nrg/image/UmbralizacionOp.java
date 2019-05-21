@@ -74,10 +74,8 @@ public class UmbralizacionOp extends BufferedImageOpAdapter {
     private boolean EsCompatible(BufferedImage img){
         boolean comp = true;
         
-        if(img.getColorModel().getColorSpace().toString() != "CS_GRAY"){
+        if(img.getColorModel().getColorSpace().toString() != "CS_GRAY")
             comp = false;
-            System.out.println("distinto");
-        }
         
         return comp;
     }
