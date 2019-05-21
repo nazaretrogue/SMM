@@ -20,6 +20,9 @@ public class SepiaOp extends sm.image.BufferedImageOpAdapter{
     
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {
+        if(src == null)
+            throw new NullPointerException("Imagen fuente nula");
+        
         if(dest == null)
             dest = createCompatibleDestImage(src, null);
         

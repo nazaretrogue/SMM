@@ -96,7 +96,7 @@ Vamos a comparar distintas imágenes, 7 imágenes concretamente. Para ello, util
 	\item Imagen con mucha riqueda cromática (\textsc{crom.dng}).
 	\item Imagen de una persona (\textsc{retrato.dng}).
 	\item Imagen con pocas texturas (\textsc{pocas\_texturas.dng}).
-	\item Imagen con muchas texturas (\textsc{texturas.bmp}).
+	\item Imagen con muchas texturas (\textsc{texturas.dng}).
 	\item Imagen con texto (\textsc{texto.bmp}).
 	\item Imagen gráfica (\textsc{graficos.bmp}).
 \end{enumerate}
@@ -229,23 +229,36 @@ En este caso, trataremos una imagen de una persona.
 \hline
 \diagbox[width=15em]{\textit{Códec}/Formato}{\\Información} & Tamaño & Valoración & Ranking \\
 \hline
-\textsc{bmp} &  &  &  \\ \hline
-\textsc{tiff} sin compresión &  &  &  \\ \hline
-\textsc{tiff} con deflación &  &  &  \\ \hline
-\textsc{gif} &  &  &  \\ \hline
-\textsc{jpeg} con calidad :100 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :50 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :5 &  &  &  \\ \hline
-\textsc{png} &  &  &  \\ \hline
+\textsc{bmp} & 36.4 MB & \includegraphics[width=0.03\textwidth]{r.png} & 3º \\ \hline
+\textsc{tiff} sin compresión & 36.6 MB & \includegraphics[width=0.03\textwidth]{b.png} & 2º \\ \hline
+\textsc{tiff} con deflación & 33.3 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{gif} & 9.2 MB & \includegraphics[width=0.03\textwidth]{r.png} & 3º \\ \hline
+\textsc{jpeg} con calidad :100 & 19 MB & \includegraphics[width=0.03\textwidth]{b.png} & 2º \\ \hline
+\textsc{jpeg} con calidad :50 & 729 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{jpeg} con calidad :5 & 104 kB & \includegraphics[width=0.03\textwidth]{mm.png} & 4º \\ \hline
+\textsc{png} & 23.7 MB & \includegraphics[width=0.03\textwidth]{b.png} & 2º \\ \hline
 \end{tabular}
 \caption{Imagen poco cromática}
 \label{tab:my-table}
 \end{table}
 
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textsc{tiff} con deflación y \textsc{jpeg} con calidad 50: con mi subjetiva opinión, la imagen en con estos \textit{códecs} se ve mejor, ya que se eliminan brillos (como los de la nariz) que hacen que los rasgos se vean mejor definidos, ya que se quita parte del ``haz'' de luz.
+	\item \textsc{tiff} sin compresión, \textsc{jpeg} con calidad 100 y \textsc{png}: por sorprendente que parezca, estos \textit{códecs} mantienen la luz que le da al rostro y hacen que los rasgos faciales se vean menos definidos, ya que se eliminan sombras que dan profundidad (se ve especialmente en la nariz).
+	\item \textsc{bmp} y \textsc{gif}: en estos casos, la imagen se ve peor, ya que todos los colores se ven oscurecidos. El pelo y la piel se ven mucho más oscuros, por lo que, aunque se mantenga nitidez y se aprecien bien los rasgos, se ha perdido riqueza de color.
+	\item \textsc{jpeg} con calidad 5: al igual que en las imágenes anteriores, se ven cuadrados de un mismo color por toda la imagen y se pierden todos los detalles, como por ejemplo el color de ojos; se pierde toda la nitidez, la calidad es muy mala.
+\end{enumerate}
+
+\subsubsection{Conclusión}
+
+En esta imagen, a pesar de que lo lógico hubiese sido que los formatos sin pérdidas se viesen mejor, en este caso no es así, ya que el hecho de perder intensidad de la luz hace que el contorno de las partes de la cara se vean mejor definidas, lo que hace que el aspecto visual de la imagen sea más nítido.
+
+\newpage
 
 \subsection{Imagen con pocas texturas}
 
-Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga, los cuales son impresos en escala de grises.
+La imagen que vamos a modificar ahora está sacada de un tablón de madera que forma parte de la puerta de un armario.
 
 \begin{itemize}
 	\item Formato original: \textsc{.dng}
@@ -263,23 +276,35 @@ Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga
 \hline
 \diagbox[width=15em]{\textit{Códec}/Formato}{\\Información} & Tamaño & Valoración & Ranking \\
 \hline
-\textsc{bmp} &  &  &  \\ \hline
-\textsc{tiff} sin compresión &  &  &  \\ \hline
-\textsc{tiff} con deflación &  &  &  \\ \hline
-\textsc{gif} &  &  &  \\ \hline
-\textsc{jpeg} con calidad :100 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :50 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :5 &  &  &  \\ \hline
-\textsc{png} &  &  &  \\ \hline
+\textsc{bmp} & 36.4 MB & \includegraphics[width=0.03\textwidth]{b.png} & 2º \\ \hline
+\textsc{tiff} sin compresión & 36.6 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{tiff} con deflación & 29.9 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{gif} & 10.8 MB & \includegraphics[width=0.03\textwidth]{b.png} & 2º \\ \hline
+\textsc{jpeg} con calidad :100 & 19.2 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{jpeg} con calidad :50 & 694.3 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{jpeg} con calidad :5 & 95.3 kB & \includegraphics[width=0.03\textwidth]{mm.png} & 3º \\ \hline
+\textsc{png} & 23.7 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
 \end{tabular}
 \caption{Imagen poco cromática}
 \label{tab:my-table}
 \end{table}
 
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textsc{tiff} sin compresión y con deflación, \textsc{jpeg} con calidad 100 y 50 y \textsc{png}: la calidad y los colores originales se conservan, es nítida y se ve muy bien.
+	\item \textsc{bmp} y \textsc{gif}: de nuevo, muy nítida y con la calidad original, pero en estos dos casos, los colores se oscurecen bastante, por lo que la madera parece de otro tipo. No obstante, se siguen apreciando todos los detalles del veteado de la madera.
+	\item \textsc{jpeg} con calidad 5: al igual que en todo los casos de imágenes anteriores, la imagen se ve pixelada, con colores violetas en la parte donde la madera recibe más luz incluso. No conserva nada de calidad.
+\end{enumerate}
+
+\subsubsection{Conclusión}
+
+En una imagen con pocos cambios de color y de textura como ha sido ésta, casi cualquier \textit{códec} que utilicemos va a hacer que la imagen consiga mantener su calidad y todos sus colores originales. Si bien es cierto que se puede ver más oscura o más clara dependiendo de la profundidad de color que acepte el \textit{códec}, los detalles se han mantenido iguales en casi todos los casos. 
+
+\newpage
 
 \subsection{Imagen con muchas texturas}
 
-Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga, los cuales son impresos en escala de grises.
+Esta fotografía fue sacada de un parque en octubre.
 
 \begin{itemize}
 	\item Formato original: \textsc{.bmp}
@@ -297,23 +322,34 @@ Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga
 \hline
 \diagbox[width=15em]{\textit{Códec}/Formato}{\\Información} & Tamaño & Valoración & Ranking \\
 \hline
-\textsc{bmp} &  &  &  \\ \hline
-\textsc{tiff} sin compresión &  &  &  \\ \hline
-\textsc{tiff} con deflación &  &  &  \\ \hline
-\textsc{gif} &  &  &  \\ \hline
-\textsc{jpeg} con calidad :100 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :50 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :5 &  &  &  \\ \hline
-\textsc{png} &  &  &  \\ \hline
+\textsc{bmp} & 5.8 MB & \includegraphics[width=0.03\textwidth]{r.png} & 2º \\ \hline
+\textsc{tiff} sin compresión & 5.8 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{tiff} con deflación & 4.6 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{gif} & 1.6 MB & \includegraphics[width=0.03\textwidth]{r.png} & 2º \\ \hline
+\textsc{jpeg} con calidad :100 & 1.9 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{jpeg} con calidad :50 & 318.6 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{jpeg} con calidad :5 & 52.4 kB & \includegraphics[width=0.03\textwidth]{mm.png} & 3º \\ \hline
+\textsc{png} & 3.8 MB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
 \end{tabular}
 \caption{Imagen poco cromática}
 \label{tab:my-table}
 \end{table}
 
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textsc{tiff} sin compresión y con deflación, \textsc{jpeg} con calidad 100 y 50 y \textsc{png}: en estos 5 casos, la imagen se ve perfecta: nítida, con gran cantidad de colores, con gran calidad... La imagen se mantiene tal y como se ve en la realidad.
+	\item \textsc{bmp} y \textsc{gif}: en este caso, la calidad cambia bastante, ya que la imagen se ven muy oscurecida con respecto a la original.
+	\item \textsc{jpeg} con calidad 5: de nuevo, la imagen se ve muy mal ya que está completamente pixelada, se pierden colores y los árboles parecen árboles del \textit{minecraft}, un juego donde el mundo es cuadrado.
+\end{enumerate}
+
+\subsubsection{Conclusión}
+En este caso, debido a la gran cantidad de colores y a la intensidad de los mismos, los \textsc{códecs} \textsc{gif} y \textsc{bmp} cambian mucho con respecto a otros casos, donde, es cierto que la imagen se oscurecia pero no tan drásticamente como en este caso.
+
+\newpage
 
 \subsection{Imagen con texto}
 
-Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga, los cuales son impresos en escala de grises.
+Esta imagen es la primera que no es una imagen tomada por mí, sino que es una imagen textual, artificial.
 
 \begin{itemize}
 	\item Formato original: \textsc{.bmp}
@@ -331,23 +367,36 @@ Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga
 \hline
 \diagbox[width=15em]{\textit{Códec}/Formato}{\\Información} & Tamaño & Valoración & Ranking \\
 \hline
-\textsc{bmp} &  &  &  \\ \hline
-\textsc{tiff} sin compresión &  &  &  \\ \hline
-\textsc{tiff} con deflación &  &  &  \\ \hline
-\textsc{gif} &  &  &  \\ \hline
-\textsc{jpeg} con calidad :100 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :50 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :5 &  &  &  \\ \hline
-\textsc{png} &  &  &  \\ \hline
+\textsc{bmp} & 480.1 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{tiff} sin compresión & 496.1 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{tiff} con deflación & 42.3 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{gif} & 9.8 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{jpeg} con calidad :100 & 52.6 kB & \includegraphics[width=0.03\textwidth]{r.png} & 2º \\ \hline
+\textsc{jpeg} con calidad :50 & 24.9 kB & \includegraphics[width=0.03\textwidth]{m.png} & 3º \\ \hline
+\textsc{jpeg} con calidad :5 & 16.5 kB & \includegraphics[width=0.03\textwidth]{mm.png} & 4º \\ \hline
+\textsc{png} & 28.6 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
 \end{tabular}
 \caption{Imagen poco cromática}
 \label{tab:my-table}
 \end{table}
 
+\subsubsection{Explicaciones de las valoraciones}
+\begin{enumerate}
+	\item \textsc{bmp}, \textsc{tiff} sin compresión y con deflación, \textsc{gif} y \textsc{png}: mantienen la calidad de la imagen original, ya que nos se ven ``manchas'' alrededor de las letras ni se ven excesivamente pixeladas cuando se aumenta mucho la imagen.
+	\item \textsc{jpeg} con calidad 100: aún no se aprecian manchas ni cuadrados grises alrededor de las letras pero sí se ve un mayor pixelado al hacer zoom en la imagen.
+	\item \textsc{jpeg} con calidad 50: se ven pequeños cuadrados grisáceos alrededor de las letras. Además, éstas se ven más pixeladas que antes.
+	\item \textsc{jpeg} con calidad 5: se ven muchos cuadrados grises dispersos por la imagen. Todas las letras se ven muy pixeladas a simple vista. Cuesta incluso leer bien el texto.
+\end{enumerate}
+
+\subsubsection{Conclusión}
+
+Para esta ocasión, las imágenes que han sido codificadas en \textsc{jpeg}, sin importar el grado de compresión que se le ha dado, pierden mucha calidad, ya que las letras están pixeladas, se ven manchas por toda la imagen, a veces incluso cuesta leerla... No obstante, con los demás \textit{códecs} la imagen está muy bien y solo se ven pixeles cuando se aumenta muchísimo el tamaño de la imagen (más del 400\% del zoom original).
+
+\newpage
 
 \subsection{Imagen gráfica}
 
-Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga, los cuales son impresos en escala de grises.
+Por último, tenemos otra imagen artificial, en este caso de un gráfico generado por ordenador, fruto de una práctica de la asignatura \textit{Informática Gráfica}, cursada en esta misma titulación.
 
 \begin{itemize}
 	\item Formato original: \textsc{.bmp}
@@ -365,26 +414,40 @@ Esta primera imagen, mostrada debajo, utilizaremos una imagen tomada de un manga
 \hline
 \diagbox[width=15em]{\textit{Códec}/Formato}{\\Información} & Tamaño & Valoración & Ranking \\
 \hline
-\textsc{bmp} &  &  &  \\ \hline
-\textsc{tiff} sin compresión &  &  &  \\ \hline
-\textsc{tiff} con deflación &  &  &  \\ \hline
-\textsc{gif} &  &  &  \\ \hline
-\textsc{jpeg} con calidad :100 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :50 &  &  &  \\ \hline
-\textsc{jpeg} con calidad :5 &  &  &  \\ \hline
-\textsc{png} &  &  &  \\ \hline
+\textsc{bmp} & 680.2 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{tiff} sin compresión & 696.3 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{tiff} con deflación & 52.4 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{gif} & 14.9 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{jpeg} con calidad :100 & 132.1 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
+\textsc{jpeg} con calidad :50 & 28.5 kB & \includegraphics[width=0.03\textwidth]{m.png} & 2º \\ \hline
+\textsc{jpeg} con calidad :5 & 16.7 kB & \includegraphics[width=0.03\textwidth]{mm.png} & 3º \\ \hline
+\textsc{png} & 29 kB & \includegraphics[width=0.03\textwidth]{mb.png} & 1º \\ \hline
 \end{tabular}
 \caption{Imagen poco cromática}
 \label{tab:my-table}
 \end{table}
 
+\subsubsection{Explicaciones a las valoraciones}
+\begin{enumerate}
+	\item \textit{bmp}, \textit{tiff} sin compresión y con deflación, \textit{gif}, \textit{jpeg} con calidad 100 y \textit{png}: en todos estos casos, la imagen se bien, solo se ven los pixeles al aumentar mucho el zoom. Pero a simple vista, la figura está nítida y clara, y los colores son los esperados.
+	\item \textit{jpeg} con calidad 50: esta opción es mucho peor que las anteriores. Los píxeles se ven mucho más de cerca y la imagen se ve algo borrosa. No se conserva bien la calidad como ocurre con el mismo \textit{códec} pero con calidad 100.
+	\item \textit{jpeg} con calidad 5: esta imagen se ve muy muy mal, se destacan todos los píxeles, la imagen se ve ``sucia'', con muchas manchas grises por toda la figura y ni siquiera se conservan los colores de los ejes sobre los que se sitúa la hormiga.
+\end{enumerate}
+
+\subsubsection{Conclusión}
+Para esta última imagen, la mayoría de \textit{códecs}, igual que ocurrió con el texto, son válidos, ya que mantienen muy bien la calidad original de la figura que se muestra. No obstante, \textit{jpeg} con una calidad inferior a 100, es decir, donde realmente hay pérdidas durante la compresión, trata muy mal a la imagen y hace que se vea mal. Se pierde definición en los bordes, e incluso se pierden colores.
+
+\newpage
 
 \subsection{Conclusiones}
 
-Como se ha observado en las tablas anteriores, la resolución de 8 bits siempre es muy mala, mala o regular en el mejor caso, ya que en todas las pistas de audio se escucha un zumbido muy molesto que hace que con esta resolución pierda mucha calidad y no sea agradable escuchar la pista de audio. Aunque el resto de la melodía y las voces se escuchen bien, ese ruido resulta muy desagradable y, aunque se mantenga la calidad del resto del audio, se hace imposible poner una buena calificación.\\
+Como se ha podido ir comprobando durante el estudio realizado, el \textit{códec} más adecuado para cada imagen depende de la naturaleza de la propia imagen. Según la variedad de color, de texturas, la definición de los bordes, la iluminación o si la imagen es natural o artifical, el \textit{códec} utilizado influye con mucho impacto a la hora de visualizar la imagen.\\
 
-Además, en cada pista de las tres diferentes, las tablas varían, especialmente la grabación de voz con respecto a las otras dos, tal vez debido a la calidad original del propio audio, lo que nos lleva a que la grabación, que originalmente estaba comprimida con el códec \textsc{aac}, tenga mucha diferencia con respecto a los audios que no tenían ningún tipo de compresión.
+No obstante, como se ha ido comprobando, el mejor \textit{códec} es el \textsc{tiff}, ya que es el que mejor mantiene todas las propiedades en todas las imágenes, en concreto el mejor es el \textsc{tiff} con deflación ya que los requerimientos de disco para imágenes comprimidas así son menores; no obstante, el formato \textsc{tiff} (al menos con las dos variantes que yo he utilizado), comprime más bien poco, y deja imágenes de gran tamaño, mientras que formatos como \textsc{jpeg} o incluso \textsc{png} o \textsc{gif} quizá no mantengan la calidad tan alta pero utilizan una cantidad de memoria considerablemente menor.\\
 
+Por tanto, y como conclusión final, podría decir que el mejor \textit{códec} es el \textsc{tiff} pero que a su vez, es el que requiere de una mayor cantidad de espacio en disco. La pregunta es, ¿prima la calidad sobre el espacio ocupado, o es al revés? Esa pregunta quizá dependa de la cantidad de espacio de la que dispongamos y del uso que le demos a cada fotografía.
+
+\newpage
 
 \section{Software utilizado}
 
@@ -401,5 +464,22 @@ Para poder cambiar los distintos \textit{códecs} y variar sus parámetros de co
 	\item \textcolor{blue}{\url{https://www.darktable.org/usermanual/en/}}
 	\item \textcolor{blue}{\url{https://opensource.com/life/16/4/how-use-darktable-digital-darkroom}}
 \end{itemize}
+
+\section{Enlaces de interés}
+
+Las imágenes utilizadas para el estudio, con los distintos \textit{códecs} y distintos parámetros se encuentran en el enlace aportado abajo. Los nombres de los archivos corresponden a las siguientes modificaciones (donde \textit{x} es el nombre de la imagen en particular):
+
+\begin{itemize}
+	\item \textsc{x.bmp} = imagen en formato \textsc{bmp}.
+	\item \textsc{xsin.tif} = imagen en formato \textsc{tif} sin compresión.
+	\item \textsc{xdef.tif} = imagen en formato \textsc{tif} con deflación.
+	\item \textsc{x.gif} = imagen en formato \textsc{gif}.
+	\item \textsc{x100.jpg} = imagen en formato \textsc{jpeg} con calidad 100.
+	\item \textsc{x50.jpg} = imagen en formato \textsc{jpeg} con calidad 50.
+	\item \textsc{x5.jpg} = imagen en formato \textsc{jpeg} con calidad 5.
+	\item \textsc{x.png} = imagen en formato \textsc{png}.
+\end{itemize}
+
+\footnotesize{\textcolor{blue}{\url{https://drive.google.com/drive/folders/167FG6zSFZ_Kf2PR5Bgbe2HG5bkr4Cg4K?usp=sharing}}}
 
 \end{document}
