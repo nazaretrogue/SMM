@@ -14,6 +14,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.filechooser.FileFilter;
@@ -27,6 +29,9 @@ import sm.nrg.image.SepiaOp;
 import sm.nrg.image.UmbralizacionOp;
 import sm.sound.SMClipPlayer;
 import sm.sound.SMPlayer;
+import sm.sound.SMRecorder;
+import sm.sound.SMSoundPlayerRecorder;
+import sm.sound.SMSoundRecorder;
 
 /**
  *
@@ -40,6 +45,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         initComponents();
         
+        boton_stop.setVisible(false);
+        boton_stop_record.setVisible(false);
         this.setSize(1200, 1000);   
     }
     
@@ -209,11 +216,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_es_aum = new javax.swing.JButton();
         panel_umbral = new javax.swing.JPanel();
         slider_umbral = new javax.swing.JSlider();
-        jSeparator1 = new javax.swing.JToolBar.Separator();
+        separador5 = new javax.swing.JToolBar.Separator();
         desplegable_reprod = new javax.swing.JComboBox<>();
         boton_play = new javax.swing.JButton();
         boton_stop = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        panel_barra_rep = new javax.swing.JPanel();
+        etiq_reprod_actual = new javax.swing.JLabel();
+        barra_reprod = new javax.swing.JProgressBar();
+        etiq_reprod_total = new javax.swing.JLabel();
+        boton_record = new javax.swing.JButton();
+        boton_stop_record = new javax.swing.JButton();
+        etiq_temp_record = new javax.swing.JLabel();
         panel_atr_lienzo = new javax.swing.JPanel();
         panel_atr_generico = new javax.swing.JPanel();
         barra_atr = new javax.swing.JToolBar();
@@ -475,17 +488,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panel_umbral.setToolTipText("Nivel de umbralización");
 
         slider_umbral.setMaximum(255);
+        slider_umbral.setToolTipText("Nivel de umbralización");
         slider_umbral.setValue(0);
         slider_umbral.addChangeListener(formListener);
         slider_umbral.addFocusListener(formListener);
         panel_umbral.add(slider_umbral);
 
         barra_herramientas.add(panel_umbral);
-        barra_herramientas.add(jSeparator1);
+        barra_herramientas.add(separador5);
 
+        desplegable_reprod.setToolTipText("Lista de pistas de audio");
         barra_herramientas.add(desplegable_reprod);
 
         boton_play.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/play24x24.png"))); // NOI18N
+        boton_play.setToolTipText("Reproducir/pausar canción actual");
         boton_play.setFocusable(false);
         boton_play.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_play.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -493,18 +509,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barra_herramientas.add(boton_play);
 
         boton_stop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/stop24x24.png"))); // NOI18N
-        boton_stop.setToolTipText("");
+        boton_stop.setToolTipText("Detener canción actual");
         boton_stop.setFocusable(false);
         boton_stop.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_stop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         boton_stop.addActionListener(formListener);
         barra_herramientas.add(boton_stop);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pausa24x24.png"))); // NOI18N
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        barra_herramientas.add(jButton1);
+        panel_barra_rep.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
+
+        etiq_reprod_actual.setText("00:00");
+        panel_barra_rep.add(etiq_reprod_actual);
+        panel_barra_rep.add(barra_reprod);
+
+        etiq_reprod_total.setText("00:00");
+        panel_barra_rep.add(etiq_reprod_total);
+
+        barra_herramientas.add(panel_barra_rep);
+
+        boton_record.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/record24x24.png"))); // NOI18N
+        boton_record.setToolTipText("Iniciar grabación");
+        boton_record.setFocusable(false);
+        boton_record.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_record.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_record.addActionListener(formListener);
+        barra_herramientas.add(boton_record);
+
+        boton_stop_record.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/stopRecord24x24.png"))); // NOI18N
+        boton_stop_record.setToolTipText("Detener grabación");
+        boton_stop_record.setFocusable(false);
+        boton_stop_record.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_stop_record.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_stop_record.addActionListener(formListener);
+        barra_herramientas.add(boton_stop_record);
+
+        etiq_temp_record.setText("00:00");
+        barra_herramientas.add(etiq_temp_record);
 
         getContentPane().add(barra_herramientas, java.awt.BorderLayout.NORTH);
 
@@ -667,6 +707,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == boton_es_aum) {
                 VentanaPrincipal.this.boton_es_aumActionPerformed(evt);
             }
+            else if (evt.getSource() == boton_play) {
+                VentanaPrincipal.this.boton_playActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_stop) {
+                VentanaPrincipal.this.boton_stopActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_record) {
+                VentanaPrincipal.this.boton_recordActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_stop_record) {
+                VentanaPrincipal.this.boton_stop_recordActionPerformed(evt);
+            }
+            else if (evt.getSource() == menu_op_abrir_audio) {
+                VentanaPrincipal.this.menu_op_abrir_audioActionPerformed(evt);
+            }
             else if (evt.getSource() == menu_op_barra_est) {
                 VentanaPrincipal.this.menu_op_barra_estActionPerformed(evt);
             }
@@ -693,15 +748,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == menu_op_colorconvert) {
                 VentanaPrincipal.this.menu_op_colorconvertActionPerformed(evt);
-            }
-            else if (evt.getSource() == menu_op_abrir_audio) {
-                VentanaPrincipal.this.menu_op_abrir_audioActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_play) {
-                VentanaPrincipal.this.boton_playActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_stop) {
-                VentanaPrincipal.this.boton_stopActionPerformed(evt);
             }
         }
 
@@ -824,35 +870,44 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         JFileChooser dlg = new JFileChooser();
         dlg.addChoosableFileFilter(jpg);
         dlg.addChoosableFileFilter(png);
+        
         int resp = dlg.showOpenDialog(this);
+        
         if(resp == JFileChooser.APPROVE_OPTION) {
             try {
-                File f = dlg.getSelectedFile();
+                File f = new File(dlg.getSelectedFile().getAbsolutePath()){
+                    @Override
+                    public String toString(){
+                        return this.getName();
+                    }
+                };               
                 
-                String[] formatos = ImageIO.getReaderFormatNames();
-                boolean encontrado = false;
-                int i = 0;
+                String[] nombre_archivo = f.toString().split("\\.");
                 
-                while(i<formatos.length && !encontrado){
-                    if(formatos[i].equals("jpg") || formatos[i].equals("png"))
-                        encontrado = true;
-                    
-                    i++;
+                switch(nombre_archivo[1]){
+                    case "jpeg":
+                    case "jpg":
+                    case "JPEG":
+                    case "JPG":
+                    case "PNG":
+                    case "png":
+                        BufferedImage img = ImageIO.read(f);
+                        VentanaInterna vi = new VentanaInterna();
+                        ((LienzoImagen2D)(vi.getLienzo())).setImagen(img);
+                        this.escritorio.add(vi);
+                        vi.setTitle(f.getName());
+                        vi.setVisible(true);
+                        break;
+                    case "wav":
+                    case "au":
+                        desplegable_reprod.addItem(f);
+                        desplegable_reprod.setSelectedItem(f);
+                        break;
+                    default:
+                        System.err.println("Formato no soportado");
                 }
-                
-                if(encontrado){
-                    BufferedImage img = ImageIO.read(f);
-                    VentanaInterna vi = new VentanaInterna();
-                    ((LienzoImagen2D)(vi.getLienzo())).setImagen(img);
-                    this.escritorio.add(vi);
-                    vi.setTitle(f.getName());
-                    vi.setVisible(true);
-                }
-                
-                else
-                    System.err.println("Formato no soportado");
             }catch(Exception e){
-                System.err.println("Error al leer la imagen");
+                System.err.println("Error al leer el fichero");
             }
         }
     }//GEN-LAST:event_boton_abrirActionPerformed
@@ -1439,6 +1494,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         if(f != null){
             player = new SMClipPlayer(f);
+            class ManejadorClip implements LineListener{
+                @Override
+                public void update(LineEvent event) {
+                    if(event.getType() == LineEvent.Type.START){
+                        boton_play.setVisible(false);
+                        boton_stop.setVisible(true);
+                    }
+                    
+                    else if(event.getType() == LineEvent.Type.STOP){
+                        boton_play.setVisible(true);
+                        boton_stop.setVisible(false);
+                    }
+                }  
+            }
+            
+            player.addLineListener(new ManejadorClip());
+            
             if(player != null)
                 player.play();
         }
@@ -1449,11 +1521,109 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             player.stop();
     }//GEN-LAST:event_boton_stopActionPerformed
 
+    private void boton_recordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_recordActionPerformed
+        arch_aux = new File("grabacion");
+        
+        if(arch_aux != null){
+            recorder = new SMSoundRecorder(arch_aux);
+            class ManejadorGrabacion implements LineListener{
+                @Override
+                public void update(LineEvent event) {
+                    if(event.getType() == LineEvent.Type.START){
+                        boton_record.setVisible(false);
+                        boton_stop_record.setVisible(true);
+                    }
+                    
+                    else if(event.getType() == LineEvent.Type.STOP){
+                        boton_record.setVisible(true);
+                        boton_stop_record.setVisible(false);
+                    }
+                }  
+            }
+            
+            recorder.addLineListener(new ManejadorGrabacion());
+            if(recorder != null){
+                recorder.record();
+                grabando = true;
+                
+                t = new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        int tiempo = 0;
+                        int minutos = 0;
+                        String grab;
+                        
+                        while(grabando){
+                            try{
+                                Thread.sleep(990);
+                                tiempo++;
+                                
+                                if(tiempo == 60){
+                                    tiempo = 0;
+                                    minutos++;
+                                }
+                                
+                                if(tiempo < 9)
+                                    grab = "0"+Integer.toString(minutos)+":0"+Integer.toString(tiempo);
+                                
+                                else
+                                    grab = "0"+Integer.toString(minutos)+":"+Integer.toString(tiempo);
+                                
+                                etiq_temp_record.setText(grab);
+                            }catch(Exception e){
+                                System.err.println(e);
+                            }
+                        }
+                        
+                        if(!grabando){
+                            tiempo = 0;
+                            minutos = 0;
+                        }
+                    }
+                    
+                });
+                
+                t.start();
+            }
+        }
+    }//GEN-LAST:event_boton_recordActionPerformed
+
+    private void boton_stop_recordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_stop_recordActionPerformed
+        if(recorder != null){
+            recorder.stop();
+            grabando = false;
+        }
+        
+        JFileChooser dlg = new JFileChooser();
+        int resp = dlg.showOpenDialog(this);
+        
+        if(resp == JFileChooser.APPROVE_OPTION) {
+            try {
+                File f = new File(dlg.getSelectedFile().getAbsolutePath()){
+                    @Override
+                    public String toString(){
+                        return this.getName();
+                    }
+                };               
+                
+                arch_aux.renameTo(f);
+                desplegable_reprod.addItem(f);
+                desplegable_reprod.setSelectedItem(f);
+                
+            }catch(Exception e){
+                System.err.println("Error al abrir la pista de audio");
+            }
+        }
+        
+        arch_aux = null;
+    }//GEN-LAST:event_boton_stop_recordActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar barra_atr;
     private javax.swing.JToolBar barra_herramientas;
     private javax.swing.JMenuBar barra_menu;
+    private javax.swing.JProgressBar barra_reprod;
     private javax.swing.JToggleButton boton_abrir;
     private javax.swing.JToggleButton boton_alisar;
     private javax.swing.JButton boton_bandas;
@@ -1469,6 +1639,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton boton_oscurecer;
     private javax.swing.JButton boton_play;
     private javax.swing.JToggleButton boton_punto;
+    private javax.swing.JButton boton_record;
     private javax.swing.JToggleButton boton_rectangulo;
     private javax.swing.JToggleButton boton_rellenar;
     private javax.swing.JButton boton_rot180;
@@ -1478,6 +1649,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton boton_seno;
     private javax.swing.JButton boton_sepia;
     private javax.swing.JButton boton_stop;
+    private javax.swing.JButton boton_stop_record;
     private javax.swing.JButton boton_tintado;
     private javax.swing.JToggleButton boton_transp;
     private javax.swing.JComboBox<Color> desplegable_color;
@@ -1486,10 +1658,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<File> desplegable_reprod;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel etiq_estado;
+    private javax.swing.JLabel etiq_reprod_actual;
+    private javax.swing.JLabel etiq_reprod_total;
+    private javax.swing.JLabel etiq_temp_record;
     private javax.swing.ButtonGroup grupo_colores;
     private javax.swing.ButtonGroup grupo_herramientas;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JMenu menu_archivo;
     private javax.swing.JMenu menu_edicion;
     private javax.swing.JMenu menu_imagen;
@@ -1505,6 +1678,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menu_op_rescaleop;
     private javax.swing.JPanel panel_atr_generico;
     private javax.swing.JPanel panel_atr_lienzo;
+    private javax.swing.JPanel panel_barra_rep;
     private javax.swing.JPanel panel_cs;
     private javax.swing.JPanel panel_desp_filtros;
     private javax.swing.JPanel panel_estado;
@@ -1515,11 +1689,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator separador2;
     private javax.swing.JToolBar.Separator separador3;
     private javax.swing.JToolBar.Separator separador4;
+    private javax.swing.JToolBar.Separator separador5;
     private javax.swing.JSlider slider_brillo;
     private javax.swing.JSlider slider_rotacion;
     private javax.swing.JSlider slider_umbral;
     private javax.swing.JSpinner spinner_grosor;
     // End of variables declaration//GEN-END:variables
     private BufferedImage img_aux;
-    private SMPlayer player = null;
+    private SMClipPlayer player = null;
+    private SMSoundRecorder recorder = null;
+    private File arch_aux;
+    private Thread t;
+    private boolean grabando = false;
 }
