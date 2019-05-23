@@ -334,7 +334,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         barra_herramientas.add(separador2);
 
         desplegable_color.setToolTipText("Colores");
-        desplegable_color.setPreferredSize(new java.awt.Dimension(50, 30));
+        desplegable_color.setPreferredSize(new java.awt.Dimension(58, 45));
         desplegable_color.setRenderer(new ColorRender());
         desplegable_color.addActionListener(formListener);
         barra_herramientas.add(desplegable_color);
@@ -1038,10 +1038,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if(vi != null){
             if(img_aux != null){
                 try{
-                    float[] color = {1.0f, 1.0f, 1.0f, 0.0f};
-                    float[] offset = {(float)slider_brillo.getValue(), (float)slider_brillo.getValue(), (float)slider_brillo.getValue(), (float)slider_brillo.getValue()};
+                    float[] alpha;
+                    float[] beta;
                     
-                    RescaleOp rop = new RescaleOp(color, offset, null);
+                    if(img_aux.getColorModel().hasAlpha()){
+                        alpha = new float[]{1.0f, 1.0f, 1.0f, 1.0f};
+                        beta = new float[]{(float)slider_brillo.getValue(), (float)slider_brillo.getValue(), (float)slider_brillo.getValue(), 0.0f};
+                    }
+                    
+                    else{
+                        alpha = new float[]{1.0f, 1.0f, 1.0f};
+                        beta = new float[]{(float)slider_brillo.getValue(), (float)slider_brillo.getValue(), (float)slider_brillo.getValue()};
+                    }
+                    
+                    RescaleOp rop = new RescaleOp(alpha, beta, null);
 
                     rop.filter(img_aux, ((LienzoImagen2D)(vi.getLienzo())).getImagen());
                     vi.getLienzo().repaint();
@@ -1422,7 +1432,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         ((LienzoImagen2D)(vi.getLienzo())).setImagen(img_source);
                     }
                     
-                    EqualizationOp eqop = new EqualizationOp();
+                    EqualizationOp eqop = new EqualizationOp(0);
                     eqop.filter(img_source, img_source);
                     vi.repaint();
                 }catch(IllegalArgumentException e){
@@ -1555,7 +1565,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         
                         while(grabando){
                             try{
-                                Thread.sleep(990);
+                                Thread.sleep(999);
                                 tiempo++;
                                 
                                 if(tiempo == 60){
@@ -1578,6 +1588,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         if(!grabando){
                             tiempo = 0;
                             minutos = 0;
+                            etiq_temp_record.setText("00:00");
                         }
                     }
                     

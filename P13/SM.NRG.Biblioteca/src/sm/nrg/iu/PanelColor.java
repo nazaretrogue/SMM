@@ -21,13 +21,13 @@ public class PanelColor extends javax.swing.JPanel{
     /**
      * Creates new form PanelColor
      */
-    public PanelColor() {
-        initComponents();
-    }
+//    public PanelColor() {
+//        initComponents();
+//    }
     
     public PanelColor(Color c){
         initComponents();
-        this.setSize(10, 10);
+       this.setSize(50, 50);
         this.boton.setBackground(c);
         this.boton.setSize(24,24);
     }
@@ -47,11 +47,11 @@ public class PanelColor extends javax.swing.JPanel{
 
         boton = new javax.swing.JButton();
 
-        setLayout(null);
+        setPreferredSize(new java.awt.Dimension(25, 35));
+        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        boton.setPreferredSize(new java.awt.Dimension(10, 10));
+        boton.setPreferredSize(new java.awt.Dimension(30, 30));
         add(boton);
-        boton.setBounds(0, 0, 30, 30);
     }// </editor-fold>//GEN-END:initComponents
 
 
