@@ -46,6 +46,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         initComponents();
         
         boton_stop.setVisible(false);
+        boton_pausa.setVisible(false);
         boton_stop_record.setVisible(false);
         this.setSize(1200, 1000);   
     }
@@ -219,11 +220,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         separador5 = new javax.swing.JToolBar.Separator();
         desplegable_reprod = new javax.swing.JComboBox<>();
         boton_play = new javax.swing.JButton();
+        boton_pausa = new javax.swing.JButton();
         boton_stop = new javax.swing.JButton();
-        panel_barra_rep = new javax.swing.JPanel();
-        etiq_reprod_actual = new javax.swing.JLabel();
-        barra_reprod = new javax.swing.JProgressBar();
-        etiq_reprod_total = new javax.swing.JLabel();
         boton_record = new javax.swing.JButton();
         boton_stop_record = new javax.swing.JButton();
         etiq_temp_record = new javax.swing.JLabel();
@@ -508,6 +506,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_play.addActionListener(formListener);
         barra_herramientas.add(boton_play);
 
+        boton_pausa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/pausa24x24.png"))); // NOI18N
+        boton_pausa.setFocusable(false);
+        boton_pausa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_pausa.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_pausa.addActionListener(formListener);
+        barra_herramientas.add(boton_pausa);
+
         boton_stop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/stop24x24.png"))); // NOI18N
         boton_stop.setToolTipText("Detener canción actual");
         boton_stop.setFocusable(false);
@@ -515,17 +520,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_stop.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         boton_stop.addActionListener(formListener);
         barra_herramientas.add(boton_stop);
-
-        panel_barra_rep.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
-
-        etiq_reprod_actual.setText("00:00");
-        panel_barra_rep.add(etiq_reprod_actual);
-        panel_barra_rep.add(barra_reprod);
-
-        etiq_reprod_total.setText("00:00");
-        panel_barra_rep.add(etiq_reprod_total);
-
-        barra_herramientas.add(panel_barra_rep);
 
         boton_record.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/record24x24.png"))); // NOI18N
         boton_record.setToolTipText("Iniciar grabación");
@@ -748,6 +742,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == menu_op_colorconvert) {
                 VentanaPrincipal.this.menu_op_colorconvertActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_pausa) {
+                VentanaPrincipal.this.boton_pausaActionPerformed(evt);
             }
         }
 
@@ -1500,6 +1497,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_op_abrir_audioActionPerformed
 
     private void boton_playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_playActionPerformed
+        if(pausa)
+            player.resume();
+        
         File f = ((File)(desplegable_reprod.getSelectedItem()));
         
         if(f != null){
@@ -1509,19 +1509,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 public void update(LineEvent event) {
                     if(event.getType() == LineEvent.Type.START){
                         boton_play.setVisible(false);
+                        boton_pausa.setVisible(true);
                         boton_stop.setVisible(true);
                     }
                     
                     else if(event.getType() == LineEvent.Type.STOP){
                         boton_play.setVisible(true);
+                        boton_pausa.setVisible(false);
                         boton_stop.setVisible(false);
+                        pausa = false;
                     }
                 }  
             }
             
             player.addLineListener(new ManejadorClip());
-            
-            if(player != null)
+                       
+            if(player != null && !pausa)
                 player.play();
         }
     }//GEN-LAST:event_boton_playActionPerformed
@@ -1629,12 +1632,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         arch_aux = null;
     }//GEN-LAST:event_boton_stop_recordActionPerformed
 
+    private void boton_pausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_pausaActionPerformed
+        if(player != null){
+            player.pause();
+            pausa = true;
+        }
+    }//GEN-LAST:event_boton_pausaActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar barra_atr;
     private javax.swing.JToolBar barra_herramientas;
     private javax.swing.JMenuBar barra_menu;
-    private javax.swing.JProgressBar barra_reprod;
     private javax.swing.JToggleButton boton_abrir;
     private javax.swing.JToggleButton boton_alisar;
     private javax.swing.JButton boton_bandas;
@@ -1648,6 +1657,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton boton_linea;
     private javax.swing.JToggleButton boton_nuevo;
     private javax.swing.JButton boton_oscurecer;
+    private javax.swing.JButton boton_pausa;
     private javax.swing.JButton boton_play;
     private javax.swing.JToggleButton boton_punto;
     private javax.swing.JButton boton_record;
@@ -1669,8 +1679,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<File> desplegable_reprod;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel etiq_estado;
-    private javax.swing.JLabel etiq_reprod_actual;
-    private javax.swing.JLabel etiq_reprod_total;
     private javax.swing.JLabel etiq_temp_record;
     private javax.swing.ButtonGroup grupo_colores;
     private javax.swing.ButtonGroup grupo_herramientas;
@@ -1689,7 +1697,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menu_op_rescaleop;
     private javax.swing.JPanel panel_atr_generico;
     private javax.swing.JPanel panel_atr_lienzo;
-    private javax.swing.JPanel panel_barra_rep;
     private javax.swing.JPanel panel_cs;
     private javax.swing.JPanel panel_desp_filtros;
     private javax.swing.JPanel panel_estado;
@@ -1712,4 +1719,5 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private File arch_aux;
     private Thread t;
     private boolean grabando = false;
+    private boolean pausa = false;
 }

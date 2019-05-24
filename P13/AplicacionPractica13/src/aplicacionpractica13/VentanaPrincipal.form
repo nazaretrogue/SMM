@@ -773,6 +773,19 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_playActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="boton_pausa">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/iconos/pausa24x24.png"/>
+            </Property>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_pausaActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JButton" name="boton_stop">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -787,33 +800,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_stopActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JPanel" name="panel_barra_rep">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder>
-                  <Color PropertyName="color" blue="64" green="64" red="64" type="rgb"/>
-                </LineBorder>
-              </Border>
-            </Property>
-          </Properties>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="etiq_reprod_actual">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="00:00"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JProgressBar" name="barra_reprod">
-            </Component>
-            <Component class="javax.swing.JLabel" name="etiq_reprod_total">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="00:00"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
         <Component class="javax.swing.JButton" name="boton_record">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
