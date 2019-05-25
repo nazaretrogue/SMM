@@ -32,6 +32,8 @@ import sm.sound.SMPlayer;
 import sm.sound.SMRecorder;
 import sm.sound.SMSoundPlayerRecorder;
 import sm.sound.SMSoundRecorder;
+import uk.co.caprica.vlcj.player.MediaPlayer;
+import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
 /**
  *
@@ -160,6 +162,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     
     private boolean EsYCC(BufferedImage img){
         return (!EsGray(img) && !EsRGB(img));
+    }
+    
+    /**
+     * Manejador de eventos de vídeo
+     */
+    
+    private class VideoListener extends MediaPlayerEventAdapter{
+        @Override
+        public void playing(MediaPlayer media_player){
+            boton_play.setVisible(false);
+            boton_pausa.setVisible(true);
+            boton_stop.setVisible(true);
+        }
+        
+        @Override
+        public void paused(MediaPlayer media_player){
+            boton_play.setVisible(true);
+            boton_pausa.setVisible(false);
+            boton_stop.setVisible(false);
+        }
+        
+        @Override
+        public void finished(MediaPlayer media_player){
+            this.paused(media_player);
+        }
     }
 
     /**
@@ -565,6 +592,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_captura.setFocusable(false);
         boton_captura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_captura.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_captura.addActionListener(formListener);
         barra_herramientas.add(boton_captura);
 
         jScrollPane1.setViewportView(barra_herramientas);
@@ -727,6 +755,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == boton_stop_record) {
                 VentanaPrincipal.this.boton_stop_recordActionPerformed(evt);
             }
+            else if (evt.getSource() == boton_webcam) {
+                VentanaPrincipal.this.boton_webcamActionPerformed(evt);
+            }
             else if (evt.getSource() == menu_op_abrir_audio) {
                 VentanaPrincipal.this.menu_op_abrir_audioActionPerformed(evt);
             }
@@ -754,8 +785,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == menu_op_colorconvert) {
                 VentanaPrincipal.this.menu_op_colorconvertActionPerformed(evt);
             }
-            else if (evt.getSource() == boton_webcam) {
-                VentanaPrincipal.this.boton_webcamActionPerformed(evt);
+            else if (evt.getSource() == boton_captura) {
+                VentanaPrincipal.this.boton_capturaActionPerformed(evt);
             }
         }
 
@@ -898,7 +929,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         BufferedImage img = ImageIO.read(f);
                         VentanaInternaLienzo vi = new VentanaInternaLienzo();
                         ((LienzoImagen2D)(vi.getLienzo())).setImagen(img);
-                        this.escritorio.add(vi);
+                        escritorio.add(vi);
                         vi.setTitle(f.getName());
                         vi.setVisible(true);
                         break;
@@ -906,6 +937,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     case "au":
                         desplegable_reprod.addItem(f);
                         desplegable_reprod.setSelectedItem(f);
+                        break;
+                    case "mp4":
+                    case "mpeg":
+                    case "mpg":
+                    case "avi":
+                    case "wmv":
+                        VentanaInternaVLCPlayer vivlc = VentanaInternaVLCPlayer.getInstance(f);
+                        vivlc.AddMediaPlayerEventListener(new VideoListener());
+                        escritorio.add(vivlc);
+                        vivlc.setTitle(f.getName());
+                        vivlc.setVisible(true);
                         break;
                     default:
                         System.err.println("Formato no soportado");
@@ -1651,9 +1693,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         if(vic != null){
             escritorio.add(vic);
+            vic.setTitle("Webcam");
             vic.setVisible(true);
         }
     }//GEN-LAST:event_boton_webcamActionPerformed
+
+    private void boton_capturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_capturaActionPerformed
+        if(vic != null){
+            VentanaInternaLienzo vi = new VentanaInternaLienzo();
+            ((LienzoImagen2D)(vi.getLienzo())).setImagen(vic.getImagen());
+            escritorio.add(vi);
+            vi.setVisible(true);
+        }
+    }//GEN-LAST:event_boton_capturaActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

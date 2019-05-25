@@ -9,6 +9,7 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -44,6 +45,12 @@ public class VentanaInternaCamara extends javax.swing.JInternalFrame {
     
     public void close(){
         webcam.close();
+    }
+    
+    public BufferedImage getImagen(){
+        BufferedImage captura = webcam.getImage();
+        
+        return captura;
     }
 
     /**

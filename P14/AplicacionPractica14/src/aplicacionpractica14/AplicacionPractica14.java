@@ -5,6 +5,9 @@
  */
 package aplicacionpractica14;
 
+import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
+
 /**
  *
  * @author nazaret
@@ -38,12 +41,18 @@ public class AplicacionPractica14 {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaPrincipal().setVisible(true);
-            }
-        });
+        boolean ok = new NativeDiscovery().discover();
+        System.out.println(ok);
+        System.out.println(LibVlc.INSTANCE.libvlc_get_version());
+        
+        if(ok){
+            /* Create and display the form */
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new VentanaPrincipal().setVisible(true);
+                }
+            });
+        }
     }
     
 }
