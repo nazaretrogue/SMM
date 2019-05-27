@@ -19,7 +19,9 @@ import java.awt.image.WritableRaster;
  */
 public class TermalOp extends sm.image.BufferedImageOpAdapter{
 
-    public TermalOp(){}
+    public TermalOp(BufferedImage gris){
+        this.gris = gris;
+    }
     
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {
@@ -29,27 +31,25 @@ public class TermalOp extends sm.image.BufferedImageOpAdapter{
         if(dest == null)
             dest = createCompatibleDestImage(src, null);
         
-        BufferedImage escala_grises = crearTonosGrises(src);
-        
         WritableRaster src_raster = src.getRaster(),
                        dest_raster = dest.getRaster(),
-                       src_gris_raster = escala_grises.getRaster();
+                       src_gris_raster = gris.getRaster();
         
         int[] pixel_comp = null, pixel_comp_gris = null;
         
         for(int i=0; i<src.getWidth(); i++){
             for(int j=0; j<src.getHeight(); j++){
+                pixel_comp = src_raster.getPixel(i, j, pixel_comp);
+                pixel_comp_gris = src_gris_raster.getPixel(i, j, pixel_comp_gris);
+                
                 for(int k=0; k<src.getRaster().getNumBands(); k++){
-                    pixel_comp = src_raster.getPixel(i, j, pixel_comp);
-                    pixel_comp_gris = src_gris_raster.getPixel(i, j, pixel_comp_gris);
-                    
-                    if(k == 0 && pixel_comp[k] >= 128){
+                    if(pixel_comp[0] >= 128){
                         int aux = pixel_comp[k];
                         pixel_comp[k] = aux;
                     }
                     
-                    else{
-                        pixel_comp[k] = pixel_comp_gris[0];}
+                    else
+                        pixel_comp[k] = pixel_comp_gris[0];
                 }
                        
                 dest_raster.setPixel(i, j, pixel_comp);
@@ -58,15 +58,6 @@ public class TermalOp extends sm.image.BufferedImageOpAdapter{
         
         return dest;
     }
-    
-    private BufferedImage crearTonosGrises(BufferedImage src){
-        ColorModel destCM;
-        ColorSpace cs = ColorSpace.getInstance(ColorSpace.CS_GRAY);
-        destCM = new ComponentColorModel(cs, false, false, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
-        
-        WritableRaster wr = destCM.createCompatibleWritableRaster(src.getWidth(), src.getHeight());
-        
-        return new BufferedImage(destCM, wr, src.isAlphaPremultiplied(), null);
-    }
-    
+ 
+    BufferedImage gris = null;
 }

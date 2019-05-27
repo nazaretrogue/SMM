@@ -42,17 +42,13 @@ public class evaluacion {
         //</editor-fold>
 
         boolean ok = new NativeDiscovery().discover();
-        System.out.println(ok);
-        System.out.println(LibVlc.INSTANCE.libvlc_get_version());
         
-        //if(ok){
-            /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new VentanaPrincipal().setVisible(true);
-                }
-            });
-        //}
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VentanaPrincipal().setVisible(true);
+            }
+        });
     }
     
 }

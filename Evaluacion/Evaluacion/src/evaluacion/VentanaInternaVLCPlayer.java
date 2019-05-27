@@ -72,6 +72,10 @@ public class VentanaInternaVLCPlayer extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
