@@ -28,6 +28,8 @@ public class VentanaInternaVLCPlayer extends javax.swing.JInternalFrame {
         getContentPane().add(area_visual, BorderLayout.CENTER);
         
         video = area_visual.getMediaPlayer();
+        
+        this.setSize(720, 512);
     }
     
     public static VentanaInternaVLCPlayer getInstance(File f){
