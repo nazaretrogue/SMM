@@ -5,12 +5,7 @@
  */
 package sm.nrg.image;
 
-import java.awt.Transparency;
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.ComponentColorModel;
-import java.awt.image.DataBuffer;
 import java.awt.image.WritableRaster;
 
 /**
@@ -19,10 +14,21 @@ import java.awt.image.WritableRaster;
  */
 public class TermalOp extends sm.image.BufferedImageOpAdapter{
 
+    /**
+     * Constructor con un parámetro
+     * @param gris Contiene la imagen que se vería en el caso de que a ningún pixel se le pudiese aplicar el filtro.
+     */
     public TermalOp(BufferedImage gris){
         this.gris = gris;
     }
     
+    /**
+     * Genera una imagen donde los pixeles que superan un valor de 128 en el rojo se mantienen y el resto pasa a escala de grises.
+     * @param src Imagen fuente.
+     * @param dest Imagen destino.
+     * @return Imagen con el filtro termal aplicado.
+     * @throws NullPointerException Genera una excepción cuando la imagen fuente es nula.
+     */
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {
         if(src == null)
@@ -58,6 +64,9 @@ public class TermalOp extends sm.image.BufferedImageOpAdapter{
         
         return dest;
     }
- 
-    BufferedImage gris = null;
+
+    /**
+     * Imagen que contiene los pixeles a los que no se les aplica el filtro termal.
+     */
+    private BufferedImage gris = null;
 }

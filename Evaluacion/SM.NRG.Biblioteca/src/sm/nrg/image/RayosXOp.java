@@ -14,8 +14,18 @@ import java.awt.image.WritableRaster;
  */
 public class RayosXOp extends sm.image.BufferedImageOpAdapter {
 
+    /**
+     * Constructor por defecto. Genera la operación RayosX por defecto.
+     */
     public RayosXOp(){}
     
+    /**
+     * Examina los píxeles de la imagen para aplicar operaciones sobre ellos que generen el filtro de rayos X; utiliza las variables miembro para ello.
+     * @param src Imagen fuente
+     * @param dest Imagen destino. Puede ser nula
+     * @return Nueva imagen aplicando el filtro de rayos x
+     * @throws NullPointerException Genera una excepción cuando la imagen fuente es nula
+     */
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {
         if(src == null)
@@ -61,6 +71,13 @@ public class RayosXOp extends sm.image.BufferedImageOpAdapter {
         return dest;
     }
     
-    float umbral_inf = 85.0f;
-    float umbral_sup = 170.0f;
+    /**
+     * Umbral inferior para generar las partes más oscuras de la imagen.
+     */
+    private float umbral_inf = 85.0f;
+    
+    /**
+     * Umbral superior para generar las partes más claras de la imagen.
+     */
+    private float umbral_sup = 170.0f;
 }

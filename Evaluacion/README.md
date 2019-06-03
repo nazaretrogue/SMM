@@ -1,4 +1,9 @@
-# Práctica 14: Reproducción y captura de vídeo
+# Evaluación
 
-En este caso se añadirán las funcionalidades que permitan reproducir medios continuos,
-acceder a la webcam y tomar snapshots.
+Práctica de examen, con la que se evaluarán 7 de los 10 puntos de la asignatura.  
+
+Se gestionan:
++ Gráficos
++ Imágenes
++ Sonido
++ Vídeo

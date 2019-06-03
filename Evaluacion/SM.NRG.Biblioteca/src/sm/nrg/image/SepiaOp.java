@@ -14,8 +14,18 @@ import java.awt.image.WritableRaster;
  */
 public class SepiaOp extends sm.image.BufferedImageOpAdapter{
 
+    /**
+     * Constructor por defecto. Genera una operación sepia por defecto
+     */
     public SepiaOp(){}
     
+    /**
+     * Examina pixel a pixel para calcular el nuevo valor que se le ha de dar para generar una imagen con aspecto antiguo.
+     * @param src Imagen fuente
+     * @param dest Imagen destino. Puede ser nula
+     * @return Nueva imagen tras aplicar el filtro sepia
+     * @throws NullPointerException Genera una excepción cuando la imagen fuente es nula
+     */
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {
         if(src == null)
@@ -53,5 +63,4 @@ public class SepiaOp extends sm.image.BufferedImageOpAdapter{
         
         return dest;
     }
-    
 }

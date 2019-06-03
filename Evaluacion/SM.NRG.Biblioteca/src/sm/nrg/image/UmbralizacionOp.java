@@ -19,10 +19,21 @@ import sm.image.BufferedImageOpAdapter;
  */
 public class UmbralizacionOp extends BufferedImageOpAdapter {
     
+    /**
+     * Constructor con un parámetro.
+     * @param um Factor de umbralización
+     */
     public UmbralizacionOp(int um){
         umbral = um;
     }
 
+    /**
+     * Da lugar a una imagen binaria tras examinar cada pixel y darle el valor correspondiente
+     * @param src Imagen fuente
+     * @param dest Imagen destino. Puede ser nula
+     * @return Genera una imagen a la que le ha aplicado el filtro de umbralización
+     * @throws NullPointerException Genera una excepción si la imagen fuente es nula
+     */
     @Override
     public BufferedImage filter(BufferedImage src, BufferedImage dest) {
         if(src == null)
@@ -59,6 +70,12 @@ public class UmbralizacionOp extends BufferedImageOpAdapter {
         return dest;
     }
     
+    /**
+     * Genera una imagen compatible que será devuelta por el método filter en el caso en que dest sea null
+     * @param src Imagen fuente
+     * @param destCM Imagen destino
+     * @return Imagen en escala de grises
+     */
     @Override
     public BufferedImage createCompatibleDestImage(BufferedImage src, ColorModel destCM){
         if(destCM == null){
@@ -71,6 +88,11 @@ public class UmbralizacionOp extends BufferedImageOpAdapter {
         return new BufferedImage(destCM, wr, src.isAlphaPremultiplied(), null);
     }
     
+    /**
+     * Comprueba si el espacio de color de la imagen es GRAY.
+     * @param img Imagen de la que comprobar el espacio de color
+     * @return true en el caso de que el espacio sea GRAY; false en otro caso
+     */
     private boolean EsCompatible(BufferedImage img){
         boolean comp = true;
         
@@ -82,5 +104,8 @@ public class UmbralizacionOp extends BufferedImageOpAdapter {
         return comp;
     }
     
+    /**
+     * Umbral que define qué pixeles serán blancos (si están por encima) y negros (si están por debajo).
+     */
     private int umbral;
 }
