@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package evaluacion;
+import sm.nrg.graficos.TipoHerramienta;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;

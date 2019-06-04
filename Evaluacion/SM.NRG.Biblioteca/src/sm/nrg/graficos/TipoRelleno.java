@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sm.nrg.iu;
+package sm.nrg.graficos;
 
 /**
  *
  * @author nazaret
  */
-public enum TipoHerramienta {
-    PUNTOS, LINEAS, RECTANGULOS, ELIPSES
+public enum TipoRelleno {
+    SINRELLENO, LISO, GRADIENTE
 }

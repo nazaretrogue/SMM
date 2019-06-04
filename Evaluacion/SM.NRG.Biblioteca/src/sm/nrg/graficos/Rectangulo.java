@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sm.nrg.iu;
+package sm.nrg.graficos;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
