@@ -55,7 +55,7 @@ public class Rectangulo extends FiguraConArea {
     }
 
     @Override
-    public Point2D setLocation() {
+    public void setLocation(Point2D p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

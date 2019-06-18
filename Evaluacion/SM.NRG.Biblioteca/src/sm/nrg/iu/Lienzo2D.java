@@ -5,11 +5,16 @@
  */
 package sm.nrg.iu;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import sm.nrg.graficos.Figura;
-
+import sm.nrg.graficos.*;
 
 
 /**
@@ -19,7 +24,14 @@ import sm.nrg.graficos.Figura;
 public class Lienzo2D extends javax.swing.JPanel {
 
     public Lienzo2D(){
+        initComponents();
         
+        v_shape = new ArrayList<Figura>();
+        herramienta = TipoHerramienta.RECTANGULOS;
+        traz = new Trazo(Color.BLACK, 5.0f, TipoTrazo.CONTINUO);
+        transp = 0.5f;
+        relleno = new Relleno(TipoRelleno.SINRELLENO, Color.BLACK);
+        alisado = false;
     }
     
     @Override
@@ -27,23 +39,25 @@ public class Lienzo2D extends javax.swing.JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
         
-        for(Figura f: vector_fig)
+        for(Figura f: v_shape)
             f.paint(g2d);
     }
     
     private void createShape(Point p_i){
         switch(herramienta){
-            case PUNTOS:
-                v_shape.add(new Linea2D(p_i, p_i));
-                break;
             case LINEAS:
-                v_shape.add(new Linea2D(p_i, p_i));
+                Line2D laux = new Line2D.Float(p_i, p_i);
+                v_shape.add(new Linea(traz, alisado, laux)); //aux = new Line2D.Float(p_i, p_i);
                 break;
             case RECTANGULOS:
-                v_shape.add(new Rectangle(p_i));
+                aux = new Rectangle(p_i);
                 break;
             case ELIPSES:
-                v_shape.add(new Ellipse2D.Double(p_i.getX(), p_i.getY(), 1, 1));
+                //v_shape.add(new Ellipse2D.Double(p_i.getX(), p_i.getY(), 1, 1));
+                break;
+            case RECTANGULOSRED:
+                break;
+            case CURVAS:
                 break;
         }
     }
@@ -51,24 +65,63 @@ public class Lienzo2D extends javax.swing.JPanel {
     private void updateShape(Point p_f){
         switch(herramienta){
             case LINEAS:
-                Linea2D laux = (Linea2D)v_shape.get(v_shape.size()-1);
-                laux.setLine(laux.getP1(), p_f);
-                
-                v_shape.set(v_shape.size()-1, laux);
+                Linea laux = (Linea)v_shape.get(v_shape.size()-1);
+                laux.getLinea().setLine(laux.getLinea().getP1(), p_f);
                 break;
             case RECTANGULOS:
-                Rectangle raux = (Rectangle)(v_shape.get(v_shape.size()-1));
+                Rectangle2D raux = (Rectangle2D)(aux);
                 raux.setFrameFromDiagonal(p_aux, p_f);
 
-                v_shape.set(v_shape.size()-1, raux);
+                v_shape.add(new Rectangulo(traz, alisado, relleno, transp, raux));
+                this.repaint();
                 break;
-            case ELIPSES:
+            /*case ELIPSES:
                 Ellipse2D eaux = (Ellipse2D)(v_shape.get(v_shape.size()-1));
                 eaux.setFrameFromDiagonal(p_aux, p_f);
                 
                 v_shape.set(v_shape.size()-1, eaux);
-                break;
+                break;*/
         }
+    }
+
+    public TipoHerramienta getHerramienta() {
+        return herramienta;
+    }
+
+    public Trazo getTraz() {
+        return traz;
+    }
+
+    public float getTransp() {
+        return transp;
+    }
+
+    public Relleno getRelleno() {
+        return relleno;
+    }
+
+    public boolean isAlisado() {
+        return alisado;
+    }
+
+    public void setHerramienta(TipoHerramienta herramienta) {
+        this.herramienta = herramienta;
+    }
+
+    public void setTraz(Trazo traz) {
+        this.traz = traz;
+    }
+
+    public void setTransp(float transp) {
+        this.transp = transp;
+    }
+
+    public void setRelleno(Relleno relleno) {
+        this.relleno = relleno;
+    }
+
+    public void setAlisado(boolean alisado) {
+        this.alisado = alisado;
     }
     
     @SuppressWarnings("unchecked")
@@ -118,19 +171,29 @@ public class Lienzo2D extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        // TODO add your handling code here:
+        p_aux = evt.getPoint();
+        
+        createShape(p_aux);
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        // TODO add your handling code here:
+        formMouseDragged(evt);
     }//GEN-LAST:event_formMouseReleased
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        // TODO add your handling code here:
+        this.updateShape(evt.getPoint());
+        this.repaint();
     }//GEN-LAST:event_formMouseDragged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    ArrayList<Figura> vector_fig;
+    ArrayList<Figura> v_shape;
+    TipoHerramienta herramienta;
+    Trazo traz;
+    float transp;
+    Relleno relleno;
+    boolean alisado;
+    Shape aux;
+    Point p_aux;
 }

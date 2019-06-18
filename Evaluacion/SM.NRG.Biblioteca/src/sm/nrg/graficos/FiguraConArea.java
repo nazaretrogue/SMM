@@ -45,7 +45,7 @@ public abstract class FiguraConArea extends Figura{
     }
 
     @Override
-    public abstract Point2D setLocation();
+    public abstract void setLocation(Point2D p);
     
     @Override
     public String toString(){

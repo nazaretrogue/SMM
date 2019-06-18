@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package evaluacion;
-import sm.nrg.graficos.TipoHerramienta;
+import sm.nrg.graficos.*;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;
@@ -196,6 +196,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         desplegable_color = new javax.swing.JComboBox<>(c);
         separador3 = new javax.swing.JToolBar.Separator();
         spinner_grosor = new javax.swing.JSpinner();
+        jComboBox1 = new javax.swing.JComboBox<>();
         boton_rellenar = new javax.swing.JToggleButton();
         boton_transp = new javax.swing.JToggleButton();
         boton_alisar = new javax.swing.JToggleButton();
@@ -363,6 +364,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         spinner_grosor.setToolTipText("Grosor pincel");
         spinner_grosor.addChangeListener(formListener);
         barra_herramientas_dibujo.add(spinner_grosor);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Continuo", "Discontinuo", "Punteado" }));
+        jComboBox1.addActionListener(formListener);
+        barra_herramientas_dibujo.add(jComboBox1);
 
         boton_rellenar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/relleno.png"))); // NOI18N
         boton_rellenar.setToolTipText("Relleno");
@@ -863,6 +868,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == menu_op_acerca) {
                 VentanaPrincipal.this.menu_op_acercaActionPerformed(evt);
             }
+            else if (evt.getSource() == jComboBox1) {
+                VentanaPrincipal.this.jComboBox1ActionPerformed(evt);
+            }
         }
 
         public void focusGained(java.awt.event.FocusEvent evt) {
@@ -925,7 +933,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void boton_lineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_lineaActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.LINEAS);
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
         }
         
         this.etiq_estado.setText("Línea");
@@ -934,7 +941,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void boton_rectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rectanguloActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.RECTANGULOS);
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
         }
         
         this.etiq_estado.setText("Rectángulo");
@@ -943,7 +949,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void boton_elipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_elipseActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.ELIPSES);
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setMover(false);
         }
         
         this.etiq_estado.setText("Elipse");
@@ -952,23 +957,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void spinner_grosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinner_grosorStateChanged
         Stroke grosor = new BasicStroke((int)spinner_grosor.getValue());
         
-        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTrazo(grosor);
+//        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
+//            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTrazo(grosor);
     }//GEN-LAST:event_spinner_grosorStateChanged
 
     private void boton_rellenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rellenarActionPerformed
-        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(boton_rellenar.isSelected());
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            Relleno r = new Relleno(TipoRelleno.LISO, Color.BLACK);
+            
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
+        }
     }//GEN-LAST:event_boton_rellenarActionPerformed
 
     private void boton_transpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_transpActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTransparencia(boton_transp.isSelected());
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTransp(0.5f);
     }//GEN-LAST:event_boton_transpActionPerformed
 
     private void boton_alisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_alisarActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setAlisar(boton_alisar.isSelected());
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setAlisado(boton_alisar.isSelected());
     }//GEN-LAST:event_boton_alisarActionPerformed
 
     private void slider_brilloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_slider_brilloFocusGained
@@ -1154,7 +1162,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
         {
             Color col = this.desplegable_color.getItemAt(this.desplegable_color.getSelectedIndex());
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setColor(col);
+//            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setColor(col);
         }
     }//GEN-LAST:event_desplegable_colorActionPerformed
 
@@ -1873,6 +1881,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, autor);
     }//GEN-LAST:event_menu_op_acercaActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            Trazo t = new Trazo(Color.BLACK, 5.0f, TipoTrazo.CONTINUO);
+            
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTraz(t);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar barra_herramientas;
@@ -1923,6 +1939,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel etiq_temp_record;
     private javax.swing.ButtonGroup grupo_colores;
     private javax.swing.ButtonGroup grupo_herramientas;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu menu_archivo;

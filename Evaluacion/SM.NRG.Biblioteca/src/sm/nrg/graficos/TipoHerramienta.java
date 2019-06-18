@@ -10,5 +10,5 @@ package sm.nrg.graficos;
  * @author nazaret
  */
 public enum TipoHerramienta {
-    PUNTOS, LINEAS, RECTANGULOS, ELIPSES
+    LINEAS, RECTANGULOS, ELIPSES, RECTANGULOSRED, CURVAS
 }
