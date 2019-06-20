@@ -10,5 +10,5 @@ package sm.nrg.graficos;
  * @author nazaret
  */
 public enum TipoRelleno {
-    SINRELLENO, LISO, GRADIENTE
+    SINRELLENO, LISO, GRADIENTEHOR, GRADIENTEVER
 }

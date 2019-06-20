@@ -52,6 +52,6 @@ public abstract class FiguraConArea extends Figura{
         return "Figura con área";
     }
     
-    Relleno relleno;
-    float transparencia;
+    private Relleno relleno;
+    private float transparencia;
 }

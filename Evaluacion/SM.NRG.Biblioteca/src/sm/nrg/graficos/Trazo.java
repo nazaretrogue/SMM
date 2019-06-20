@@ -15,7 +15,7 @@ import java.awt.Stroke;
  * @author nazaret
  */
 public class Trazo {
-    public Trazo(Color c, float gros, TipoTrazo tt){
+    public Trazo(Color c, int gros, TipoTrazo tt){
         color = c;
         grosor = gros;
         tipo = tt;
@@ -27,7 +27,7 @@ public class Trazo {
         return color;
     }
 
-    public float getGrosor() {
+    public int getGrosor() {
         return grosor;
     }
 
@@ -39,7 +39,7 @@ public class Trazo {
         this.color = color;
     }
 
-    public void setGrosor(float grosor) {
+    public void setGrosor(int grosor) {
         this.grosor = grosor;
     }
 
@@ -49,7 +49,7 @@ public class Trazo {
     
     public void paint(Graphics2D g2d){
         if(tipo == TipoTrazo.CONTINUO)
-            st = new BasicStroke();
+            st = new BasicStroke(grosor);
         
         else{
             float patron_disc[] = new float[2];
@@ -71,8 +71,8 @@ public class Trazo {
         g2d.setPaint(color);
     }
     
-    Color color;
-    float grosor;
-    TipoTrazo tipo;
-    Stroke st;
+    private Color color;
+    private int grosor;
+    private TipoTrazo tipo;
+    private Stroke st;
 }

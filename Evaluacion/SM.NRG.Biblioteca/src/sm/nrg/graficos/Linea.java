@@ -57,5 +57,5 @@ public class Linea extends Figura {
         this.linea = linea;
     }
     
-    Line2D linea;
+    private Line2D linea;
 }

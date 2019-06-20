@@ -54,6 +54,6 @@ public abstract class Figura {
         return "Figura";
     }
     
-    Trazo trazo;
-    boolean alisado;
+    private Trazo trazo;
+    private boolean alisado;
 }

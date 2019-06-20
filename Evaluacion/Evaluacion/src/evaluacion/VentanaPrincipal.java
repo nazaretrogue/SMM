@@ -175,6 +175,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         grupo_colores = new javax.swing.ButtonGroup();
         grupo_herramientas = new javax.swing.ButtonGroup();
+        grupo_relleno = new javax.swing.ButtonGroup();
         panel_estado = new javax.swing.JPanel();
         etiq_estado = new javax.swing.JLabel();
         panel_atr_lienzo = new javax.swing.JPanel();
@@ -194,11 +195,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         separador2 = new javax.swing.JToolBar.Separator();
         Color c[]={Color.BLACK, Color.RED, Color.BLUE, Color.WHITE, Color.YELLOW, Color.GREEN};
         desplegable_color = new javax.swing.JComboBox<>(c);
+        Color c1[]={Color.BLACK, Color.RED, Color.BLUE, Color.WHITE, Color.YELLOW, Color.GREEN};
+        desplegable_relleno1 = new javax.swing.JComboBox<>(c1);
+        Color c2[]={Color.BLACK, Color.RED, Color.BLUE, Color.WHITE, Color.YELLOW, Color.GREEN};
+        desplegable_relleno2 = new javax.swing.JComboBox<>(c2);
         separador3 = new javax.swing.JToolBar.Separator();
         spinner_grosor = new javax.swing.JSpinner();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        desplegable_trazo = new javax.swing.JComboBox<>();
         boton_rellenar = new javax.swing.JToggleButton();
+        boton_relleno_grad_hor = new javax.swing.JToggleButton();
+        boton_relleno_grad_ver = new javax.swing.JToggleButton();
+        jPanel1 = new javax.swing.JPanel();
         boton_transp = new javax.swing.JToggleButton();
+        slider_transp = new javax.swing.JSlider();
         boton_alisar = new javax.swing.JToggleButton();
         separador4 = new javax.swing.JToolBar.Separator();
         barra_herramientas_imagen = new javax.swing.JToolBar();
@@ -342,6 +351,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_rectangulo_red.setFocusable(false);
         boton_rectangulo_red.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_rectangulo_red.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_rectangulo_red.addActionListener(formListener);
         barra_herramientas_dibujo.add(boton_rectangulo_red);
 
         grupo_herramientas.add(boton_curva);
@@ -350,14 +360,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_curva.setFocusable(false);
         boton_curva.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_curva.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_curva.addActionListener(formListener);
         barra_herramientas_dibujo.add(boton_curva);
         barra_herramientas_dibujo.add(separador2);
 
-        desplegable_color.setToolTipText("Colores");
+        desplegable_color.setToolTipText("Color de trazo");
         desplegable_color.setPreferredSize(new java.awt.Dimension(58, 45));
         desplegable_color.setRenderer(new ColorRender());
         desplegable_color.addActionListener(formListener);
         barra_herramientas_dibujo.add(desplegable_color);
+
+        desplegable_relleno1.setToolTipText("Color  para el relleno y gradiente");
+        desplegable_relleno1.setPreferredSize(new java.awt.Dimension(58, 45));
+        desplegable_relleno1.setRenderer(new ColorRender());
+        desplegable_relleno1.addActionListener(formListener);
+        barra_herramientas_dibujo.add(desplegable_relleno1);
+
+        desplegable_relleno2.setToolTipText("Color para el gradiente");
+        desplegable_relleno2.setPreferredSize(new java.awt.Dimension(58, 45));
+        desplegable_relleno2.setRenderer(new ColorRender());
+        desplegable_relleno2.addActionListener(formListener);
+        barra_herramientas_dibujo.add(desplegable_relleno2);
         barra_herramientas_dibujo.add(separador3);
 
         spinner_grosor.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
@@ -365,25 +388,53 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         spinner_grosor.addChangeListener(formListener);
         barra_herramientas_dibujo.add(spinner_grosor);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Continuo", "Discontinuo", "Punteado" }));
-        jComboBox1.addActionListener(formListener);
-        barra_herramientas_dibujo.add(jComboBox1);
+        desplegable_trazo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Continuo", "Discontinuo", "Punteado" }));
+        desplegable_trazo.addActionListener(formListener);
+        barra_herramientas_dibujo.add(desplegable_trazo);
 
+        grupo_relleno.add(boton_rellenar);
         boton_rellenar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/relleno.png"))); // NOI18N
-        boton_rellenar.setToolTipText("Relleno");
+        boton_rellenar.setToolTipText("Relleno liso");
         boton_rellenar.setFocusable(false);
         boton_rellenar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_rellenar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         boton_rellenar.addActionListener(formListener);
         barra_herramientas_dibujo.add(boton_rellenar);
 
+        grupo_relleno.add(boton_relleno_grad_hor);
+        boton_relleno_grad_hor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/gradiente.png"))); // NOI18N
+        boton_relleno_grad_hor.setToolTipText("Relleno con gradiente horizontal");
+        boton_relleno_grad_hor.setFocusable(false);
+        boton_relleno_grad_hor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_relleno_grad_hor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_relleno_grad_hor.addActionListener(formListener);
+        barra_herramientas_dibujo.add(boton_relleno_grad_hor);
+
+        grupo_relleno.add(boton_relleno_grad_ver);
+        boton_relleno_grad_ver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/gradiente_ver.png"))); // NOI18N
+        boton_relleno_grad_ver.setToolTipText("Relleno con gradiente vertical");
+        boton_relleno_grad_ver.setFocusable(false);
+        boton_relleno_grad_ver.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_relleno_grad_ver.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_relleno_grad_ver.addActionListener(formListener);
+        barra_herramientas_dibujo.add(boton_relleno_grad_ver);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transparencia", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12))); // NOI18N
+        jPanel1.setToolTipText("");
+
         boton_transp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/transparencia.png"))); // NOI18N
-        boton_transp.setToolTipText("Transparencia");
+        boton_transp.setToolTipText("Semitransparencia");
         boton_transp.setFocusable(false);
         boton_transp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton_transp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         boton_transp.addActionListener(formListener);
-        barra_herramientas_dibujo.add(boton_transp);
+        jPanel1.add(boton_transp);
+
+        slider_transp.setToolTipText("Transparencia");
+        slider_transp.addChangeListener(formListener);
+        jPanel1.add(slider_transp);
+
+        barra_herramientas_dibujo.add(jPanel1);
 
         boton_alisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/alisar.png"))); // NOI18N
         boton_alisar.setToolTipText("Alisado de bordes");
@@ -748,8 +799,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == boton_elipse) {
                 VentanaPrincipal.this.boton_elipseActionPerformed(evt);
             }
+            else if (evt.getSource() == boton_rectangulo_red) {
+                VentanaPrincipal.this.boton_rectangulo_redActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_curva) {
+                VentanaPrincipal.this.boton_curvaActionPerformed(evt);
+            }
             else if (evt.getSource() == desplegable_color) {
                 VentanaPrincipal.this.desplegable_colorActionPerformed(evt);
+            }
+            else if (evt.getSource() == desplegable_trazo) {
+                VentanaPrincipal.this.desplegable_trazoActionPerformed(evt);
             }
             else if (evt.getSource() == boton_rellenar) {
                 VentanaPrincipal.this.boton_rellenarActionPerformed(evt);
@@ -868,8 +928,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == menu_op_acerca) {
                 VentanaPrincipal.this.menu_op_acercaActionPerformed(evt);
             }
-            else if (evt.getSource() == jComboBox1) {
-                VentanaPrincipal.this.jComboBox1ActionPerformed(evt);
+            else if (evt.getSource() == boton_relleno_grad_hor) {
+                VentanaPrincipal.this.boton_relleno_grad_horActionPerformed(evt);
+            }
+            else if (evt.getSource() == desplegable_relleno1) {
+                VentanaPrincipal.this.desplegable_relleno1ActionPerformed(evt);
+            }
+            else if (evt.getSource() == desplegable_relleno2) {
+                VentanaPrincipal.this.desplegable_relleno2ActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_relleno_grad_ver) {
+                VentanaPrincipal.this.boton_relleno_grad_verActionPerformed(evt);
             }
         }
 
@@ -919,6 +988,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == slider_umbral) {
                 VentanaPrincipal.this.slider_umbralStateChanged(evt);
             }
+            else if (evt.getSource() == slider_transp) {
+                VentanaPrincipal.this.slider_transpStateChanged(evt);
+            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -955,15 +1027,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_boton_elipseActionPerformed
 
     private void spinner_grosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinner_grosorStateChanged
-        Stroke grosor = new BasicStroke((int)spinner_grosor.getValue());
+        int grosor = (int)spinner_grosor.getValue();
         
-//        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
-//            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTrazo(grosor);
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getTraz().setGrosor(grosor);
     }//GEN-LAST:event_spinner_grosorStateChanged
 
     private void boton_rellenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rellenarActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
-            Relleno r = new Relleno(TipoRelleno.LISO, Color.BLACK);
+            VentanaInternaLienzo vi = (VentanaInternaLienzo)(this.escritorio.getSelectedFrame());
+            Color col1 = this.desplegable_relleno1.getItemAt(this.desplegable_relleno1.getSelectedIndex());
+            Color col2 = this.desplegable_relleno2.getItemAt(this.desplegable_relleno2.getSelectedIndex());
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(vi.getWidth(), 0);
+            Relleno r = new Relleno(TipoRelleno.GRADIENTEHOR, col1, col2, p1, p2);
+            
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
+        }
+        
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            Color col = this.desplegable_relleno1.getItemAt(this.desplegable_relleno1.getSelectedIndex());
+            Relleno r = new Relleno(TipoRelleno.LISO, col);
             
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
         }
@@ -1162,7 +1246,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
         {
             Color col = this.desplegable_color.getItemAt(this.desplegable_color.getSelectedIndex());
-//            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setColor(col);
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getTraz().setColor(col);
         }
     }//GEN-LAST:event_desplegable_colorActionPerformed
 
@@ -1881,13 +1965,76 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, autor);
     }//GEN-LAST:event_menu_op_acercaActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void desplegable_trazoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegable_trazoActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
-            Trazo t = new Trazo(Color.BLACK, 5.0f, TipoTrazo.CONTINUO);
+            Trazo t = new Trazo(Color.BLACK, 1, TipoTrazo.CONTINUO);
             
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTraz(t);
         }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_desplegable_trazoActionPerformed
+
+    private void boton_rectangulo_redActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rectangulo_redActionPerformed
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.RECTANGULOSRED);
+        }
+        
+        this.etiq_estado.setText("Rectángulo redondeado");
+    }//GEN-LAST:event_boton_rectangulo_redActionPerformed
+
+    private void boton_curvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_curvaActionPerformed
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.CURVAS);
+        }
+        
+        this.etiq_estado.setText("Curva cuadrada (con un punto de control)");
+    }//GEN-LAST:event_boton_curvaActionPerformed
+
+    private void boton_relleno_grad_horActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_relleno_grad_horActionPerformed
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            VentanaInternaLienzo vi = (VentanaInternaLienzo)(this.escritorio.getSelectedFrame());
+            Color col1 = this.desplegable_relleno1.getItemAt(this.desplegable_relleno1.getSelectedIndex());
+            Color col2 = this.desplegable_relleno2.getItemAt(this.desplegable_relleno2.getSelectedIndex());
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(vi.getWidth(), 0);
+            Relleno r = new Relleno(TipoRelleno.GRADIENTEHOR, col1, col2, p1, p2);
+            
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
+        }
+    }//GEN-LAST:event_boton_relleno_grad_horActionPerformed
+
+    private void desplegable_relleno1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegable_relleno1ActionPerformed
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
+        {
+            Color col = this.desplegable_relleno1.getItemAt(this.desplegable_relleno1.getSelectedIndex());
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getRelleno().setColor1(col);
+        }
+    }//GEN-LAST:event_desplegable_relleno1ActionPerformed
+
+    private void desplegable_relleno2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegable_relleno2ActionPerformed
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
+        {
+            Color col = this.desplegable_relleno2.getItemAt(this.desplegable_relleno2.getSelectedIndex());
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getRelleno().setColor2(col);
+        }
+    }//GEN-LAST:event_desplegable_relleno2ActionPerformed
+
+    private void boton_relleno_grad_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_relleno_grad_verActionPerformed
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            VentanaInternaLienzo vi = (VentanaInternaLienzo)(this.escritorio.getSelectedFrame());
+            Color col1 = this.desplegable_relleno1.getItemAt(this.desplegable_relleno1.getSelectedIndex());
+            Color col2 = this.desplegable_relleno2.getItemAt(this.desplegable_relleno2.getSelectedIndex());
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(0, vi.getHeight());
+            Relleno r = new Relleno(TipoRelleno.GRADIENTEVER, col1, col2, p1, p2);
+            
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
+        }
+    }//GEN-LAST:event_boton_relleno_grad_verActionPerformed
+
+    private void slider_transpStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider_transpStateChanged
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTransp(slider_transp.getValue()/100.0f);
+    }//GEN-LAST:event_slider_transpStateChanged
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1921,6 +2068,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToggleButton boton_rectangulo;
     private javax.swing.JToggleButton boton_rectangulo_red;
     private javax.swing.JToggleButton boton_rellenar;
+    private javax.swing.JToggleButton boton_relleno_grad_hor;
+    private javax.swing.JToggleButton boton_relleno_grad_ver;
     private javax.swing.JButton boton_resta_img;
     private javax.swing.JButton boton_sepia;
     private javax.swing.JButton boton_stop;
@@ -1933,13 +2082,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<Color> desplegable_color;
     private javax.swing.JComboBox<String> desplegable_cs;
     private javax.swing.JComboBox<String> desplegable_filtro;
+    private javax.swing.JComboBox<Color> desplegable_relleno1;
+    private javax.swing.JComboBox<Color> desplegable_relleno2;
     private javax.swing.JComboBox<File> desplegable_reprod;
+    private javax.swing.JComboBox<String> desplegable_trazo;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel etiq_estado;
     private javax.swing.JLabel etiq_temp_record;
     private javax.swing.ButtonGroup grupo_colores;
     private javax.swing.ButtonGroup grupo_herramientas;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.ButtonGroup grupo_relleno;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenu menu_archivo;
@@ -1973,6 +2126,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSlider slider_brillo;
     private javax.swing.JSlider slider_rotacion;
     private javax.swing.JSlider slider_tinte;
+    private javax.swing.JSlider slider_transp;
     private javax.swing.JSlider slider_umbral;
     private javax.swing.JSpinner spinner_grosor;
     // End of variables declaration//GEN-END:variables

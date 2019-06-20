@@ -67,7 +67,7 @@ public class Relleno {
         this.p2 = p2;
     }
     
-    TipoRelleno tipo;
-    Color color1, color2;
-    Point p1, p2;
+    private TipoRelleno tipo;
+    private Color color1, color2;
+    private Point p1, p2;
 }

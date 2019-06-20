@@ -11,8 +11,12 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import sm.nrg.graficos.*;
 
@@ -27,9 +31,9 @@ public class Lienzo2D extends javax.swing.JPanel {
         initComponents();
         
         v_shape = new ArrayList<Figura>();
-        herramienta = TipoHerramienta.RECTANGULOS;
-        traz = new Trazo(Color.BLACK, 5.0f, TipoTrazo.CONTINUO);
-        transp = 0.5f;
+        herramienta = TipoHerramienta.LINEAS;
+        traz = new Trazo(Color.BLACK, 1, TipoTrazo.CONTINUO);
+        transp = 1.0f;
         relleno = new Relleno(TipoRelleno.SINRELLENO, Color.BLACK);
         alisado = false;
     }
@@ -47,17 +51,28 @@ public class Lienzo2D extends javax.swing.JPanel {
         switch(herramienta){
             case LINEAS:
                 Line2D laux = new Line2D.Float(p_i, p_i);
-                v_shape.add(new Linea(traz, alisado, laux)); //aux = new Line2D.Float(p_i, p_i);
+                v_shape.add(new Linea(traz, alisado, laux));
                 break;
             case RECTANGULOS:
-                aux = new Rectangle(p_i);
+                p_aux = p_i;
+                Rectangle2D raux = new Rectangle2D.Double(p_i.getX(), p_i.getY(), 1, 1);
+                v_shape.add(new Rectangulo(traz, alisado, relleno, transp, raux));
                 break;
             case ELIPSES:
-                //v_shape.add(new Ellipse2D.Double(p_i.getX(), p_i.getY(), 1, 1));
+                p_aux = p_i;
+                Ellipse2D eaux = new Ellipse2D.Double(p_i.getX(), p_i.getY(), 1, 1);
+                v_shape.add(new Elipse(traz, alisado, relleno, transp, eaux));
                 break;
             case RECTANGULOSRED:
+                p_aux = p_i;
+                RoundRectangle2D rraux = new RoundRectangle2D.Double(p_i.getX(), p_i.getY(), 1, 1, 25, 25);
+                v_shape.add(new RectanguloRedondeado(traz, alisado, relleno, transp, rraux));
                 break;
             case CURVAS:
+                if(!curva_cuad){
+                    QuadCurve2D caux = new QuadCurve2D.Double(p_i.getX(), p_i.getY(), p_i.getX(), p_i.getX(), p_i.getX(), p_i.getX());
+                    v_shape.add(new CurvaCuadrada(traz, alisado, caux));
+                }
                 break;
         }
     }
@@ -69,18 +84,40 @@ public class Lienzo2D extends javax.swing.JPanel {
                 laux.getLinea().setLine(laux.getLinea().getP1(), p_f);
                 break;
             case RECTANGULOS:
-                Rectangle2D raux = (Rectangle2D)(aux);
-                raux.setFrameFromDiagonal(p_aux, p_f);
+                Rectangulo raux = (Rectangulo)(v_shape.get(v_shape.size()-1));
+                raux.getRectangulo().setFrameFromDiagonal(p_aux, p_f);
 
-                v_shape.add(new Rectangulo(traz, alisado, relleno, transp, raux));
-                this.repaint();
+                v_shape.set(v_shape.size()-1, raux);
                 break;
-            /*case ELIPSES:
-                Ellipse2D eaux = (Ellipse2D)(v_shape.get(v_shape.size()-1));
-                eaux.setFrameFromDiagonal(p_aux, p_f);
+            case ELIPSES:
+                Elipse eaux = (Elipse)(v_shape.get(v_shape.size()-1));
+                eaux.getElipse().setFrameFromDiagonal(p_aux, p_f);
                 
                 v_shape.set(v_shape.size()-1, eaux);
-                break;*/
+                break;
+            case RECTANGULOSRED:
+                RectanguloRedondeado rraux = (RectanguloRedondeado)(v_shape.get(v_shape.size()-1));
+                rraux.getRecred().setFrameFromDiagonal(p_aux, p_f);
+                
+                v_shape.set(v_shape.size()-1, rraux);
+                break;
+            case CURVAS:
+                CurvaCuadrada caux = (CurvaCuadrada)v_shape.get(v_shape.size()-1);
+                if(!curva_cuad || !punto){
+                    caux.getCurva().setCurve(caux.getCurva().getP1(), p_f, p_f);
+                    curva_cuad = true;
+                }
+                else{
+                    double ctrlx = Math.abs(caux.getCurva().getP2().getX() - caux.getCurva().getP1().getX());
+                    double ctrly = Math.abs(caux.getCurva().getP2().getY() - caux.getCurva().getP1().getY());
+                    
+                    Point2D central = new Point2D.Double(ctrlx/2+p_f.getX(), ctrly/2+p_f.getY());
+                    
+                    caux.getCurva().setCurve(caux.getCurva().getP1(), central, caux.getCurva().getP2());
+                }
+                
+                v_shape.set(v_shape.size()-1, caux);
+                break;
         }
     }
 
@@ -171,13 +208,25 @@ public class Lienzo2D extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        p_aux = evt.getPoint();
+        if(!curva_cuad){
+            p_aux = evt.getPoint();
+            createShape(p_aux);
+        }
         
-        createShape(p_aux);
+        else
+            updateShape(evt.getPoint());
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         formMouseDragged(evt);
+        
+        if(curva_cuad && !punto)
+            punto = true;
+        
+        else{
+            curva_cuad = false;
+            punto = false;
+        }
     }//GEN-LAST:event_formMouseReleased
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
@@ -196,4 +245,5 @@ public class Lienzo2D extends javax.swing.JPanel {
     boolean alisado;
     Shape aux;
     Point p_aux;
+    boolean curva_cuad = false, punto = false;
 }

@@ -7,27 +7,26 @@ package sm.nrg.graficos;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Point;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 
 /**
  *
  * @author nazaret
  */
-public class Rectangulo extends FiguraConArea {
-    public Rectangulo(Trazo t, boolean alisado, Relleno r, float transp, Rectangle2D rec){
+public class RectanguloRedondeado extends FiguraConArea {
+    public RectanguloRedondeado(Trazo t, boolean alisado, Relleno r, float transp, RoundRectangle2D rec){
         super(t, alisado, r, transp);
         
-        rectangulo = rec;
+        recred = rec;
     }
     
     @Override
     public String toString(){
-        return "Rectángulo";
+        return "Rectángulo redondeado";
     }
     
     @Override
@@ -35,14 +34,10 @@ public class Rectangulo extends FiguraConArea {
         super.paint(g2d);
         
         if(super.getRelleno().getTipo() == TipoRelleno.SINRELLENO)
-            g2d.draw(rectangulo);
+            g2d.draw(recred);
         
-        else if(super.getRelleno().getTipo() == TipoRelleno.LISO){
-            Paint liso = super.getRelleno().getColor1();
-            
-            g2d.setPaint(liso);
-            g2d.fill(rectangulo);
-        }
+        else if(super.getRelleno().getTipo() == TipoRelleno.LISO)
+            g2d.fill(recred);
         
         else{
             Point p1 = super.getRelleno().getP1(),
@@ -54,7 +49,7 @@ public class Rectangulo extends FiguraConArea {
             Paint fill = new GradientPaint(p1, c1, p2, c2);
             
             g2d.setPaint(fill);
-            g2d.fill(rectangulo);
+            g2d.fill(recred);
         }
     }
 
@@ -63,13 +58,13 @@ public class Rectangulo extends FiguraConArea {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Rectangle2D getRectangulo() {
-        return rectangulo;
+    public RoundRectangle2D getRecred() {
+        return recred;
     }
 
-    public void setRectangulo(Rectangle2D rectangulo) {
-        this.rectangulo = rectangulo;
+    public void setRecred(RoundRectangle2D recred) {
+        this.recred = recred;
     }
     
-    private Rectangle2D rectangulo;
+    private RoundRectangle2D recred;
 }
