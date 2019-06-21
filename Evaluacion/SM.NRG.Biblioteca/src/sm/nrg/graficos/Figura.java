@@ -16,7 +16,7 @@ import java.awt.geom.Point2D;
 public abstract class Figura {
     
     public Figura(Trazo t, boolean alisado){
-        trazo = t;
+        trazo = new Trazo(t.getColor(), t.getGrosor(), t.getTipo());
         this.alisado = alisado;
     }
 

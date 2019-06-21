@@ -17,7 +17,12 @@ public abstract class FiguraConArea extends Figura{
     public FiguraConArea(Trazo t, boolean alisado, Relleno r, float transp){
         super(t, alisado);
         
-        relleno = r;
+        if(r.getTipo() == TipoRelleno.LISO || r.getTipo() == TipoRelleno.SINRELLENO)
+            relleno = new Relleno(r.getTipo(), r.getColor1());
+        
+        else
+            relleno = new Relleno(r.getTipo(), r.getColor1(), r.getColor2(), r.getP1(), r.getP2());
+        
         transparencia = transp;
     }
 

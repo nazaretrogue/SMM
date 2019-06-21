@@ -808,11 +808,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == desplegable_color) {
                 VentanaPrincipal.this.desplegable_colorActionPerformed(evt);
             }
+            else if (evt.getSource() == desplegable_relleno1) {
+                VentanaPrincipal.this.desplegable_relleno1ActionPerformed(evt);
+            }
+            else if (evt.getSource() == desplegable_relleno2) {
+                VentanaPrincipal.this.desplegable_relleno2ActionPerformed(evt);
+            }
             else if (evt.getSource() == desplegable_trazo) {
                 VentanaPrincipal.this.desplegable_trazoActionPerformed(evt);
             }
             else if (evt.getSource() == boton_rellenar) {
                 VentanaPrincipal.this.boton_rellenarActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_relleno_grad_hor) {
+                VentanaPrincipal.this.boton_relleno_grad_horActionPerformed(evt);
+            }
+            else if (evt.getSource() == boton_relleno_grad_ver) {
+                VentanaPrincipal.this.boton_relleno_grad_verActionPerformed(evt);
             }
             else if (evt.getSource() == boton_transp) {
                 VentanaPrincipal.this.boton_transpActionPerformed(evt);
@@ -928,18 +940,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == menu_op_acerca) {
                 VentanaPrincipal.this.menu_op_acercaActionPerformed(evt);
             }
-            else if (evt.getSource() == boton_relleno_grad_hor) {
-                VentanaPrincipal.this.boton_relleno_grad_horActionPerformed(evt);
-            }
-            else if (evt.getSource() == desplegable_relleno1) {
-                VentanaPrincipal.this.desplegable_relleno1ActionPerformed(evt);
-            }
-            else if (evt.getSource() == desplegable_relleno2) {
-                VentanaPrincipal.this.desplegable_relleno2ActionPerformed(evt);
-            }
-            else if (evt.getSource() == boton_relleno_grad_ver) {
-                VentanaPrincipal.this.boton_relleno_grad_verActionPerformed(evt);
-            }
         }
 
         public void focusGained(java.awt.event.FocusEvent evt) {
@@ -976,6 +976,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             if (evt.getSource() == spinner_grosor) {
                 VentanaPrincipal.this.spinner_grosorStateChanged(evt);
             }
+            else if (evt.getSource() == slider_transp) {
+                VentanaPrincipal.this.slider_transpStateChanged(evt);
+            }
             else if (evt.getSource() == slider_brillo) {
                 VentanaPrincipal.this.slider_brilloStateChanged(evt);
             }
@@ -987,9 +990,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
             else if (evt.getSource() == slider_umbral) {
                 VentanaPrincipal.this.slider_umbralStateChanged(evt);
-            }
-            else if (evt.getSource() == slider_transp) {
-                VentanaPrincipal.this.slider_transpStateChanged(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -1967,9 +1967,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void desplegable_trazoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegable_trazoActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
-            Trazo t = new Trazo(Color.BLACK, 1, TipoTrazo.CONTINUO);
+            String opcion = String.valueOf(desplegable_trazo.getSelectedItem());
+            Trazo trazo_lienzo;
+            Color col = this.desplegable_relleno1.getItemAt(this.desplegable_relleno1.getSelectedIndex());
+            int grosor = (int)spinner_grosor.getValue();
+      
+            switch(opcion){
+                case "Continuo":
+                    trazo_lienzo = new Trazo(col, grosor, TipoTrazo.CONTINUO);
+                    break;
+                case "Discontinuo":
+                    trazo_lienzo = new Trazo(col, grosor, TipoTrazo.DISCONTINUO);
+                    break;
+                case "Punteado":
+                    trazo_lienzo = new Trazo(col, grosor, TipoTrazo.PUNTEADO);
+                    break;
+                default:
+                    trazo_lienzo = new Trazo(col, 1, TipoTrazo.CONTINUO);
+                    break;
+            }
             
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTraz(t);
+            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTraz(trazo_lienzo);
         }
     }//GEN-LAST:event_desplegable_trazoActionPerformed
 

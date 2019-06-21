@@ -40,10 +40,13 @@ public class VentanaInternaLienzo extends javax.swing.JInternalFrame {
         panel_desplazamiento = new javax.swing.JScrollPane();
         lienzo2D = new sm.nrg.iu.LienzoImagen2D();
 
+        FormListener formListener = new FormListener();
+
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        addInternalFrameListener(formListener);
 
         javax.swing.GroupLayout lienzo2DLayout = new javax.swing.GroupLayout(lienzo2D);
         lienzo2D.setLayout(lienzo2DLayout);
@@ -61,7 +64,48 @@ public class VentanaInternaLienzo extends javax.swing.JInternalFrame {
         getContentPane().add(panel_desplazamiento, java.awt.BorderLayout.CENTER);
 
         pack();
+    }
+
+    // Code for dispatching events from components to event handlers.
+
+    private class FormListener implements javax.swing.event.InternalFrameListener {
+        FormListener() {}
+        public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            if (evt.getSource() == VentanaInternaLienzo.this) {
+                VentanaInternaLienzo.this.formInternalFrameActivated(evt);
+            }
+        }
+
+        public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+        }
+
+        public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+        }
+
+        public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+        }
+
+        public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+        }
+
+        public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+        }
+
+        public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+        }
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        VentanaPrincipal padre;
+        
+        try{
+            padre = (VentanaPrincipal)this.getParent().getParent();
+        }catch(Exception e){
+            System.err.println(e);
+        }
+        
+        
+    }//GEN-LAST:event_formInternalFrameActivated
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
