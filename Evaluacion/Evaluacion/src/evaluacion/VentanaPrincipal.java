@@ -12,6 +12,7 @@ import java.awt.Stroke;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.image.*;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -213,7 +214,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_elipse = new javax.swing.JToggleButton();
         boton_rectangulo_red = new javax.swing.JToggleButton();
         boton_curva = new javax.swing.JToggleButton();
+        separador7 = new javax.swing.JToolBar.Separator();
+        boton_mover = new javax.swing.JButton();
         separador2 = new javax.swing.JToolBar.Separator();
+        desplegable_fig_lienzo = new javax.swing.JComboBox<>();
+        separador6 = new javax.swing.JToolBar.Separator();
         Color c[]={Color.BLACK, Color.RED, Color.BLUE, Color.WHITE, Color.YELLOW, Color.GREEN};
         desplegable_color = new javax.swing.JComboBox<>(c);
         Color c1[]={Color.BLACK, Color.RED, Color.BLUE, Color.WHITE, Color.YELLOW, Color.GREEN};
@@ -230,7 +235,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_transp = new javax.swing.JToggleButton();
         slider_transp = new javax.swing.JSlider();
         boton_alisar = new javax.swing.JToggleButton();
-        desplegable_fig_lienzo = new javax.swing.JComboBox<>();
         separador4 = new javax.swing.JToolBar.Separator();
         barra_herramientas_imagen = new javax.swing.JToolBar();
         boton_duplicar_img = new javax.swing.JButton();
@@ -386,7 +390,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_curva.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         boton_curva.addActionListener(formListener);
         barra_herramientas_dibujo.add(boton_curva);
+        barra_herramientas_dibujo.add(separador7);
+
+        boton_mover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/mover.png"))); // NOI18N
+        boton_mover.setToolTipText("Mover figura");
+        boton_mover.setFocusable(false);
+        boton_mover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton_mover.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        boton_mover.addActionListener(formListener);
+        barra_herramientas_dibujo.add(boton_mover);
         barra_herramientas_dibujo.add(separador2);
+
+        desplegable_fig_lienzo.setToolTipText("Lista de figuras");
+        desplegable_fig_lienzo.addActionListener(formListener);
+        barra_herramientas_dibujo.add(desplegable_fig_lienzo);
+        barra_herramientas_dibujo.add(separador6);
 
         desplegable_color.setToolTipText("Color de trazo");
         desplegable_color.setPreferredSize(new java.awt.Dimension(58, 45));
@@ -467,9 +485,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_alisar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         boton_alisar.addActionListener(formListener);
         barra_herramientas_dibujo.add(boton_alisar);
-
-        desplegable_fig_lienzo.addActionListener(formListener);
-        barra_herramientas_dibujo.add(desplegable_fig_lienzo);
 
         barra_herramientas.add(barra_herramientas_dibujo);
         barra_herramientas.add(separador4);
@@ -970,6 +985,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == desplegable_fig_lienzo) {
                 VentanaPrincipal.this.desplegable_fig_lienzoActionPerformed(evt);
             }
+            else if (evt.getSource() == boton_mover) {
+                VentanaPrincipal.this.boton_moverActionPerformed(evt);
+            }
         }
 
         public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -1044,6 +1062,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void boton_lineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_lineaActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.LINEAS);
+            
+            if(aux != null){
+                aux = null;
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().deseleccionarFigura();
+            }
         }
         
         this.etiq_estado.setText("Línea");
@@ -1052,6 +1075,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void boton_rectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rectanguloActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.RECTANGULOS);
+            
+            if(aux != null){
+                aux = null;
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().deseleccionarFigura();
+            }
         }
         
         this.etiq_estado.setText("Rectángulo");
@@ -1060,6 +1088,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void boton_elipseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_elipseActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.ELIPSES);
+            
+            if(aux != null){
+                aux = null;
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().deseleccionarFigura();
+            }
         }
         
         this.etiq_estado.setText("Elipse");
@@ -1068,38 +1101,80 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void spinner_grosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinner_grosorStateChanged
         int grosor = (int)spinner_grosor.getValue();
         
-        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getTraz().setGrosor(grosor);
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            if(aux == null)
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getTraz().setGrosor(grosor);
+            
+            else{
+                aux.getTrazo().setGrosor(grosor);
+                repaint();
+            }
+        }
     }//GEN-LAST:event_spinner_grosorStateChanged
 
     private void boton_rellenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rellenarActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
-            VentanaInternaLienzo vi = (VentanaInternaLienzo)(this.escritorio.getSelectedFrame());
-            Color col1 = this.desplegable_relleno1.getItemAt(this.desplegable_relleno1.getSelectedIndex());
-            Color col2 = this.desplegable_relleno2.getItemAt(this.desplegable_relleno2.getSelectedIndex());
-            Point p1 = new Point(0, 0);
-            Point p2 = new Point(vi.getWidth(), 0);
-            Relleno r = new Relleno(TipoRelleno.GRADIENTEHOR, col1, col2, p1, p2);
-            
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
-        }
-        
-        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
             Color col = this.desplegable_relleno1.getItemAt(this.desplegable_relleno1.getSelectedIndex());
-            Relleno r = new Relleno(TipoRelleno.LISO, col);
             
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
+            if(aux == null){
+                Relleno r = new Relleno(TipoRelleno.LISO, col);
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
+            }
+            
+            else{
+                switch(aux.getClass().getSimpleName()){
+                    case "Rectangulo":
+                        ((Rectangulo)aux).getRelleno().setTipo(TipoRelleno.LISO);
+                        ((Rectangulo)aux).getRelleno().setColor1(col);
+                        break;
+                    case "Elipse":
+                        ((Elipse)aux).getRelleno().setTipo(TipoRelleno.LISO);
+                        ((Elipse)aux).getRelleno().setColor1(col);
+                        break;
+                    case "RectanguloRedondeado":
+                        ((RectanguloRedondeado)aux).getRelleno().setTipo(TipoRelleno.LISO);
+                        ((RectanguloRedondeado)aux).getRelleno().setColor1(col);
+                        break;
+                }
+                
+                repaint();
+            }
         }
     }//GEN-LAST:event_boton_rellenarActionPerformed
 
     private void boton_transpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_transpActionPerformed
-        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTransp(0.5f);
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            if(aux == null)
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTransp(0.5f);
+            
+            else{
+                switch(aux.getClass().getSimpleName()){
+                    case "Rectangulo":
+                        ((Rectangulo)aux).setTransparencia(0.5f);
+                        break;
+                    case "Elipse":
+                        ((Elipse)aux).setTransparencia(0.5f);
+                        break;
+                    case "RectanguloRedondeado":
+                        ((RectanguloRedondeado)aux).setTransparencia(0.5f);
+                        break;
+                }
+                
+                repaint();
+            }
+        }
     }//GEN-LAST:event_boton_transpActionPerformed
 
     private void boton_alisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_alisarActionPerformed
-        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setAlisado(boton_alisar.isSelected());
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            if(aux == null)
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setAlisado(boton_alisar.isSelected());
+            
+            else{
+                aux.setAlisado(!aux.isAlisado());
+                repaint();
+            }
+        }
     }//GEN-LAST:event_boton_alisarActionPerformed
 
     private void slider_brilloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_slider_brilloFocusGained
@@ -1285,7 +1360,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
         {
             Color col = this.desplegable_color.getItemAt(this.desplegable_color.getSelectedIndex());
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getTraz().setColor(col);
+            
+            if(aux == null)
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getTraz().setColor(col);
+            
+            else{
+                aux.getTrazo().setColor(col);
+                repaint();
+            }
         }
     }//GEN-LAST:event_desplegable_colorActionPerformed
 
@@ -2009,31 +2091,54 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
             String opcion = String.valueOf(desplegable_trazo.getSelectedItem());
             Trazo trazo_lienzo;
-            Color col = this.desplegable_relleno1.getItemAt(this.desplegable_relleno1.getSelectedIndex());
+            Color col = this.desplegable_color.getItemAt(this.desplegable_color.getSelectedIndex());
             int grosor = (int)spinner_grosor.getValue();
-      
-            switch(opcion){
-                case "Continuo":
-                    trazo_lienzo = new Trazo(col, grosor, TipoTrazo.CONTINUO);
-                    break;
-                case "Discontinuo":
-                    trazo_lienzo = new Trazo(col, grosor, TipoTrazo.DISCONTINUO);
-                    break;
-                case "Punteado":
-                    trazo_lienzo = new Trazo(col, grosor, TipoTrazo.PUNTEADO);
-                    break;
-                default:
-                    trazo_lienzo = new Trazo(col, 1, TipoTrazo.CONTINUO);
-                    break;
+            
+            if(aux == null){
+                switch(opcion){
+                    case "Continuo":
+                        trazo_lienzo = new Trazo(col, grosor, TipoTrazo.CONTINUO);
+                        break;
+                    case "Discontinuo":
+                        trazo_lienzo = new Trazo(col, grosor, TipoTrazo.DISCONTINUO);
+                        break;
+                    case "Punteado":
+                        trazo_lienzo = new Trazo(col, grosor, TipoTrazo.PUNTEADO);
+                        break;
+                    default:
+                        trazo_lienzo = new Trazo(col, 1, TipoTrazo.CONTINUO);
+                        break;
+                }
+            
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTraz(trazo_lienzo);
             }
             
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTraz(trazo_lienzo);
+            else{
+                switch(opcion){
+                    case "Continuo":
+                        aux.getTrazo().setTipo(TipoTrazo.CONTINUO);
+                        break;
+                    case "Discontinuo":
+                        aux.getTrazo().setTipo(TipoTrazo.DISCONTINUO);
+                        break;
+                    case "Punteado":
+                        aux.getTrazo().setTipo(TipoTrazo.PUNTEADO);
+                        break;
+                }
+                
+                repaint();
+            }
         }
     }//GEN-LAST:event_desplegable_trazoActionPerformed
 
     private void boton_rectangulo_redActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rectangulo_redActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.RECTANGULOSRED);
+            
+            if(aux != null){
+                aux = null;
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().deseleccionarFigura();
+            }
         }
         
         this.etiq_estado.setText("Rectángulo redondeado");
@@ -2042,6 +2147,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void boton_curvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_curvaActionPerformed
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setHerramienta(TipoHerramienta.CURVAS);
+            
+            if(aux != null){
+                aux = null;
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().deseleccionarFigura();
+            }
         }
         
         this.etiq_estado.setText("Curva cuadrada (con un punto de control)");
@@ -2054,9 +2164,39 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Color col2 = this.desplegable_relleno2.getItemAt(this.desplegable_relleno2.getSelectedIndex());
             Point p1 = new Point(0, 0);
             Point p2 = new Point(vi.getWidth(), 0);
-            Relleno r = new Relleno(TipoRelleno.GRADIENTEHOR, col1, col2, p1, p2);
+                
+            if(aux == null){
+                Relleno r = new Relleno(TipoRelleno.GRADIENTEHOR, col1, col2, p1, p2);
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
+            }
             
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
+            else{
+                switch(aux.getClass().getSimpleName()){
+                    case "Rectangulo":
+                        ((Rectangulo)aux).getRelleno().setTipo(TipoRelleno.GRADIENTEHOR);
+                        ((Rectangulo)aux).getRelleno().setColor1(col1);
+                        ((Rectangulo)aux).getRelleno().setColor2(col2);
+                        ((Rectangulo)aux).getRelleno().setP1(p1);
+                        ((Rectangulo)aux).getRelleno().setP2(p2);
+                        break;
+                    case "Elipse":
+                        ((Elipse)aux).getRelleno().setTipo(TipoRelleno.GRADIENTEHOR);
+                        ((Elipse)aux).getRelleno().setColor1(col1);
+                        ((Elipse)aux).getRelleno().setColor2(col2);
+                        ((Elipse)aux).getRelleno().setP1(p1);
+                        ((Elipse)aux).getRelleno().setP2(p2);
+                        break;
+                    case "RectanguloRedondeado":
+                        ((RectanguloRedondeado)aux).getRelleno().setTipo(TipoRelleno.GRADIENTEHOR);
+                        ((RectanguloRedondeado)aux).getRelleno().setColor1(col1);
+                        ((RectanguloRedondeado)aux).getRelleno().setColor2(col2);
+                        ((RectanguloRedondeado)aux).getRelleno().setP1(p1);
+                        ((RectanguloRedondeado)aux).getRelleno().setP2(p2);
+                        break;
+                }
+                
+                repaint();
+            }
         }
     }//GEN-LAST:event_boton_relleno_grad_horActionPerformed
 
@@ -2064,7 +2204,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
         {
             Color col = this.desplegable_relleno1.getItemAt(this.desplegable_relleno1.getSelectedIndex());
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getRelleno().setColor1(col);
+            
+            if(aux == null)
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getRelleno().setColor1(col);
+            
+            else{
+                switch(aux.getClass().getSimpleName()){
+                    case "Rectangulo":
+                        ((Rectangulo)aux).getRelleno().setColor1(col);
+                        break;
+                    case "Elipse":
+                        ((Elipse)aux).getRelleno().setColor1(col);
+                        break;
+                    case "RectanguloRedondeado":
+                        ((RectanguloRedondeado)aux).getRelleno().setColor1(col);
+                        break;
+                }
+                
+                repaint();
+            }
         }
     }//GEN-LAST:event_desplegable_relleno1ActionPerformed
 
@@ -2072,7 +2230,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
         {
             Color col = this.desplegable_relleno2.getItemAt(this.desplegable_relleno2.getSelectedIndex());
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getRelleno().setColor2(col);
+            
+            if(aux == null)
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getRelleno().setColor1(col);
+            
+            else{
+                switch(aux.getClass().getSimpleName()){
+                    case "Rectangulo":
+                        ((Rectangulo)aux).getRelleno().setColor2(col);
+                        break;
+                    case "Elipse":
+                        ((Elipse)aux).getRelleno().setColor2(col);
+                        break;
+                    case "RectanguloRedondeado":
+                        ((RectanguloRedondeado)aux).getRelleno().setColor2(col);
+                        break;
+                }
+                
+                repaint();
+            }
         }
     }//GEN-LAST:event_desplegable_relleno2ActionPerformed
 
@@ -2083,15 +2259,63 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Color col2 = this.desplegable_relleno2.getItemAt(this.desplegable_relleno2.getSelectedIndex());
             Point p1 = new Point(0, 0);
             Point p2 = new Point(0, vi.getHeight());
-            Relleno r = new Relleno(TipoRelleno.GRADIENTEVER, col1, col2, p1, p2);
             
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
+            if(aux == null){
+                Relleno r = new Relleno(TipoRelleno.GRADIENTEVER, col1, col2, p1, p2);
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setRelleno(r);
+            }
+            
+            else{
+                switch(aux.getClass().getSimpleName()){
+                    case "Rectangulo":
+                        ((Rectangulo)aux).getRelleno().setTipo(TipoRelleno.GRADIENTEVER);
+                        ((Rectangulo)aux).getRelleno().setColor1(col1);
+                        ((Rectangulo)aux).getRelleno().setColor2(col2);
+                        ((Rectangulo)aux).getRelleno().setP1(p1);
+                        ((Rectangulo)aux).getRelleno().setP2(p2);
+                        break;
+                    case "Elipse":
+                        ((Elipse)aux).getRelleno().setTipo(TipoRelleno.GRADIENTEVER);
+                        ((Elipse)aux).getRelleno().setColor1(col1);
+                        ((Elipse)aux).getRelleno().setColor2(col2);
+                        ((Elipse)aux).getRelleno().setP1(p1);
+                        ((Elipse)aux).getRelleno().setP2(p2);
+                        break;
+                    case "RectanguloRedondeado":
+                        ((RectanguloRedondeado)aux).getRelleno().setTipo(TipoRelleno.GRADIENTEVER);
+                        ((RectanguloRedondeado)aux).getRelleno().setColor1(col1);
+                        ((RectanguloRedondeado)aux).getRelleno().setColor2(col2);
+                        ((RectanguloRedondeado)aux).getRelleno().setP1(p1);
+                        ((RectanguloRedondeado)aux).getRelleno().setP2(p2);
+                        break;
+                }
+                
+                repaint();
+            }
         }
     }//GEN-LAST:event_boton_relleno_grad_verActionPerformed
 
     private void slider_transpStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider_transpStateChanged
-        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null)
-            ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTransp(slider_transp.getValue()/100.0f);
+        if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+            if(aux == null)
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTransp(slider_transp.getValue()/100.0f);
+            
+            else{
+                switch(aux.getClass().getSimpleName()){
+                    case "Rectangulo":
+                        ((Rectangulo)aux).setTransparencia(slider_transp.getValue()/100.0f);
+                        break;
+                    case "Elipse":
+                        ((Elipse)aux).setTransparencia(slider_transp.getValue()/100.0f);
+                        break;
+                    case "RectanguloRedondeado":
+                        ((RectanguloRedondeado)aux).setTransparencia(slider_transp.getValue()/100.0f);
+                        break;
+                }
+                
+                repaint();
+            }
+        }
     }//GEN-LAST:event_slider_transpStateChanged
 
     private void escritorioComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_escritorioComponentAdded
@@ -2104,8 +2328,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_escritorioComponentAdded
 
     private void desplegable_fig_lienzoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegable_fig_lienzoActionPerformed
-       
+        if(primera_aniadida)
+            primera_aniadida = false;
+        
+        else{
+            if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
+                VentanaInternaLienzo vi = (VentanaInternaLienzo)(this.escritorio.getSelectedFrame());
+                if(aux != null){
+                    aux = null;
+                    ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().deseleccionarFigura();
+                }
+                
+                aux = (Figura)desplegable_fig_lienzo.getSelectedItem();
+                vi.getLienzo().seleccionarFigura(aux);
+            }
+        }
     }//GEN-LAST:event_desplegable_fig_lienzoActionPerformed
+
+    private void boton_moverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_moverActionPerformed
+        if(aux != null){
+            String x, y;
+            x = JOptionPane.showInputDialog("Movimiento en X");
+            y = JOptionPane.showInputDialog("Movimiento en Y");
+            Point punto = null;
+            
+            if(x != "" && y != ""){
+                punto = new Point(Integer.valueOf(x), Integer.valueOf(y));
+            
+                aux.setLocation(punto);
+
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().deseleccionarFigura();
+                ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().seleccionarFigura(aux);
+
+                repaint();
+            }
+        }
+    }//GEN-LAST:event_boton_moverActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2129,6 +2387,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton boton_guardar;
     private javax.swing.JButton boton_iluminar;
     private javax.swing.JToggleButton boton_linea;
+    private javax.swing.JButton boton_mover;
     private javax.swing.JButton boton_negativo;
     private javax.swing.JButton boton_nuevo;
     private javax.swing.JButton boton_oscurecer;
@@ -2195,6 +2454,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator separador3;
     private javax.swing.JToolBar.Separator separador4;
     private javax.swing.JToolBar.Separator separador5;
+    private javax.swing.JToolBar.Separator separador6;
+    private javax.swing.JToolBar.Separator separador7;
     private javax.swing.JSlider slider_brillo;
     private javax.swing.JSlider slider_rotacion;
     private javax.swing.JSlider slider_tinte;
@@ -2212,4 +2473,5 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     VentanaInternaCamara vic = null;
     ManejadorLienzo manejador;
     Figura aux;
+    boolean primera_aniadida = true;
 }

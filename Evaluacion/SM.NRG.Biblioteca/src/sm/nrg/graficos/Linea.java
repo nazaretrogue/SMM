@@ -7,6 +7,7 @@ package sm.nrg.graficos;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -35,12 +36,19 @@ public class Linea extends Figura {
     }
 
     @Override
-    public void setLocation(Point2D p) {
-        double x = p.getX()-linea.getX1();
-        double y = p.getY()-linea.getY1();
+    public void setLocation(Point p) {
+        Point2D origen = new Point2D.Double(p.getX()+linea.getX1(), p.getY()+linea.getY1());
+        Point2D nuevo = new Point2D.Double(p.getX()+linea.getX2(), p.getY()+linea.getY2());
+        linea.setLine(origen, nuevo);
+    }
+    
+    @Override
+    public Rectangulo seleccionarFigura(){
+        Rectangle2D borde = (Rectangle2D)linea.getBounds();
+        Trazo t = new Trazo(Color.RED, 2, TipoTrazo.DISCONTINUO);
+        Relleno r = new Relleno(TipoRelleno.SINRELLENO, Color.BLACK);
         
-        Point2D nuevo = new Point2D.Double(linea.getX2()+x, linea.getY2()+y);
-        linea.setLine(p, nuevo);
+        return new Rectangulo(t, true, r, 1.0f, borde);
     }
     
     public boolean isNear(Point2D p){

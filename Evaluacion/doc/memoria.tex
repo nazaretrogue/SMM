@@ -9,7 +9,7 @@
 \usepackage[export]{adjustbox}[2011/08/13]
 \usepackage{float}
 \restylefloat{table}
-\usepackage[hidelinks]{hyperref}
+
 \usepackage{titling}
 %\usepackage{minted}
 \usepackage{multirow}
@@ -18,6 +18,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{array}
 \selectlanguage{spanish}
+\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks]{hyperref}
 
 %Paquetes gráficos
 \usepackage{tikz}
@@ -567,5 +568,8 @@ Su funcionamiento es el siguiente:\\
 \newpage
 
 \section{Bibliografía y fuentes de código}
+\begin{itemize}
+	\item \url{https://stackoverflow.com/questions/9062495/how-can-i-make-an-event-to-a-jcombobox-which-triggers-after-selection}
+\end{itemize}
 
 \end{document}

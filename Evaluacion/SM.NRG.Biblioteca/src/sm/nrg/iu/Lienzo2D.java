@@ -128,6 +128,16 @@ public class Lienzo2D extends javax.swing.JPanel {
                 break;
         }
     }
+    
+    public void seleccionarFigura(Figura f){
+        v_shape.add(f.seleccionarFigura());
+        repaint();
+    }
+    
+    public void deseleccionarFigura(){
+        v_shape.remove(v_shape.size()-1);
+        repaint();
+    }
 
     public TipoHerramienta getHerramienta() {
         return herramienta;

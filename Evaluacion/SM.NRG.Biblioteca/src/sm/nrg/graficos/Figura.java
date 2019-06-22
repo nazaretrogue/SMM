@@ -6,6 +6,7 @@
 package sm.nrg.graficos;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 
@@ -47,7 +48,8 @@ public abstract class Figura {
             
     }
     
-    public abstract void setLocation(Point2D p);
+    public abstract void setLocation(Point p);
+    public abstract Rectangulo seleccionarFigura();
     
     @Override
     public String toString(){

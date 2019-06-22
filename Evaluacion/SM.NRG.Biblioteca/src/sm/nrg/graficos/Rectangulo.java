@@ -59,8 +59,19 @@ public class Rectangulo extends FiguraConArea {
     }
 
     @Override
-    public void setLocation(Point2D p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setLocation(Point p) {
+        rectangulo.setFrameFromDiagonal(rectangulo.getX()+p.getX(), rectangulo.getY()+p.getY(), 
+                                        rectangulo.getX()+p.getX()+rectangulo.getWidth(), rectangulo.getY()+p.getY()+rectangulo.getHeight());
+    }
+    
+    @Override
+    public Rectangulo seleccionarFigura(){
+        Rectangle2D borde_aux = (Rectangle2D)rectangulo.getBounds();
+        Rectangle2D borde = new Rectangle2D.Double(borde_aux.getX()-10.0, borde_aux.getY()-10.0, borde_aux.getWidth()+20.0, borde_aux.getHeight()+20.0);
+        Trazo t = new Trazo(Color.RED, 2, TipoTrazo.DISCONTINUO);
+        Relleno r = new Relleno(TipoRelleno.SINRELLENO, Color.BLACK);
+        
+        return new Rectangulo(t, true, r, 1.0f, borde);
     }
 
     public Rectangle2D getRectangulo() {

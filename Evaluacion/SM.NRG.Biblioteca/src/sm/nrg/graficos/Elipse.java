@@ -55,8 +55,18 @@ public class Elipse extends FiguraConArea {
     }
 
     @Override
-    public void setLocation(Point2D p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setLocation(Point p) {
+        elipse.setFrameFromDiagonal(elipse.getX()+p.getX(), elipse.getY()+p.getY(), 
+                                    elipse.getX()+p.getX()+elipse.getWidth(), elipse.getY()+p.getY()+elipse.getHeight());
+    }
+    
+    @Override
+    public Rectangulo seleccionarFigura(){
+        Rectangle2D borde = (Rectangle2D)elipse.getBounds();
+        Trazo t = new Trazo(Color.RED, 2, TipoTrazo.DISCONTINUO);
+        Relleno r = new Relleno(TipoRelleno.SINRELLENO, Color.BLACK);
+        
+        return new Rectangulo(t, true, r, 1.0f, borde);
     }
 
     public Ellipse2D getElipse() {

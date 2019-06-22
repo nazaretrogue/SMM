@@ -7,6 +7,7 @@ package sm.nrg.graficos;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.QuadCurve2D;
@@ -36,13 +37,20 @@ public class CurvaCuadrada extends Figura {
     }
 
     @Override
-    public void setLocation(Point2D p) {
-        double x = p.getX()-curva.getX1();
-        double y = p.getY()-curva.getY1();
+    public void setLocation(Point p) {
+        Point2D origen = new Point2D.Double(p.getX()+curva.getX1(), p.getY()+curva.getY1());
+        Point2D fin = new Point2D.Double(p.getX()+curva.getX2(), p.getY()+curva.getY2());
+        Point2D ctrl = new Point2D.Double(p.getX()+curva.getCtrlX(), p.getY()+curva.getCtrlY());
+        curva.setCurve(origen, ctrl, fin);
+    }
+    
+    @Override
+    public Rectangulo seleccionarFigura(){
+        Rectangle2D borde = (Rectangle2D)curva.getBounds();
+        Trazo t = new Trazo(Color.RED, 2, TipoTrazo.DISCONTINUO);
+        Relleno r = new Relleno(TipoRelleno.SINRELLENO, Color.BLACK);
         
-        Point2D nuevo = new Point2D.Double(curva.getX2()+x, curva.getY2()+y);
-        Point2D nuevoctrl = new Point2D.Double(curva.getCtrlX()+x, curva.getCtrlY()+y);
-        curva.setCurve(p, nuevoctrl, nuevo);
+        return new Rectangulo(t, true, r, 1.0f, borde);
     }
 
     public QuadCurve2D getCurva() {
