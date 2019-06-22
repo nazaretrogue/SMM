@@ -17,6 +17,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -28,6 +29,8 @@ import sm.image.KernelProducer;
 import sm.image.LookupTableProducer;
 import sm.image.SubtractionOp;
 import sm.image.TintOp;
+import sm.nrg.eventos.LienzoAdapter;
+import sm.nrg.eventos.LienzoEvent;
 import sm.nrg.image.RayosXOp;
 import sm.nrg.iu.*;
 import sm.nrg.image.SepiaOp;
@@ -56,6 +59,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_stop.setVisible(false);
         boton_pausa.setVisible(false);
         boton_stop_record.setVisible(false);
+        manejador = new ManejadorLienzo();
         this.setSize(1200, 1000);   
     }
     
@@ -163,6 +167,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.paused(media_player);
         }
     }
+    
+    public class ManejadorLienzo extends LienzoAdapter{
+        @Override
+        public void figuraAdded(LienzoEvent evt){
+            desplegable_fig_lienzo.addItem(evt.getFigura());
+        }
+    }
+
+    public JComboBox<String> getDesplegable_trazo(){
+        return desplegable_trazo;
+    }
+
+    public void setDesplegable_trazo(JComboBox<String> desplegable_trazo) {
+        this.desplegable_trazo = desplegable_trazo;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -209,6 +230,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_transp = new javax.swing.JToggleButton();
         slider_transp = new javax.swing.JSlider();
         boton_alisar = new javax.swing.JToggleButton();
+        desplegable_fig_lienzo = new javax.swing.JComboBox<>();
         separador4 = new javax.swing.JToolBar.Separator();
         barra_herramientas_imagen = new javax.swing.JToolBar();
         boton_duplicar_img = new javax.swing.JButton();
@@ -282,6 +304,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().add(panel_estado, java.awt.BorderLayout.SOUTH);
 
         panel_atr_lienzo.setLayout(new java.awt.BorderLayout());
+
+        escritorio.addContainerListener(formListener);
         panel_atr_lienzo.add(escritorio, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panel_atr_lienzo, java.awt.BorderLayout.CENTER);
@@ -443,6 +467,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         boton_alisar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         boton_alisar.addActionListener(formListener);
         barra_herramientas_dibujo.add(boton_alisar);
+
+        desplegable_fig_lienzo.addActionListener(formListener);
+        barra_herramientas_dibujo.add(desplegable_fig_lienzo);
 
         barra_herramientas.add(barra_herramientas_dibujo);
         barra_herramientas.add(separador4);
@@ -778,7 +805,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Code for dispatching events from components to event handlers.
 
-    private class FormListener implements java.awt.event.ActionListener, java.awt.event.FocusListener, javax.swing.event.ChangeListener {
+    private class FormListener implements java.awt.event.ActionListener, java.awt.event.ContainerListener, java.awt.event.FocusListener, javax.swing.event.ChangeListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             if (evt.getSource() == boton_nuevo) {
@@ -940,6 +967,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             else if (evt.getSource() == menu_op_acerca) {
                 VentanaPrincipal.this.menu_op_acercaActionPerformed(evt);
             }
+            else if (evt.getSource() == desplegable_fig_lienzo) {
+                VentanaPrincipal.this.desplegable_fig_lienzoActionPerformed(evt);
+            }
+        }
+
+        public void componentAdded(java.awt.event.ContainerEvent evt) {
+            if (evt.getSource() == escritorio) {
+                VentanaPrincipal.this.escritorioComponentAdded(evt);
+            }
+        }
+
+        public void componentRemoved(java.awt.event.ContainerEvent evt) {
         }
 
         public void focusGained(java.awt.event.FocusEvent evt) {
@@ -1708,6 +1747,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             img = new BufferedImage(Integer.valueOf(ancho), Integer.valueOf(alto), BufferedImage.TYPE_INT_RGB);
             img.getGraphics().fillRect(0, 0, img.getWidth(), img.getHeight());
             ((LienzoImagen2D)(vi.getLienzo())).setImagen(img);
+            vi.getLienzo().addLienzoListener(manejador);
         }
     }//GEN-LAST:event_boton_nuevoActionPerformed
 
@@ -2054,6 +2094,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().setTransp(slider_transp.getValue()/100.0f);
     }//GEN-LAST:event_slider_transpStateChanged
 
+    private void escritorioComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_escritorioComponentAdded
+        boton_linea.doClick();
+        desplegable_color.setSelectedIndex(0);
+        desplegable_relleno1.setSelectedIndex(0);
+        desplegable_relleno2.setSelectedIndex(0);
+        spinner_grosor.setValue(1);
+        desplegable_trazo.setSelectedItem("Continuo");
+    }//GEN-LAST:event_escritorioComponentAdded
+
+    private void desplegable_fig_lienzoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegable_fig_lienzoActionPerformed
+       
+    }//GEN-LAST:event_desplegable_fig_lienzoActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToolBar barra_herramientas;
@@ -2099,6 +2152,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton boton_webcam;
     private javax.swing.JComboBox<Color> desplegable_color;
     private javax.swing.JComboBox<String> desplegable_cs;
+    private javax.swing.JComboBox<Figura> desplegable_fig_lienzo;
     private javax.swing.JComboBox<String> desplegable_filtro;
     private javax.swing.JComboBox<Color> desplegable_relleno1;
     private javax.swing.JComboBox<Color> desplegable_relleno2;
@@ -2156,4 +2210,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private boolean grabando = false;
     private boolean pausa = false;
     VentanaInternaCamara vic = null;
+    ManejadorLienzo manejador;
+    Figura aux;
 }

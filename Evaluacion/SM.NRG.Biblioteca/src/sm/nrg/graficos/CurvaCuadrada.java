@@ -5,9 +5,12 @@
  */
 package sm.nrg.graficos;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.QuadCurve2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
@@ -22,7 +25,7 @@ public class CurvaCuadrada extends Figura {
     
     @Override
     public String toString(){
-        return "Línea cuadrada";
+        return "Curva cuadrática";
     }
     
     @Override
