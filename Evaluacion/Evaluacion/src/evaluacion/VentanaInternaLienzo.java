@@ -5,7 +5,9 @@
  */
 package evaluacion;
 
-import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyVetoException;
+import java.beans.VetoableChangeListener;
 import sm.nrg.graficos.TipoHerramienta;
 import sm.nrg.graficos.TipoTrazo;
 
@@ -23,10 +25,6 @@ public class VentanaInternaLienzo extends javax.swing.JInternalFrame {
         
         this.setSize(300, 300);
     }
-    
-//    public void setLienzo(sm.nrg.iu.Lienzo2D lienzo){
-//        lienzo2D = lienzo;
-//    }
     
     public sm.nrg.iu.Lienzo2D getLienzo(){
         return lienzo2D;
@@ -100,35 +98,7 @@ public class VentanaInternaLienzo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        /*VentanaPrincipal padre = (VentanaPrincipal)this.getParent().getParent();
-        
-        try{
-            padre = (VentanaPrincipal)this.getParent().getParent();
-        }catch(Exception e){
-            System.err.println(e);
-        }
-        
-        Color col_t = lienzo2D.getTraz().getColor();
-        TipoTrazo tipo_t = lienzo2D.getTraz().getTipo();
-        int grosor_t = lienzo2D.getTraz().getGrosor();
-        boolean alis = lienzo2D.isAlisado();
-        float transp = lienzo2D.getTransp();
-        TipoHerramienta tipo_h = lienzo2D.getHerramienta();
-        Color col_r1 = lienzo2D.getRelleno().getColor1();
-        Color col_r2 = lienzo2D.getRelleno().getColor2();
-        
-        switch(tipo_t){
-            case DISCONTINUO:
-                padre.getDesplegable_trazo().setSelectedItem("Discontinuo");
-                break;
-        }
-        
-        boton_linea.doClick();
-        desplegable_color.setSelectedIndex(0);
-        desplegable_relleno1.setSelectedIndex(0);
-        desplegable_relleno2.setSelectedIndex(0);
-        spinner_grosor.setValue(1);
-        desplegable_trazo.setSelectedItem("Continuo");*/
+        ((VentanaPrincipal)this.getParent().getParent().getParent().getParent().getParent().getParent()).setBotonesLienzo();
     }//GEN-LAST:event_formInternalFrameActivated
 
     

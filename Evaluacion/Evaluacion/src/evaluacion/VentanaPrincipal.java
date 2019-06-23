@@ -175,16 +175,84 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             desplegable_fig_lienzo.addItem(evt.getFigura());
         }
     }
+    
+    public void setBotonesLienzo(){
+        if((VentanaInternaLienzo)(escritorio.getSelectedFrame()) != null){
+            VentanaInternaLienzo vi = (VentanaInternaLienzo)(escritorio.getSelectedFrame());
 
-    public JComboBox<String> getDesplegable_trazo(){
-        return desplegable_trazo;
-    }
-
-    public void setDesplegable_trazo(JComboBox<String> desplegable_trazo) {
-        this.desplegable_trazo = desplegable_trazo;
+            setBotonHerramienta(vi.getLienzo().getHerramienta());
+            setTrazo(vi.getLienzo().getTraz());
+            setTransparencia(vi.getLienzo().getTransp());
+            setRelleno(vi.getLienzo().getRelleno());
+            setBotonAlisado(vi.getLienzo().isAlisado());
+            
+        }
     }
     
+    private void setBotonHerramienta(TipoHerramienta h){
+        switch(h){
+            case LINEAS:
+                boton_linea.setSelected(true);
+                break;
+            case RECTANGULOS:
+                boton_rectangulo.setSelected(true);
+                break;
+            case ELIPSES:
+                boton_elipse.setSelected(true);
+                break;
+            case RECTANGULOSRED:
+                boton_rectangulo_red.setSelected(true);
+                break;
+            case CURVAS:
+                boton_curva.setSelected(true);
+                break;
+        }
+    }
     
+    private void setTrazo(Trazo t){
+        spinner_grosor.setValue(t.getGrosor());
+        desplegable_color.setSelectedItem(t.getColor());
+        
+        switch(t.getTipo()){
+            case CONTINUO:
+                desplegable_trazo.setSelectedItem("Continuo");
+                break;
+            case DISCONTINUO:
+                desplegable_trazo.setSelectedItem("Discontinuo");
+                break;
+            case PUNTEADO:
+                desplegable_trazo.setSelectedItem("Punteado");
+                break;
+        }
+    }
+    
+    private void setTransparencia(float t){
+        slider_transp.setValue(Math.round(t*100));
+    }
+    
+    private void setRelleno(Relleno r){
+        desplegable_relleno1.setSelectedItem(r.getColor1());
+        desplegable_relleno2.setSelectedItem(r.getColor2());
+        
+        switch(r.getTipo()){
+            case SINRELLENO:
+                grupo_relleno.clearSelection();
+                break;
+            case LISO:
+                boton_rellenar.setSelected(true);
+                break;
+            case GRADIENTEHOR:
+                boton_relleno_grad_hor.setSelected(true);
+                break;
+            case GRADIENTEVER:
+                boton_relleno_grad_ver.setSelected(true);
+                break;
+        }
+    }
+    
+    private void setBotonAlisado(boolean a){
+        boton_alisar.setSelected(a);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -2470,8 +2538,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private Thread t;
     private boolean grabando = false;
     private boolean pausa = false;
-    VentanaInternaCamara vic = null;
-    ManejadorLienzo manejador;
-    Figura aux;
-    boolean primera_aniadida = true;
+    private VentanaInternaCamara vic = null;
+    private ManejadorLienzo manejador;
+    private Figura aux;
+    private boolean primera_aniadida = true;
 }
