@@ -6,32 +6,14 @@
 package sm.nrg.eventos;
 
 /**
- *
+ * Adapter para los eventos generados por el lienzo.
  * @author nazaret
  */
 public class LienzoAdapter implements LienzoListener {
-
+    /**
+     * Implementación por defecto del método de la interfaz.
+     * @param evt Evento que ha producido el lienzo
+     */
     @Override
     public void figuraAdded(LienzoEvent evt) {}
-
-    @Override
-    public void colorTrazoCambiado(LienzoEvent evt) {}
-
-    @Override
-    public void colorRelleno1Cambiado(LienzoEvent evt) {}
-
-    @Override
-    public void colorRelleno2Cambiado(LienzoEvent evt) {}
-
-    @Override
-    public void grosorCambiado(LienzoEvent evt) {}
-
-    @Override
-    public void tipoTrazoCambiado(LienzoEvent evt) {}
-
-    @Override
-    public void transparenciaCambiada(LienzoEvent evt) {}
-
-    @Override
-    public void alisadoCambiado(LienzoEvent evt) {}
 }

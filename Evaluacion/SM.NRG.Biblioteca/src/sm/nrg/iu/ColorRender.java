@@ -28,7 +28,4 @@ public class ColorRender implements ListCellRenderer<Color>{
         
         return p;
     }
-    
-    
-    
 }

@@ -15,7 +15,7 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
  *
  * @author nazaret
  */
-public class VentanaInternaVLCPlayer extends javax.swing.JInternalFrame {
+public class VentanaInternaVLCPlayer extends VentanaInterna {
 
     /**
      * Creates new form VentanaInterna

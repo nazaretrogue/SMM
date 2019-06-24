@@ -11,18 +11,22 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ * Crea un lienzo con una imagen de fondo sobre la que pintar.
  * @author nazaret
  */
 public class LienzoImagen2D extends Lienzo2D {
 
     /**
-     * Creates new form LienzoImagen2D
+     * Constructor por defecto.
      */
     public LienzoImagen2D() {
         initComponents();
     }
     
+    /**
+     * Pinta la imagen y las figuras que se añadan.
+     * @param g Objeto graphics para pintar
+     */
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -32,6 +36,10 @@ public class LienzoImagen2D extends Lienzo2D {
         
     }
     
+    /**
+     * Establece una imagen en el lienzo.
+     * @param img Nueva imagen para el lienzo
+     */
     public void setImagen(BufferedImage img){
         this.img = img;
         
@@ -39,6 +47,11 @@ public class LienzoImagen2D extends Lienzo2D {
             setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
     }
     
+    /**
+     * Devuelve la imagen del lienzo junto con las figuras añadidas.
+     * @param draw_vector Controla si se devuelve la imagen con las figuras o sin ellas
+     * @return La imagen
+     */
     public BufferedImage getImagen(boolean draw_vector){
         if(draw_vector){
             BufferedImage aux = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
@@ -46,7 +59,6 @@ public class LienzoImagen2D extends Lienzo2D {
             Graphics2D g2d = aux.createGraphics();
             g2d.drawImage(img, img.getWidth(), img.getHeight(), this);
             
-            // REVISAR EN P10 (FALLA CON TRANSPARENCIA)
             super.paint(g2d);
             
             return aux;
@@ -55,11 +67,13 @@ public class LienzoImagen2D extends Lienzo2D {
         return img;
     }
     
+    /**
+     * Devuelve la imagen tal y como está, sin figuras.
+     * @return La imagen
+     */
     public BufferedImage getImagen(){
         return img;
     }
-    
-    private BufferedImage img;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,4 +99,8 @@ public class LienzoImagen2D extends Lienzo2D {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    /**
+     * Imagen del lienzo.
+     */
+    private BufferedImage img;
 }

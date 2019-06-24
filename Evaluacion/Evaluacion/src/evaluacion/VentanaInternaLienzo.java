@@ -15,7 +15,7 @@ import sm.nrg.graficos.TipoTrazo;
  *
  * @author nazaret
  */
-public class VentanaInternaLienzo extends javax.swing.JInternalFrame {
+public class VentanaInternaLienzo extends VentanaInterna {
 
     /**
      * Creates new form VentanaInterna

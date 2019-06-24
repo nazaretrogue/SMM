@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
@@ -24,11 +23,13 @@ import sm.nrg.graficos.*;
 
 
 /**
- *
+ * Clase para crear un lienzo con las propiedades y figuras que se desee.
  * @author nazaret
  */
 public class Lienzo2D extends javax.swing.JPanel {
-
+    /**
+     * Constructor por defecto; inicializa los atributos por defecto.
+     */
     public Lienzo2D(){
         initComponents();
         
@@ -39,17 +40,28 @@ public class Lienzo2D extends javax.swing.JPanel {
         relleno = new Relleno(TipoRelleno.SINRELLENO, Color.BLACK);
         alisado = false;
         lienzo_event_listeners = new ArrayList();
+        recorte = new Rectangle2D.Float(0, 0, 0, 0);
     }
     
+    /**
+     * Dibuja las figuras que se han incluido en el lienzo.
+     * @param g Objeto graphics para pintar
+     */
     @Override
     public void paint(Graphics g){
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
         
+        g2d.setClip(recorte);
+        
         for(Figura f: v_shape)
             f.paint(g2d);
     }
     
+    /**
+     * Crea la figura que se desee incluyéndola en el vector de figuras.
+     * @param p_i Punto inicial de la figura
+     */
     private void createShape(Point p_i){
         switch(herramienta){
             case LINEAS:
@@ -85,6 +97,10 @@ public class Lienzo2D extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * Finaliza la creación de la figura.
+     * @param p_f Punto final de la figura.
+     */
     private void updateShape(Point p_f){
         switch(herramienta){
             case LINEAS:
@@ -129,73 +145,145 @@ public class Lienzo2D extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * Selecciona la figura que se desea y pinta un rectángulo rojo para remarcarla.
+     * @param f 
+     */
     public void seleccionarFigura(Figura f){
         v_shape.add(f.seleccionarFigura());
         repaint();
     }
     
+    /**
+     * Deselecciona la figura eliminando el marco.
+     */
     public void deseleccionarFigura(){
         v_shape.remove(v_shape.size()-1);
         repaint();
     }
 
+    /**
+     * Devuelve el tipo de herramienta que está activa en el lienzo.
+     * @return El tipo de herramienta
+     */
     public TipoHerramienta getHerramienta() {
         return herramienta;
     }
 
+    /**
+     * Devuelve el trazo activo en el lienzo
+     * @return El objeto trazo del lienzo
+     */
     public Trazo getTraz() {
         return traz;
     }
 
+    /**
+     * Devuelve el grado de transparencia.
+     * @return Grado de transparencia
+     */
     public float getTransp() {
         return transp;
     }
 
+    /**
+     * Devuelve el relleno activo en el lienzo.
+     * @return El objeto relleno del lienzo
+     */
     public Relleno getRelleno() {
         return relleno;
     }
 
+    /**
+     * Devuelve el vector de figuras pintadas en el lienzo.
+     * @return Vector de figuras.
+     */
+    public ArrayList<Figura> getV_shape() {
+        return v_shape;
+    }
+
+    /**
+     * Devuelve el área de recorte establecida.
+     * @return Área de recorte
+     */
+    public Shape getRecorte() {
+        return recorte;
+    }
+    
+    /**
+     * Devuelve la activación del alisado.
+     * @return true si el alisado está activo; false en otro caso
+     */
     public boolean isAlisado() {
         return alisado;
     }
 
+    /**
+     * Establece la herramienta.
+     * @param herramienta Nueva herramienta para el lienzo
+     */
     public void setHerramienta(TipoHerramienta herramienta) {
         this.herramienta = herramienta;
     }
 
+    /**
+     * Establece el trazo.
+     * @param traz Nuevo trazo para el lienzo
+     */
     public void setTraz(Trazo traz) {
         this.traz = traz;
     }
 
+    /**
+     * Establece la transparencia del lienzo.
+     * @param transp Grado de transparencia
+     */
     public void setTransp(float transp) {
         this.transp = transp;
     }
 
+    /**
+     * Establece el relleno: tipo y colores.
+     * @param relleno Nuevo relleno para el lienzo
+     */
     public void setRelleno(Relleno relleno) {
         this.relleno = relleno;
     }
 
+    /**
+     * Establece el alisado.
+     * @param alisado valor de verdad para establecer el alisado en el lienzo
+     */
     public void setAlisado(boolean alisado) {
         this.alisado = alisado;
     }
     
-    public void addLienzoListener(LienzoListener listener){
+    /**
+     * Establece el área de recorte.
+     * @param recorte Nueva área de recorte
+     */
+    public void setRecorte(Shape recorte){
+        this.recorte = recorte;
+    }
+
+    /**
+     * Agrega un listener nuevo al lienzo.
+     * @param listener Listener de eventos para el lienzo
+     */
+    public void addLienzoListener(LienzoListener listener) {
         if(listener != null)
             lienzo_event_listeners.add(listener);
     }
     
+    /**
+     * Notifica cuando se añade una figura al lienzo.
+     * @param evt Evento generado al añadir la figura
+     */
     private void notifyFiguraAddedEvent(LienzoEvent evt){
         if(!lienzo_event_listeners.isEmpty()){
             for(LienzoListener listener: lienzo_event_listeners)
                 listener.figuraAdded(evt);
         }
-    }
-    
-    private void notifyPropiedadCambiadaEvent(LienzoEvent evt){
-       /* if(!lienzo_event_listeners.isEmpty()){
-            for(LienzoListener listener: lienzo_event_listeners)
-                listener.propiedadCambiada(evt);
-        }*/
     }
     
     @SuppressWarnings("unchecked")
@@ -243,7 +331,11 @@ public class Lienzo2D extends javax.swing.JPanel {
         public void mouseMoved(java.awt.event.MouseEvent evt) {
         }
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Crea o actualiza la figura actual.
+     * @param evt Evento que se ha generado al pulsar el botón del ratón
+     */
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         if(!curva_cuad){
             p_aux = evt.getPoint();
@@ -253,7 +345,11 @@ public class Lienzo2D extends javax.swing.JPanel {
         else
             updateShape(evt.getPoint());
     }//GEN-LAST:event_formMousePressed
-
+    
+    /**
+     * Finaliza la creación o actualización de la figura.
+     * @param evt Evento generado por el ratón
+     */
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         formMouseDragged(evt);
         
@@ -265,7 +361,11 @@ public class Lienzo2D extends javax.swing.JPanel {
             punto = false;
         }
     }//GEN-LAST:event_formMouseReleased
-
+    
+    /**
+     * Actualiza la figura a medida que se mueve el ratón.
+     * @param evt Evento que ha generado el movimiento del ratón
+     */
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         this.updateShape(evt.getPoint());
         this.repaint();
@@ -274,14 +374,44 @@ public class Lienzo2D extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    ArrayList<Figura> v_shape;
-    TipoHerramienta herramienta;
-    Trazo traz;
-    float transp;
-    Relleno relleno;
-    boolean alisado;
-    Shape aux;
-    Point p_aux;
-    boolean curva_cuad = false, punto = false;
-    ArrayList<LienzoListener> lienzo_event_listeners;
+    /**
+     * Array de figuras.
+     */
+    private ArrayList<Figura> v_shape;
+    /**
+     * Herramienta activa en el lienzo.
+     */
+    private TipoHerramienta herramienta;
+    /**
+     * Trazo activo en el lienzo.
+     */
+    private Trazo traz;
+    /**
+     * Grado de transparencia establecida en el lienzo: 1.0 opaco, 0.0 transparente.
+     */
+    private float transp;
+    /**
+     * Relleno activo en el lienzo.
+     */
+    private Relleno relleno;
+    /**
+     * Alisado activado o desactivado en el lienzo.
+     */
+    private boolean alisado;
+    /**
+     * Punto auxiliar para crear las figuras.
+     */
+    private Point p_aux;
+    /**
+     * Banderas para controlar la creación de curvas con su punto de control.
+     */
+    private boolean curva_cuad = false, punto = false;
+    /**
+     * Vector de listeners del lienzo.
+     */
+    private ArrayList<LienzoListener> lienzo_event_listeners;
+    /**
+     * Clip para limitar el área de dibujo.
+     */
+    private Shape recorte;
 }

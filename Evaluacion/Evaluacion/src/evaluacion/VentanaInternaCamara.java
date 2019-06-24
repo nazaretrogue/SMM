@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
  *
  * @author nazaret
  */
-public class VentanaInternaCamara extends javax.swing.JInternalFrame {
+public class VentanaInternaCamara extends VentanaInterna {
 
     /**
      * Creates new form VentanaInternaCamara

@@ -8,16 +8,13 @@ package sm.nrg.eventos;
 import java.util.EventListener;
 
 /**
- *
+ * Interfaz que define los métodos que podrá ejecutar un evento producido por un lienzo.
  * @author nazaret
  */
 public interface LienzoListener extends EventListener {
+    /**
+     * Se llama este método cuando se añae una nueva figura al lienzo.
+     * @param evt Evento que ha generado el lienzo
+     */
     public void figuraAdded(LienzoEvent evt);
-    public void colorTrazoCambiado(LienzoEvent evt);
-    public void colorRelleno1Cambiado(LienzoEvent evt);
-    public void colorRelleno2Cambiado(LienzoEvent evt);
-    public void grosorCambiado(LienzoEvent evt);
-    public void tipoTrazoCambiado(LienzoEvent evt);
-    public void transparenciaCambiada(LienzoEvent evt);
-    public void alisadoCambiado(LienzoEvent evt);
 }
