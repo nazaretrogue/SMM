@@ -6,9 +6,20 @@
 package sm.nrg.graficos;
 
 /**
- *
+ * Representa los tipos de trazos con los que se puede pintar una Figura.
  * @author nazaret
  */
 public enum TipoTrazo {
-    CONTINUO, DISCONTINUO, PUNTEADO
+    /**
+     * Trazo continuo.
+     */
+    CONTINUO, 
+    /**
+     * Trazo discontinuo; crea un trazo discontinuo con líneas.
+     */
+    DISCONTINUO, 
+    /**
+     * Trazo punteado; crea un trazo discontinuo con puntos.
+     */
+    PUNTEADO
 }

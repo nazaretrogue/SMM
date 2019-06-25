@@ -6,11 +6,7 @@
 package sm.nrg.iu;
 
 import java.awt.Color;
-import java.awt.Component;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
 
 /**
  *
@@ -18,13 +14,6 @@ import javax.swing.ListCellRenderer;
  */
 public class PanelColor extends javax.swing.JPanel{
 
-    /**
-     * Creates new form PanelColor
-     */
-//    public PanelColor() {
-//        initComponents();
-//    }
-    
     public PanelColor(Color c){
         initComponents();
        this.setSize(50, 50);

@@ -6,9 +6,28 @@
 package sm.nrg.graficos;
 
 /**
- *
+ * Representa las herramientas disponibles para pintar sobre un lienzo.
  * @author nazaret
  */
 public enum TipoHerramienta {
-    LINEAS, RECTANGULOS, ELIPSES, RECTANGULOSRED, CURVAS
+    /**
+     * Herramienta para dibujar líneas rectas.
+     */
+    LINEAS, 
+    /**
+     * Herramienta para dibujar rectángulos.
+     */
+    RECTANGULOS, 
+    /**
+     * Herramienta para dibujar elipses.
+     */
+    ELIPSES, 
+    /**
+     * Herramienta para dibujar rectángulos con las esquinas redondeadas.
+     */
+    RECTANGULOSRED, 
+    /**
+     * Herramienta para dibujar curvas con un punto de control.
+     */
+    CURVAS
 }

@@ -6,9 +6,24 @@
 package sm.nrg.graficos;
 
 /**
- *
+ * Representa los tipos de relleno que puede tener una FiguraConArea.
  * @author nazaret
  */
 public enum TipoRelleno {
-    SINRELLENO, LISO, GRADIENTEHOR, GRADIENTEVER
+    /**
+     * Relleno desactivado.
+     */
+    SINRELLENO, 
+    /**
+     * Relleno con un color liso.
+     */
+    LISO, 
+    /**
+     * Relleno con degradado horizontal, usa dos colores.
+     */
+    GRADIENTEHOR, 
+    /**
+     * Relleno con degrado vertical, usa dos colores.
+     */
+    GRADIENTEVER
 }

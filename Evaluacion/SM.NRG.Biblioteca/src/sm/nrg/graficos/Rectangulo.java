@@ -7,29 +7,43 @@ package sm.nrg.graficos;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Point;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- *
+ * Representa un rectángulo con todas sus propiedades.
  * @author nazaret
  */
 public class Rectangulo extends FiguraConArea {
+    /**
+     * Constructor con parámetros; crea un rectángulo con las propiedades deseadas.
+     * @param t Trazo con el que crear el rectángulo
+     * @param alisado Indica si el alisado está activo o no
+     * @param r Relleno del rectángulo
+     * @param transp Grado de transparencia del rectángulo
+     * @param rec Geometría del rectángulo
+     */
     public Rectangulo(Trazo t, boolean alisado, Relleno r, float transp, Rectangle2D rec){
         super(t, alisado, r, transp);
         
         rectangulo = rec;
     }
     
+    /**
+     * Transforma la figura en un objeto String.
+     * @return String de la figura
+     */
     @Override
     public String toString(){
         return "Rectángulo";
     }
     
+    /**
+     * Pinta la figura con las propiedades establecidas.
+     * @param g2d Objeto graphics2D para pintar
+     */
     @Override
     public void paint(Graphics2D g2d){
         super.paint(g2d);
@@ -58,12 +72,20 @@ public class Rectangulo extends FiguraConArea {
         }
     }
 
+    /**
+     * Establece la nueva localización para la figura.
+     * @param p Punto que indica el desplazamiento, puede ser negativo 
+     */
     @Override
     public void setLocation(Point p) {
         rectangulo.setFrameFromDiagonal(rectangulo.getX()+p.getX(), rectangulo.getY()+p.getY(), 
                                         rectangulo.getX()+p.getX()+rectangulo.getWidth(), rectangulo.getY()+p.getY()+rectangulo.getHeight());
     }
     
+    /**
+     * Enmarca la figura de rojo para seleccionarla.
+     * @return Rectángulo que enmarca la figura
+     */
     @Override
     public Rectangulo seleccionarFigura(){
         Rectangle2D borde_aux = (Rectangle2D)rectangulo.getBounds();
@@ -74,13 +96,24 @@ public class Rectangulo extends FiguraConArea {
         return new Rectangulo(t, true, r, 1.0f, borde);
     }
 
+    /**
+     * Devuelve la geometría del rectángulo (punto de inicio, alto y ancho).
+     * @return Geomtría del rectángulo 
+     */
     public Rectangle2D getRectangulo() {
         return rectangulo;
     }
 
+    /**
+     * Establece una nueva geometría para el rectángulo.
+     * @param rectangulo Nueva geometría a establecer
+     */
     public void setRectangulo(Rectangle2D rectangulo) {
         this.rectangulo = rectangulo;
     }
     
+    /**
+     * Geometría del rectángulo.
+     */
     private Rectangle2D rectangulo;
 }

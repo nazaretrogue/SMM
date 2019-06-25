@@ -5,11 +5,8 @@
  */
 package sm.nrg.eventos;
 
-import java.awt.Color;
-import java.awt.Shape;
 import java.util.EventObject;
 import sm.nrg.graficos.Figura;
-import sm.nrg.graficos.TipoTrazo;
 
 /**
  * Clase que contiene las propiedades de los eventos generados por un lienzo.
