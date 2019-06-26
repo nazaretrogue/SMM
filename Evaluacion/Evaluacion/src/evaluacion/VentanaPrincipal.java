@@ -223,6 +223,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }
     
+    private void setBotonesFigura(){
+        if(aux != null){
+            setTrazo(aux.getTrazo());
+            setBotonAlisado(aux.isAlisado());
+            grupo_relleno.clearSelection();
+            
+            switch(aux.getClass().getSimpleName()){
+                case "Rectangulo":
+                    setTransparencia(((Rectangulo)(aux)).getTransparencia());
+                    setRelleno(((Rectangulo)(aux)).getRelleno());
+                    break;
+                case "Elipse":
+                    setTransparencia(((Elipse)(aux)).getTransparencia());
+                    setRelleno(((Elipse)(aux)).getRelleno());
+                    break;
+                case "RectanguloRedondeado":
+                    setTransparencia(((RectanguloRedondeado)(aux)).getTransparencia());
+                    setRelleno(((RectanguloRedondeado)(aux)).getRelleno());
+                    break;
+            }
+        }
+    }
+    
     /**
      * Activa el botón de herramienta dependiendo del que haya activo en el lienzo.
      * @param h Herramienta activa en el lienzo
@@ -1204,7 +1227,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
         this.etiq_estado.setText("Línea");
-        //}
     }//GEN-LAST:event_boton_lineaActionPerformed
 
     private void boton_rectanguloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_rectanguloActionPerformed
@@ -2394,7 +2416,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 Color col = this.desplegable_relleno2.getItemAt(this.desplegable_relleno2.getSelectedIndex());
 
                 if(aux == null)
-                    ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getRelleno().setColor1(col);
+                    ((VentanaInternaLienzo)(this.escritorio.getSelectedFrame())).getLienzo().getRelleno().setColor2(col);
 
                 else{
                     switch(aux.getClass().getSimpleName()){
@@ -2501,7 +2523,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         else if(actualizacion)
             actualizacion = false;
         
-        else{
+        if(!primera_aniadida && !actualizacion){
             if((VentanaInternaLienzo)(this.escritorio.getSelectedFrame()) != null){
                 VentanaInternaLienzo vi = (VentanaInternaLienzo)(this.escritorio.getSelectedFrame());
                 if(aux != null){
@@ -2512,6 +2534,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 if(desplegable_fig_lienzo.getItemCount() != 0){
                     aux = (Figura)desplegable_fig_lienzo.getSelectedItem();
                     vi.getLienzo().seleccionarFigura(aux);
+                    setBotonesFigura();
                 }
             }
         }

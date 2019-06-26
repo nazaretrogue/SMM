@@ -1,40 +1,49 @@
-\BOOKMARK [1][-]{section.1}{Imagen}{}% 1
+\BOOKMARK [1][-]{section.1}{Ventanas internas}{}% 1
 \BOOKMARK [2][-]{subsection.1.1}{An\341lisis de requisitos}{section.1}% 2
 \BOOKMARK [2][-]{subsection.1.2}{Explicaci\363n de cada requisito}{section.1}% 3
 \BOOKMARK [2][-]{subsection.1.3}{Codificaci\363n}{section.1}% 4
-\BOOKMARK [3][-]{subsubsection.1.3.1}{Brillo}{subsection.1.3}% 5
-\BOOKMARK [3][-]{subsubsection.1.3.2}{Emborronamiento}{subsection.1.3}% 6
-\BOOKMARK [3][-]{subsubsection.1.3.3}{Enfoque}{subsection.1.3}% 7
-\BOOKMARK [3][-]{subsubsection.1.3.4}{Relieve}{subsection.1.3}% 8
-\BOOKMARK [3][-]{subsubsection.1.3.5}{Contraste}{subsection.1.3}% 9
-\BOOKMARK [3][-]{subsubsection.1.3.6}{Contraste con iluminaci\363n}{subsection.1.3}% 10
-\BOOKMARK [3][-]{subsubsection.1.3.7}{Contraste con oscurecimiento}{subsection.1.3}% 11
-\BOOKMARK [3][-]{subsubsection.1.3.8}{Negativo}{subsection.1.3}% 12
-\BOOKMARK [3][-]{subsubsection.1.3.9}{Extracci\363n de bandas y espacios de color}{subsection.1.3}% 13
-\BOOKMARK [3][-]{subsubsection.1.3.10}{Rotaci\363n}{subsection.1.3}% 14
-\BOOKMARK [3][-]{subsubsection.1.3.11}{Zoom-in}{subsection.1.3}% 15
-\BOOKMARK [3][-]{subsubsection.1.3.12}{Zoom-out}{subsection.1.3}% 16
-\BOOKMARK [3][-]{subsubsection.1.3.13}{Tintado \(mediante bot\363n\)}{subsection.1.3}% 17
-\BOOKMARK [3][-]{subsubsection.1.3.14}{Ecualizaci\363n}{subsection.1.3}% 18
-\BOOKMARK [3][-]{subsubsection.1.3.15}{Sepia}{subsection.1.3}% 19
-\BOOKMARK [3][-]{subsubsection.1.3.16}{Umbralizaci\363n}{subsection.1.3}% 20
-\BOOKMARK [3][-]{subsubsection.1.3.17}{Funci\363n propia}{subsection.1.3}% 21
-\BOOKMARK [3][-]{subsubsection.1.3.18}{Termal}{subsection.1.3}% 22
-\BOOKMARK [3][-]{subsubsection.1.3.19}{Rayos X}{subsection.1.3}% 23
-\BOOKMARK [3][-]{subsubsection.1.3.20}{Suma de im\341genes}{subsection.1.3}% 24
-\BOOKMARK [3][-]{subsubsection.1.3.21}{Resta de im\341genes}{subsection.1.3}% 25
-\BOOKMARK [3][-]{subsubsection.1.3.22}{Tintado \(mediante deslizador\)}{subsection.1.3}% 26
-\BOOKMARK [1][-]{section.2}{Sonido}{}% 27
-\BOOKMARK [2][-]{subsection.2.1}{An\341lisis de requisitos}{section.2}% 28
-\BOOKMARK [2][-]{subsection.2.2}{Explicaci\363n de cada requisito}{section.2}% 29
-\BOOKMARK [2][-]{subsection.2.3}{Codificaci\363n}{section.2}% 30
-\BOOKMARK [3][-]{subsubsection.2.3.1}{Reproducci\363n}{subsection.2.3}% 31
-\BOOKMARK [3][-]{subsubsection.2.3.2}{Grabaci\363n y temporizador}{subsection.2.3}% 32
-\BOOKMARK [3][-]{subsubsection.2.3.3}{Lista de archivos}{subsection.2.3}% 33
-\BOOKMARK [1][-]{section.3}{V\355deo}{}% 34
-\BOOKMARK [2][-]{subsection.3.1}{An\341lisis de requisitos}{section.3}% 35
-\BOOKMARK [2][-]{subsection.3.2}{Explicaci\363n de cada requisito}{section.3}% 36
-\BOOKMARK [2][-]{subsection.3.3}{Codificaci\363n}{section.3}% 37
-\BOOKMARK [3][-]{subsubsection.3.3.1}{Reproducci\363n}{subsection.3.3}% 38
-\BOOKMARK [3][-]{subsubsection.3.3.2}{Uso de la c\341mara y capturas}{subsection.3.3}% 39
-\BOOKMARK [1][-]{section.4}{Bibliograf\355a y fuentes de c\363digo}{}% 40
+\BOOKMARK [1][-]{section.2}{Gr\341ficos}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{An\341lisis de requisitos}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Explicaci\363n de cada requisito}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Codificaci\363n}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{Funcionamiento del sistema}{section.2}% 9
+\BOOKMARK [1][-]{section.3}{Imagen}{}% 10
+\BOOKMARK [2][-]{subsection.3.1}{An\341lisis de requisitos}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.2}{Explicaci\363n de cada requisito}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.3}{Codificaci\363n}{section.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Brillo}{subsection.3.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Emborronamiento}{subsection.3.3}% 15
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Enfoque}{subsection.3.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.3.4}{Relieve}{subsection.3.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.3.5}{Contraste}{subsection.3.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.3.6}{Contraste con iluminaci\363n}{subsection.3.3}% 19
+\BOOKMARK [3][-]{subsubsection.3.3.7}{Contraste con oscurecimiento}{subsection.3.3}% 20
+\BOOKMARK [3][-]{subsubsection.3.3.8}{Negativo}{subsection.3.3}% 21
+\BOOKMARK [3][-]{subsubsection.3.3.9}{Extracci\363n de bandas y espacios de color}{subsection.3.3}% 22
+\BOOKMARK [3][-]{subsubsection.3.3.10}{Rotaci\363n}{subsection.3.3}% 23
+\BOOKMARK [3][-]{subsubsection.3.3.11}{Zoom-in}{subsection.3.3}% 24
+\BOOKMARK [3][-]{subsubsection.3.3.12}{Zoom-out}{subsection.3.3}% 25
+\BOOKMARK [3][-]{subsubsection.3.3.13}{Tintado \(mediante bot\363n\)}{subsection.3.3}% 26
+\BOOKMARK [3][-]{subsubsection.3.3.14}{Ecualizaci\363n}{subsection.3.3}% 27
+\BOOKMARK [3][-]{subsubsection.3.3.15}{Sepia}{subsection.3.3}% 28
+\BOOKMARK [3][-]{subsubsection.3.3.16}{Umbralizaci\363n}{subsection.3.3}% 29
+\BOOKMARK [3][-]{subsubsection.3.3.17}{Funci\363n propia}{subsection.3.3}% 30
+\BOOKMARK [3][-]{subsubsection.3.3.18}{Termal}{subsection.3.3}% 31
+\BOOKMARK [3][-]{subsubsection.3.3.19}{Rayos X}{subsection.3.3}% 32
+\BOOKMARK [3][-]{subsubsection.3.3.20}{Suma de im\341genes}{subsection.3.3}% 33
+\BOOKMARK [3][-]{subsubsection.3.3.21}{Resta de im\341genes}{subsection.3.3}% 34
+\BOOKMARK [3][-]{subsubsection.3.3.22}{Tintado \(mediante deslizador\)}{subsection.3.3}% 35
+\BOOKMARK [1][-]{section.4}{Sonido}{}% 36
+\BOOKMARK [2][-]{subsection.4.1}{An\341lisis de requisitos}{section.4}% 37
+\BOOKMARK [2][-]{subsection.4.2}{Explicaci\363n de cada requisito}{section.4}% 38
+\BOOKMARK [2][-]{subsection.4.3}{Codificaci\363n}{section.4}% 39
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Reproducci\363n}{subsection.4.3}% 40
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Grabaci\363n y temporizador}{subsection.4.3}% 41
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Lista de archivos}{subsection.4.3}% 42
+\BOOKMARK [1][-]{section.5}{V\355deo}{}% 43
+\BOOKMARK [2][-]{subsection.5.1}{An\341lisis de requisitos}{section.5}% 44
+\BOOKMARK [2][-]{subsection.5.2}{Explicaci\363n de cada requisito}{section.5}% 45
+\BOOKMARK [2][-]{subsection.5.3}{Codificaci\363n}{section.5}% 46
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Reproducci\363n}{subsection.5.3}% 47
+\BOOKMARK [3][-]{subsubsection.5.3.2}{Uso de la c\341mara y capturas}{subsection.5.3}% 48
+\BOOKMARK [1][-]{section.6}{Bibliograf\355a y fuentes de c\363digo}{}% 49

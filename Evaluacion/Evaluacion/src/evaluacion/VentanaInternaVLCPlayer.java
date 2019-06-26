@@ -72,7 +72,7 @@ public class VentanaInternaVLCPlayer extends VentanaInterna {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        panel_desplazamiento = new javax.swing.JScrollPane();
 
         setClosable(true);
         setIconifiable(true);
@@ -95,7 +95,7 @@ public class VentanaInternaVLCPlayer extends VentanaInterna {
             public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
             }
         });
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(panel_desplazamiento, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -107,7 +107,7 @@ public class VentanaInternaVLCPlayer extends VentanaInterna {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane panel_desplazamiento;
     // End of variables declaration//GEN-END:variables
     private EmbeddedMediaPlayer video = null;
     private File archivo;

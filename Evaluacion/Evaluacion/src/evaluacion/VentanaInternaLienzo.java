@@ -5,12 +5,6 @@
  */
 package evaluacion;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyVetoException;
-import java.beans.VetoableChangeListener;
-import sm.nrg.graficos.TipoHerramienta;
-import sm.nrg.graficos.TipoTrazo;
-
 /**
  *
  * @author nazaret

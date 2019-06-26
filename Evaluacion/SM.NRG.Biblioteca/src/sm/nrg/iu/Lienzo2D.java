@@ -147,7 +147,7 @@ public class Lienzo2D extends javax.swing.JPanel {
     
     /**
      * Selecciona la figura que se desea y pinta un rectángulo rojo para remarcarla.
-     * @param f 
+     * @param f Figura que se va a seleccionar.
      */
     public void seleccionarFigura(Figura f){
         v_shape.add(f.seleccionarFigura());
@@ -403,9 +403,13 @@ public class Lienzo2D extends javax.swing.JPanel {
      */
     private Point p_aux;
     /**
-     * Banderas para controlar la creación de curvas con su punto de control.
+     * Bandera para controlar la creación de curvas con su punto de control.
      */
-    private boolean curva_cuad = false, punto = false;
+    private boolean curva_cuad = false;
+    /**
+     * Bandera para controlar la creación del punto de control de las curvas.
+     */
+    private boolean punto = false;
     /**
      * Vector de listeners del lienzo.
      */

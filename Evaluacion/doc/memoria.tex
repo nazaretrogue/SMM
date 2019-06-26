@@ -124,6 +124,185 @@
 
 \newpage
 
+\section{Ventanas internas}
+
+\subsection{Análisis de requisitos}
+Para poder gestionar gráficos, imágenes y vídeo en la misma aplicación, debe existir una jerarquía de ventanas internas que se encarguen de las distintas partes:
+
+\begin{itemize}
+	\item RF1. Ventana interna encargada de la gestión de gráficos.
+	\item RF2. Ventana interna encargada de la gestión de imágenes y gráficos.
+	\item RF3. Ventana interna encargada de la gestión de la webcam del dispositivo.
+	\item RF4. Ventana interna encargada de la gestión de reproducción de vídeo.
+\end{itemize}
+
+\subsection{Explicación de cada requisito}
+Para cada uno de los requisitos anteriores, se pide:
+
+\begin{itemize}
+	\item RF1. Se abrirá una ventana interna que gestione los gráficos, manteniendo todas las figuras en el lienzo, y cada una con sus propiedades.
+	\item RF2. Se abrirá una ventana interna que gestione el procesamiento de imágenes y además, gráficos, manteniendo todas las figuras en el lienzo, cada una con sus propiedades.
+	\item RF3. Se abrirá una ventana interna que gestione la cámara del dispositivo y que mostrará en tiempo real lo que capte la webcam.
+	\item RF4. Se abrirá una ventana interna que gestione el vídeo, reproduciendo el que el usuario elija.
+\end{itemize}
+
+\subsection{Codificación}
+Para que esto haya sido posible, se ha creado una jerarquía de ventanas internas que se puede observar en el siguiente diagrama de clases:
+
+\begin{figure}[H]
+\centering
+	\includegraphics[scale=0.45]{./UML/vi.png}
+\end{figure}
+
+Como se puede observar, existe una superclase abstracta, \textsc{\textit{VentanaInterna}}, de la cual heredan las demás. Esta clase solo se utiliza para hacer el casting correspondiente y evitar errores en el código.\\ 
+
+La \textsc{VentanaInternaCamara} es la encargada de ejecutar la webcam; la clase \textsc{VentanaInternaVLCPlayer} es la encargada de ejecutar el vídeo; y por último, la clase \textsc{VentanaInternaLienzo} es la encargada de gestionar gráficos e imagen. Para ello, la clase tiene un atributo de tipo \textsc{LienzoImagen2D} que permite el procesado de imágenes; ésta a su vez hereda de \textsc{Lienzo2D}, capaz de gestionar los gráficos creados por el usuario en el lienzo.\\
+
+Este diagrama será incluido con el nombre de \textsc{VI.png} para que sea más legible puesto que en el documento puede ser difícil de leer.
+
+\newpage
+
+\section{Gráficos}
+
+\subsection{Análisis de requisitos}
+En lo referente a gráficos, la aplicación debe ser capaz de:
+
+\begin{itemize}
+	\item RF1. El lienzo mantendrá todas las figura a medida que se dibujen.
+	\item RF2. Cada figura tendrá sus propios atributos:
+		\begin{itemize}
+			\item Color del trazo.
+			\item Grosor del trazo.
+			\item Alisado.
+			\item Tipo de relleno.
+			\item Color/colores del relleno.
+			\item Transparencia.
+		\end{itemize}
+	\item RF3. Habrá una lista de figuras a través de la cuál seleccionar la figura que se desee.
+	\item RF4. La figura que se seleccione deberá está enmarcada en un rectángulo rojo discontinuo.
+	\item RF5. Al seleccionar la figura, se marcarán sus atributos.
+	\item RF6. Se podrán editar todos los atributos de la figura seleccionada al cambiarlos en la barra de herramientas.
+	\item RF7. Se podrá camibar la localización de la figura.
+	\item RF8. Habrá diferentes herramientas para dibujar.
+	\item RF9. Se podrá elegir el color del trazo y el color (o colores) del relleno de forma independiente uno de otro.
+	\item RF10. Se podrá elegir el color, grosor y discontinuidad del trazo.
+	\item RF11. Se podrá elegir el color (o colores) y el tipo de relleno.
+	\item RF12. Habrá tres tipos de relleno: liso, gradiente vertical y gradiente horizontal.
+	\item RF13. Se podrá elegir alisar los bordes de la figura.
+	\item RF14. Se podrá establecer la transparencia de la figura mediante un deslizador.
+	\item RF15. Cuando se cambie de lienzo, se actualizarán las propiedades en la barra de herramientas.
+\end{itemize}
+
+\subsection{Explicación de cada requisito}
+
+\begin{itemize}
+	\item RF1. En el lienzo se crearan y mantendrán todas las figuras que el usuario dibuje.
+	\item RF2. Los atributos de cada figura serán independientes por lo que cada figura puede tener un color, grosor, relleno, etc. diferentes.
+	\item RF3. Se creará una lista desplegable con las figuras de lienzo, a través de la cuál se podrá seleccionar la figura que se desee.
+	\item RF4. Una vez se elija la figura, esta se resaltará mediante un rectángulo a su alrededor, de color rojo y trazo discontinuo.
+	\item RF5. Cada vez que se seleccione una figura del lienzo, los atributos de ésta se verán reflejados en la barra de herramientas.
+	\item RF6. En una figura seleccionada, se podrá cambiar el atributo que se desee cambiando las propiedades en la barra de herramientas. Los cambios se verán automáticamente.
+	\item RF7. Habrá un botón para mover la figura, que creará cuadros de diálogo en pantalla para indicar el desplazamiento en las coordenadas x e y.
+	\item RF8. Se podrán dibujar líneas, rectángulos, elipses, rectángulos con esquinas redondeadas y curvas con un punto de control.
+	\item RF9. Habrá que elegir el color del trazo y el color del relleno (o colores, ya que habrá que elegir dos en el caso de que sea degradado).
+	\item RF10. Podrá variar el color, el grosor y el tipo de discontinuidad del trazo. Entre los tipos de discontinuidad se incluirán tres: continuo, discontinuo y punteado.
+	\item RF11. Se elegirá el color del relleno en el caso de que sea liso, o los colores (dos) en el caso de que sea degradado.
+	\item RF12. Existirán cuatro posibilidades de relleno: sin relleno, relleno liso (con un solo color) y relleno degradado en vertical u horizontal (con dos colores).
+	\item RF13. Se podrá elegir si alisar los bordes de cada figura o no alisarlos.
+	\item RF14. Se podrá modificar la transparencia de cada figura mediante un deslizador. Variará desde totalmente transparente a opaco.
+	\item RF15. Cuando haya varios lienzos disponibles y se cambie entre ellos, habrá que seleccionar las propiedades del lienzo seleccionado en la barra de herramientas.
+\end{itemize}
+
+\subsection{Codificación}
+Para llevar a cabo todos los requisitos anteriores, se ha creado una jerarquía de clases que contienen las distintas figuras, cada una con sus propiedades. La jerarquía definida es:
+
+\begin{figure}[H]
+\centering
+	\includegraphics[scale=0.3]{./UML/figuras.png}
+\end{figure}
+
+Al igual que ocurre con el diagrama anterior, será incluido con el nombre de \textsc{Figuras.png} para que pueda verse con más fácilidad y que se lean bien los atributos y métodos de cada clase. Además, se incluye el archivo \textsc{General.png} que contiene la unión de ambos diagramas de forma que se pueda ver como funciona la aplicación a grandes rasgos.\\
+
+Como se puede observar en la imagen, se ha definido una jerarquía que consta de una clase abstracta \textsc{Figura}, que contiene un objeto de tipo \textsc{Trazo} con el que se pintarán las figuras.\\
+
+Tanto la línea como la curva implementan directamente de esta clase, ya que no necesitan atributos extra; ni una línea ni una curva tienen relleno, y por tanto, tampoco pueden ser transparentes ya que entonces desaparecerían. Por ese motivo, en mi jerarquía, ni una línea ni una curva pueden tener algún grado de transparencia distinto de 1.0, es decir, opaco.\\
+
+Por otro lado, tenemos la clase \textsc{FiguraConArea} que de nuevo es abstracta, y que hereda directamente de \textsc{Figura}. Esta clase está pensada para figuras que tienen superficie o área y que por tanto, pueden tener un relleno y una transparencia. Por ello esta clase tiene un objeto de tipo \textsc{Relleno}, que contiene todas las características que puede tener, como el color y el tipo de degradado.\\
+
+Por último, nos encontramos con las clases que representan las figuras del rectángulo, la elipse y el rectángulo con las esquinas redondeadas. Estas figuras tienen área por lo que heredan de \textsc{FiguraConArea}.
+
+\subsection{Funcionamiento del sistema}
+Los requisitos anteriores se van a ir mostrando ahora paso a paso para demostrar el funcionamiento esperado:
+
+\begin{itemize}
+	\item Creación de un nuevo lienzo. El usuario elige las medidas que desea para el lienzo.
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/1.png}
+	\end{figure}
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/2.png}
+	\end{figure}
+	\item Se pintan diversas figuras en el lienzo, cada una con sus propiedades. Se muestran todas las formas posibles, el relleno liso, el relleno con gradiente horizontal y el relleno con gradiente vertical.
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/3.png}
+	\end{figure}
+	\item Seleccionamos dos figuras, primero un rectángulo con degradado y después otra figura, la elipse amarilla. Como se puede observar, al seleccionarlas a través de la lista desplegable, todos los botones y desplegables (excepto el botón de herramienta o aquellos elementos que no tengan valor para la figura seleccionada, como son en este caso, por ejemplo, el segundo color del relleno en la elipse, o el grosor y tipo de trazo) se actualizan en la barra de herramientas, tomando los valores de la figura que hemos seleccionado. Además, se remarca con un rectángulo rojo discontinuo para que sea más sencillo identificar qué figura es.
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/10.png}
+	\end{figure}
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/4.png}
+	\end{figure}
+	\item Ahora vamos a mover la figura seleccionada. Para ello, pulsamos el botón de mover; se abrirán dos diálogos en los que el usuario introducirá el desplazamiento que desea. Éste puede ser negativo en el caso de que se quiera mover hacia arriba o hacia la izquierda y positivo si se quiere mover hacia abajo o hacia la derecha.
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/6.png}
+	\end{figure}
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/7.png}
+	\end{figure}
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/8.png}
+	\end{figure}
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/9.png}
+	\end{figure}
+	\item Ahora modificaremos alguna propiedad de una figura, como por ejemplo la transparencia de la elipse negra. Para ello, en este caso he utilizado el deslizador que varía de totalmente transparente a opaca. No obstante, también está incluido el botón de al lado del deslizador que ofrece la posibilidad de la semitransparencia, es decir, la transparencia con una potencia de 0.5.
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/11.png}
+	\end{figure}
+	\item Como última propiedad que queda por mostrar de las figuras, se muestra el alisado de los bordes, el botón que hay a la derecha del deslizador de transparencia. Para que se vea el efecto, hay dos elipses negras dibujadas, la de la izquierda sin alisado y la de la derecha con alisado. Como se puede observar, el borde de la elipse de la derecha es mucho más suave, sin ``escalones''.
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/12.png}
+	\end{figure}
+	\item Ahora, abriremos un nuevo lienzo y observaremos como las propiedades en la barra de herramientas cambian, en este caso a las que tiene un lienzo por defecto.
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/13.png}
+	\end{figure}
+	\item Por último, se muestra como se puede dibujar sobre lienzos con imágenes y también procesar dichas imágenes. Las figuras que se dibujen se mantendrán solo dentro de la propia imagen, es decir, las figuras no se pintarán sin sobrepasan los límites de la imagen, como se puede observar en la priemera imagen. Además, se puede procesar la fotografía poniendo filtros sobre esta, rotándola... aunque estos efectos no se verán reflejados sobre las figuras.
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/14.png}
+	\end{figure}
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=0.2]{./img/15.png}
+	\end{figure}
+\end{itemize}
+
+\newpage
+
 \section{Imagen}
 
 \subsection{Análisis de requisitos}
@@ -198,7 +377,7 @@ El brillo de todos los pixeles aumenta, aclarando la imagen.
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/brillo.png}
+	\includegraphics[width=0.6\textwidth]{img/brillo.png}
 \end{figure}
 
 \subsubsection{Emborronamiento}
@@ -206,7 +385,7 @@ En este caso, se aplica el filtro media 3x3 que emborrona la imagen de manera su
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/media.png}
+	\includegraphics[width=0.6\textwidth]{img/media.png}
 \end{figure}
 
 \subsubsection{Enfoque}
@@ -214,7 +393,7 @@ Al contrario que el emborronamiento, este filtro permite definir mejor los borde
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/enfoque.png}
+	\includegraphics[width=0.6\textwidth]{img/enfoque.png}
 \end{figure}
 
 \subsubsection{Relieve}
@@ -222,7 +401,7 @@ En este caso, los bordes presentes en la imagen se verán más definidos, dando 
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/relieve.png}
+	\includegraphics[width=0.6\textwidth]{img/relieve.png}
 \end{figure}
 
 \subsubsection{Contraste}
@@ -230,7 +409,7 @@ Los pixeles más oscuros acentúan su oscurecimiento y los más claros, se aclar
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/contraste.png}
+	\includegraphics[width=0.6\textwidth]{img/contraste.png}
 \end{figure}
 
 \subsubsection{Contraste con iluminación}
@@ -238,7 +417,7 @@ Las partes oscuras se aclaran, las claras se mantienen igual, dando un aspecto d
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/conilu.png}
+	\includegraphics[width=0.6\textwidth]{img/conilu.png}
 \end{figure}
 
 \subsubsection{Contraste con oscurecimiento}
@@ -246,7 +425,7 @@ A la inversa que el contraste con iluminación; las partes claras se oscurecen y
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/conoscu.png}
+	\includegraphics[width=0.6\textwidth]{img/conoscu.png}
 \end{figure}
 
 \subsubsection{Negativo}
@@ -254,7 +433,7 @@ Los colores de la imagen se invierten. En este caso, he utilizado la función ya
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/negativo.png}
+	\includegraphics[width=0.6\textwidth]{img/negativo.png}
 \end{figure}
 
 \subsubsection{Extracción de bandas y espacios de color}
@@ -282,7 +461,7 @@ La imagen rota mediante un deslizador en 360º.
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/rotar.png}
+	\includegraphics[width=0.6\textwidth]{img/rotar.png}
 \end{figure}
 
 \subsubsection{Zoom-in}
@@ -290,7 +469,7 @@ Se aumenta el tamaño de la imagen pero sin producir un recorte para ajustarse a
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/escalamas.png}
+	\includegraphics[width=0.6\textwidth]{img/escalamas.png}
 \end{figure}
 
 \subsubsection{Zoom-out}
@@ -298,7 +477,7 @@ Se disminuye la imagen pero sin añadir marco o borde a la imagen original.
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/escalamenos.png}
+	\includegraphics[width=0.6\textwidth]{img/escalamenos.png}
 \end{figure}
 
 \subsubsection{Tintado (mediante botón)}
@@ -306,7 +485,7 @@ Se aplica el tinte del color elegido con una potencia de 0,5.
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/tinte.png}
+	\includegraphics[width=0.6\textwidth]{img/tinte.png}
 \end{figure}
 
 \subsubsection{Ecualización}
@@ -314,7 +493,7 @@ Se intenta aclarar la imagen de forma que sea más nítida y se reconozcan mejor
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/ecual.png}
+	\includegraphics[width=0.6\textwidth]{img/ecual.png}
 \end{figure}
 
 \subsubsection{Sepia}
@@ -332,7 +511,7 @@ Un ejemplo de funcionamiento es el siguiente:
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/sepia.png}
+	\includegraphics[width=0.6\textwidth]{img/sepia.png}
 \end{figure}
 
 \subsubsection{Umbralización}
@@ -344,7 +523,7 @@ Un ejemplo de uso sería el siguiente:
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/umbral.png}
+	\includegraphics[width=0.6\textwidth]{img/umbral.png}
 \end{figure}
 
 \subsubsection{Función propia}
@@ -365,7 +544,7 @@ El aspecto que le da a la imagen es poco convencional y difícil de entender, pu
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/propia.png}
+	\includegraphics[width=0.6\textwidth]{img/propia.png}
 \end{figure}
 
 \subsubsection{Termal}
@@ -377,12 +556,12 @@ Un ejemplo de uso es el siguiente (la primera es una imagen normal, la segunda u
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/termal.png}
+	\includegraphics[width=0.6\textwidth]{img/termal.png}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/thermal.png}
+	\includegraphics[width=0.6\textwidth]{img/thermal.png}
 \end{figure}
 
 Como se puede comprobar, las partes con más rojizas o anaranjadas son las que se mantienen mientras que el resto pasan a escala de gris.
@@ -401,12 +580,12 @@ Un ejemplo de su uso con las mismas imágenes que en el filtro termal es el sigu
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/rayosx.png}
+	\includegraphics[width=0.6\textwidth]{img/rayosx.png}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/xray.png}
+	\includegraphics[width=0.6\textwidth]{img/xray.png}
 \end{figure}
 
 \subsubsection{Suma de imágenes}
@@ -416,7 +595,7 @@ Un ejemplo de uso es el siguiente:
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/suma.png}
+	\includegraphics[width=0.6\textwidth]{img/suma.png}
 \end{figure}
 
 \subsubsection{Resta de imágenes}
@@ -426,7 +605,7 @@ Un ejemplo de uso es el que sigue:
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/resta.png}
+	\includegraphics[width=0.6\textwidth]{img/resta.png}
 \end{figure}
 
 \subsubsection{Tintado (mediante deslizador)}
@@ -438,7 +617,7 @@ Un ejemplo de su uso, en el que se muestra la diferencia con la imagen utilizada
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth]{img/tintedes.png}
+	\includegraphics[width=0.6\textwidth]{img/tintedes.png}
 \end{figure}
 
 En este caso, al poder elegir, la imagen se ve mucho menos amarilla que en el caso del botón, ya que la potencia no supera el 30\%.
@@ -569,7 +748,10 @@ Su funcionamiento es el siguiente:\\
 
 \section{Bibliografía y fuentes de código}
 \begin{itemize}
-	\item \url{https://stackoverflow.com/questions/9062495/how-can-i-make-an-event-to-a-jcombobox-which-triggers-after-selection}
+	\item Transparencias de teoría y prácticas de la asignatura Sistemas Multimedia.
+	\item \textcolor{blue}{\url{https://docs.oracle.com/javase/7/docs/api/java/}}
+	\item \textcolor{blue}{\url{https://stackoverflow.com/}}
+	\item \textcolor{blue}{\url{https://www.flaticon.com/}}
 \end{itemize}
 
 \end{document}
